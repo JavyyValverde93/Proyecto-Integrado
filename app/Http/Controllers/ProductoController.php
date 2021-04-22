@@ -22,10 +22,10 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        $productos = Producto::orderBy('id', 'desc')->nombre($request->nombre)->paginate(25);
+        $productos = Producto::orderBy('id', 'desc')->nombre($request->nombre)->categoria($request->categoria)->paginate(30);
         $scope = $request->nombre;
         $guardados = Guardado::all();
-        return view('productos.index', compact('productos', 'guardados', 'request', 'scope'));
+        return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
     }
 
     /**

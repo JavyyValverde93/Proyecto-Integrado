@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                <div class="flex-shrink-0 flex items-center hidden">
                     <a href="{{ route('productos.index') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
@@ -22,6 +22,10 @@
                         {{ __('Productos favoritos') }}
                     </x-nav-link>
                 </div>
+            </div>
+
+            <div class="m-auto">
+                <a href="{{route('productos.index')}}"><img src="{{asset('storage/logo6a.png')}}" width="150"></a>
             </div>
 
             <!-- Settings Dropdown -->

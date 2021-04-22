@@ -12,17 +12,29 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <x-alert-message></x-alert-message>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="m-1 p-3 rounded row" style="border: solid 1px #21ba454e; background-color:rgba(238, 238, 238, 0.313)">
-                    <div class="col-1">
-                        <img src="{{asset($producto->user->foto)}}" class="rounded-circle" style="max-height: 80px; max-with:80px">
-                    </div>
                     <div class="col-11">
-                        <a href="{{route('ver_perfil', $producto->user->id)}}" style="color: black">
-                        <b>{{$producto->user->name}}</b>
-                        <br><i>{{$producto->user->ciudad}}</i>
-                        </a>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="{{route('ver_perfil', $producto->user->id)}}" style="color: black;">
+                                    <img src="{{asset($producto->user->foto)}}" class="rounded-circle" style="max-height: 70px; max-with:70px">
+                                </a>
+
+                            </div>
+                            <div class="col float-left">
+                                <a href="{{route('ver_perfil', $producto->user->id)}}" style="color: black">
+                                    <b>{{$producto->user->name}}</b>
+                                    <br><i>{{$producto->user->ciudad}}</i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-1 my-auto">
                         @if(count($guardados)>=1)
                             <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar()"></i>
                         @else
@@ -126,17 +138,19 @@
                         </div>
                         <div class="row justify-center">
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" style="max-width: 400px" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <?php $coment = 0; ?>
-                                    @foreach($comentarios as $coments)
-                                        <div class="p-3 rounded-pill mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #21ba45 @endif">
-                                            <p><b>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif{{$coments->user->name}}: </b>{{$coments->comentario}}</p>
-                                        </div>
-                                        <?php $coment ++; ?>
-                                    @endforeach
-                                    @if($coment==0) <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #21ba45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{__('Sin comentarios')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> @endif
-                                    <p></p>
-                                    <form action="{{route('comentarios.store')}}" method="POST" name="com">
+                                <div class="tab-pane fade show active" id="nav-home" style="max-width: 400px;" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div style="max-width: 400px; max-height:400px; overflow-y:scroll">
+                                        <?php $coment = 0; ?>
+                                        @foreach($comentarios as $coments)
+                                            <div class="p-3 rounded-pill mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #21ba45 @endif">
+                                                <p><b>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif{{$coments->user->name}}: </b>{{$coments->comentario}}</p>
+                                            </div>
+                                            <?php $coment ++; ?>
+                                        @endforeach
+                                        @if($coment==0) <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #21ba45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{__('Sin comentarios')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> @endif
+                                        <p></p>
+                                    </div>
+                                    <form action="{{route('comentarios.store')}}" class="my-4" method="POST" name="com">
                                         @csrf
                                         @if(Auth::user()!=null)<input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">@endif
                                         <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
@@ -150,7 +164,7 @@
                                     @foreach($preguntas as $preg)
                                         <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #3be8b0 @else #00b2a9 @endif">
                                             <p id="preguntax"><b>{{$preg->user->name}}: </b>{{$preg->pregunta}}</p>
-
+                                            @if(Auth::user()!=null && Auth::user()->id==$producto->user->id)
                                             @if($preg->respuesta!=null)
                                             <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST">
                                                 @csrf
@@ -167,6 +181,7 @@
                                                 <button type="submit" class="ui button mt-2">Enviar respuesta</button>
                                             </form>
                                             @endif
+                                            @endif
                                         </div>
                                         <?php $coment ++; ?>
                                     @endforeach
@@ -175,10 +190,14 @@
                                     <form action="{{route('preguntas.store')}}" method="POST">
                                         @csrf
 
-                                        @if(Auth::user()!=null)<input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">@endif
-                                        <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
-                                        <textarea name="pregunta" style="width: 100%" class="mt-3" cols="50" placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
-                                        <button type="submit" class="btn btn-primary float-right">Enviar pregunta</button>
+                                        @if(Auth::user()!=null)
+                                        <input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">
+                                            @if(Auth::user()->id!=$producto->user->id)
+                                                <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
+                                                <textarea name="pregunta" style="width: 100%" class="mt-3" cols="50" placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
+                                                <button type="submit" class="btn btn-primary float-right">Enviar pregunta</button>
+                                            @endif
+                                        @endif
                                     </form>
                                 </div>
                             </div>

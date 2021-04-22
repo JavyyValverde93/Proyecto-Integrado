@@ -36,4 +36,12 @@ class Producto extends Model
         }
     }
 
+    public function scopeCategoria($query, $c){
+        if($c!=null){
+            return $query->where('categoria', $c);
+        }else{
+            return $query;
+        }
+    }
+
 }

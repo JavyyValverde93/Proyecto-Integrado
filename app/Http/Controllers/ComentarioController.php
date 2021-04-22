@@ -49,7 +49,7 @@ class ComentarioController extends Controller
 
             $coment->save();
 
-            return back()->with('mensaje', 'Comentario añadido correctamente');
+            return back()->with('error', 'Comentario añadido correctamente');
         }catch(\Exception $ex){
             return back()->with('error', 'El comentario no ha podido subirse');
 
