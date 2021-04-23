@@ -17,8 +17,14 @@ class CreateRespuestasTable extends Migration
             $table->id();
             $table->text('respuesta');
 
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
             $table->foreignId('comentario_id');
             $table->foreign('comentario_id')->references('id')->on('comentarios')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreignId('producto_id');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

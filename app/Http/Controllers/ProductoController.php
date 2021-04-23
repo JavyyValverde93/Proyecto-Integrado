@@ -111,8 +111,9 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        $comentarios = Comentario::all()->where('producto_id', "=", $producto->id);
-        $preguntas = Pregunta::all()->where('producto_id', "=", $producto->id);
+        $comentarios = Comentario::orderBy('updated_at', 'desc')->where('producto_id', "=", $producto->id)->get();
+        $preguntas = Pregunta::orderBy('updated_at')->where('producto_id', "=", $producto->id)->get();
+        $resPreg = Respuesta::all()->where('producto_id', "=", $producto->id);
         $guardados = Guardado::all()->where('producto_id', "=", $producto->id);
         $favoritos = $guardados->count();
         if(isset(Auth::user()->id)){
@@ -126,7 +127,7 @@ class ProductoController extends Controller
             ]);
             echo '<script>history.pushState(null, "", window.location+"¬");</script>';
         }
-        return view('productos.detalle', compact('producto', 'comentarios', 'preguntas', 'guardados', 'favoritos'));
+        return view('productos.detalle', compact('producto', 'comentarios', 'preguntas', 'resPreg', 'guardados', 'favoritos'));
     }
 
     /**

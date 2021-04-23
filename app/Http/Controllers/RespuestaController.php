@@ -35,7 +35,28 @@ class RespuestaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'respuesta'=>['required'],
+                'idc'=>['required'],
+                'idu'=>['required'],
+                'idp'=>['required']
+            ]);
+
+            $respuesta = new Respuesta();
+            $respuesta->respuesta = $request->respuesta;
+
+            $respuesta->comentario_id = $_GET['idc'];
+            $respuesta->producto_id = $_GET['idp'];
+            $respuesta->user_id = $_GET['idu'];
+
+            $respuesta->save();
+
+            return back()->with('mensaje', "Comentario respondido correctamente");
+        }catch(\Exception $ex){
+            return back()->with('error', 'No se ha podido responder al comentario');
+        }
+
     }
 
     /**
@@ -80,6 +101,11 @@ class RespuestaController extends Controller
      */
     public function destroy(Respuesta $respuesta)
     {
-        //
+        try{
+            $respuesta->delete();
+            return back()->with('mensaje', 'Respuesta eliminada correctamente');
+        }catch(\Exception $ex){
+            return back()->with('error', 'No se ha podido eliminar la respuesta');
+        }
     }
 }

@@ -56,4 +56,8 @@ class User extends Authenticatable
         return $this->hasMany(Guardado::class);
     }
 
+    public function Respuesta(){
+        return $this->hasMany(Respuesta::class);
+    }
+
 }

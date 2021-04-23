@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email'=>'admin@correo.com',
             'password'=>Hash::make('admin'),
             'ciudad'=>'Almeria',
+            'tipo'=>1,
             'email_verified_at'=>now()
         ]);
     }

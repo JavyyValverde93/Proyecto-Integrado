@@ -23,12 +23,13 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-use App\Http\Controllers\{GuardadoController, ProductoController, ComentarioController, PreguntaController, UserController};
+use App\Http\Controllers\{GuardadoController, ProductoController, ComentarioController, PreguntaController, UserController, RespuestaController};
 
 Route::resource("productos", ProductoController::class);
 Route::resource("guardados", GuardadoController::class)->middleware(['auth']);
 Route::resource("comentarios", ComentarioController::class)->middleware(['auth']);
 Route::resource("preguntas", PreguntaController::class)->middleware(['auth']);
+Route::resource("respuestas", RespuestaController::class)->middleware(['auth']);
 
 Route::get("guardados/{user_id}/guardar", [GuardadoController::class, 'guardar'])->name('guardar');
 Route::get("guardados/{user_id}/quitar", [GuardadoController::class, 'quitar'])->name('quitar');

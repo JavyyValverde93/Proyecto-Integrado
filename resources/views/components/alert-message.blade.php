@@ -14,7 +14,7 @@
 
         this.picture = "<?php echo asset('storage/adminlogo.jpg'); ?>";
         this.elem;
-        this.duration = 6000;
+        this.duration = 5000;
 
         this.create();
 

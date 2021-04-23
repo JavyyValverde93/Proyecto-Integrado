@@ -24,7 +24,7 @@ class ProductoFactory extends Factory
         $categorias = ['Coches', 'Motos', 'Motor y Accesorios', 'Moda y Accesorios', 'Inmoviliaria', 'Tv, Audio y Foto', 'Móviles y Telefonía', 'Informática y Electrónica', 'Deporte y Ocio', 'Bicicletas', 'Consolas Y Videojuegos', 'Hogar y Jardín', 'Electrodomésticos', 'Cine, Libros y Música', 'Niños y Bebés', 'Coleccionismo', 'Materiales de construcción', 'Industria y Agricultura', 'Empleo', 'Servicios', 'Otros'];
         return [
             'nombre'=>$this->faker->name(),
-            'categoria'=>$categorias[$this->faker->numberBetween(2, 20)],
+            'categoria'=>$categorias[$this->faker->numberBetween(0, 20)],
             'descripcion'=>$this->faker->text($maxNbChars=60),
             'precio'=>$this->faker->numberBetween(10.0, 4000.99),
             'guardados'=>$this->faker->numberBetween(1, 40),

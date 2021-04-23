@@ -15,5 +15,9 @@ class Comentario extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function Respuesta(){
+        return $this->hasMany(Respuesta::class);
+    }
+
 
 }

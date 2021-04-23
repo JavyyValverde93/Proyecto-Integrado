@@ -22,8 +22,9 @@ class RespuestaFactory extends Factory
     public function definition()
     {
         return [
-            'respuesta'=>$this->faker->text($maxNbChars=50),
-            'comentario_id'=>$this->faker->numberBetween(5, 200)
+            // 'respuesta'=>$this->faker->text($maxNbChars=50),
+            // 'comentario_id'=>$this->faker->numberBetween(5, 200),
+
         ];
     }
 }

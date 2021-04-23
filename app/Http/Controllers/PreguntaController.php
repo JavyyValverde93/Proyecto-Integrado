@@ -111,13 +111,17 @@ class PreguntaController extends Controller
      */
     public function destroy(Pregunta $pregunta)
     {
-        if(isset($_GET['p']) && $_GET['p']=="|"){
-            $pregunta->update([
-                'respuesta'=>null
-            ]);
-            return back()->with('mensaje', 'Respuesta borrada con éxito');
+        try{
+            if(isset($_GET['p']) && $_GET['p']=="|"){
+                $pregunta->update([
+                    'respuesta'=>null
+                ]);
+                return back()->with('mensaje', 'Respuesta borrada con éxito');
+            }
+            $pregunta->delete();
+            return back()->with('mensaje', 'Pregunta eliminada con éxito');
+        }catch(\Exception $ex){
+            return back()->with('error', 'Tu respuesta/pregunta no ha podido eliminarse');
         }
-        $pregunta->delete();
-        return back()->with('mensaje', 'Pregunta eliminada con éxito');
     }
 }

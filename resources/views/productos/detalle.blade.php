@@ -142,8 +142,38 @@
                                     <div style="max-width: 400px; max-height:400px; overflow-y:scroll">
                                         <?php $coment = 0; ?>
                                         @foreach($comentarios as $coments)
-                                            <div class="p-3 rounded-pill mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #21ba45 @endif">
-                                                <p><b>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif{{$coments->user->name}}: </b>{{$coments->comentario}}</p>
+                                            <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #21ba45 @endif">
+                                                <form action="{{route('comentarios.destroy', $coments)}}" method="POST">
+                                                <p>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif
+                                                    <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black"><b>{{$coments->user->name}}: </b></a>{{$coments->comentario}}
+                                                        @csrf
+                                                        @if(Auth::user()!=null && Auth::user()->id==$coments->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                        @method('DELETE')
+                                                        <button type="submit" style="color:red; font-size:17px;" class="float-right"><i class="far fa-times-circle"></i></button>
+                                                        @endif
+                                                    </form>
+                                                    @foreach($resPreg as $res)
+                                                    @if($res->comentario->id==$coments->id)
+                                                    <form action="{{route('respuestas.destroy', $res)}}" method="POST">
+                                                            <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black">&nbsp;<b>{{$res->user->name}}: </b></a>{{$res->respuesta}}
+                                                                @csrf
+                                                                @if(Auth::user()!=null && Auth::user()->id==$res->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                                @method('DELETE')
+                                                                <button type="submit" style="color:red; font-size:17px;" class="float-right"><i class="far fa-times-circle"></i></button>
+                                                                @endif
+                                                            </form>
+
+                                                    @endif
+                                                    @endforeach
+                                                    @if(Auth::user()!=null)
+                                                    <form action="{{route('respuestas.store', ['idp='.$producto->id, 'idc='.$coments->id, 'idu='.Auth::user()->id])}}" method="POST">
+                                                        @csrf
+                                                        <input type="text" name="respuesta" placeholder="Respuesta comentario..." onchange="this.form.submit()">
+                                                        <button type="submit" class="ui button">Responder</button>
+                                                    </form>
+                                                    @endif
+
+                                                </p>
                                             </div>
                                             <?php $coment ++; ?>
                                         @endforeach
@@ -152,44 +182,50 @@
                                     </div>
                                     <form action="{{route('comentarios.store')}}" class="my-4" method="POST" name="com">
                                         @csrf
-                                        @if(Auth::user()!=null)<input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">@endif
+                                        @if(Auth::user()!=null)<input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">
                                         <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
                                         <textarea cols="40" style="width: 100%" name="comentario" placeholder="Escriba aquí para comentar este producto..."></textarea><br>
                                         <button type="submit" class="btn btn-primary float-right mt-2">Enviar comentario</button>
-
+                                        @endif
                                     </form>
                                 </div>
                                 <div class="tab-pane fade " id="nav-profile" style="max-width: 400px" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <?php $coment = 0; ?>
-                                    @foreach($preguntas as $preg)
-                                        <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #3be8b0 @else #00b2a9 @endif">
-                                            <p id="preguntax"><b>{{$preg->user->name}}: </b>{{$preg->pregunta}}</p>
-                                            @if(Auth::user()!=null && Auth::user()->id==$producto->user->id)
-                                            @if($preg->respuesta!=null)
-                                            <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{__('Respuesta del vendedor')}}: </b>{{$preg->respuesta}}
-                                                 <button type="submit" class="btn btn-danger" name="hidd">Eliminar respuesta</button>
-                                                </p>
-                                            </form>
-                                            @else
-                                            <form action="{{route('preguntas.update', $preg)}}" method="POST" autocomplete="off">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="text" name="respuesta" placeholder="Respuesta a {{$preg->user->name}}: ">
-                                                <button type="submit" class="ui button mt-2">Enviar respuesta</button>
-                                            </form>
-                                            @endif
-                                            @endif
-                                        </div>
-                                        <?php $coment ++; ?>
-                                    @endforeach
+                                    <div style="max-width: 400px; max-height:400px; overflow-y:scroll">
+                                        <?php $coment = 0; ?>
+                                        @foreach($preguntas as $preg)
+                                            <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #3be8b0 @else #00b2a9 @endif">
+                                                <p id="preguntax"><a href="{{route('ver_perfil', $preg->user->id)}}" style="color: black"><b>{{$preg->user->name}}: </b></a>{{$preg->pregunta}}</p>
+                                                @if(Auth::user()!=null && Auth::user()->id==$preg->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                @if($preg->respuesta!=null)
+                                                <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{__('Respuesta del vendedor')}}: </b>{{$preg->respuesta}}
+                                                    <button type="submit" class="btn btn-danger" name="hidd">Eliminar respuesta</button>
+                                                    </p>
+                                                </form>
+                                                @else
+                                                <form action="{{route('preguntas.update', $preg)}}" method="POST" autocomplete="off">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="text" name="respuesta" placeholder="Respuesta a {{$preg->user->name}}: ">
+                                                    <button type="submit" class="ui button mt-2">Enviar respuesta</button>
+                                                </form>
+                                                @endif
+                                                @endif
+                                            </div>
+                                            <?php $coment ++; ?>
+                                        @endforeach
+                                    </div>
 
-                                    @if($coment==0) <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #21ba45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{__(' Sin Preguntas')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> @endif
+                                    @if($coment==0)
+                                    <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #21ba45">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <b>{{__(' Sin Preguntas')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    @endif
                                     <form action="{{route('preguntas.store')}}" method="POST">
                                         @csrf
-
                                         @if(Auth::user()!=null)
                                         <input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">
                                             @if(Auth::user()->id!=$producto->user->id)
@@ -207,6 +243,7 @@
             </div>
         </div>
     </div>
+
 
     <script>
         function getFullscreen(element){

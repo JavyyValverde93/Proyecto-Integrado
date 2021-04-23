@@ -48,8 +48,7 @@ class ComentarioController extends Controller
             $coment->producto_id = $request->producto_id;
 
             $coment->save();
-
-            return back()->with('error', 'Comentario añadido correctamente');
+            return back()->with('mensaje', 'Comentario añadido correctamente');
         }catch(\Exception $ex){
             return back()->with('error', 'El comentario no ha podido subirse');
 
@@ -98,6 +97,11 @@ class ComentarioController extends Controller
      */
     public function destroy(Comentario $comentario)
     {
-        //
+        try{
+            $comentario->delete();
+            return back()->with('mensaje', 'Tu comentario se ha eliminado correctamente');
+        }catch(\Exception $ex){
+            return back()->with('error', 'Tu comentario no ha podido eliminarse');
+        }
     }
 }

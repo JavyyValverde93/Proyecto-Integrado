@@ -146,9 +146,12 @@
                                             <div class="module line-clamp">
                                                 <p class="card-text mr-5">{{$item->descripcion}}</p>
                                             </div>
+                                            <label class="float-right" align="right" style="opacity: 50%">{{$item->created_at}}</label>
                                         </div>
                                     </a>
+
                                 </div>
+
                             </div>
                             @endforeach
 
