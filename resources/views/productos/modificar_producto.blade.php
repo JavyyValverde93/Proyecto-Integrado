@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Vender producto') }}
+            {{ __('Modificar producto') }}
         </h2>
     </x-slot>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -63,50 +63,52 @@
 
                     </script>
                     <x-alert-message></x-alert-message>
-                    <form action="{{route('productos.store', ['user_id='.Auth::user()->id])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
+                        <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" autofocus class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <input type="text" autofocus value="{{$producto->nombre}}º" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
                                 <small></small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Categoría:</label><br>
                                 <select name="categoria" class="form-control fa rounded" required>
                                     <option value="">Seleccione la categoría...</option>
-                                    <option class="fa" value="Coches">&#xf1b9; Coches</option>
-                                    <option class="fa" value="Motos">&#xf21c; Motos</option>
-                                    <option class="fa" value="Motor y Accesorios">&#xf5e3; Motor y Accesorios</option>
-                                    <option class="fa" value="Inmobiliaria">&#xf015; Inmobiliaria</option>
-                                    <option class="fa" value="Tv, Audio y Foto">&#xf26c; Tv, Audio y Foto</option>
-                                    <option class="fa" value="Móviles y Telefonía">&#xf10b; Móviles y Telefonía</option>
-                                    <option class="fa" value="Informática y Electrónica">&#xf109; Informática y Electrónica</option>
-                                    <option class="fa" value="Deporte y Ocio">&#xf45f; Deporte y Ocio</option>
-                                    <option class="fa" value="Bicicletas">&#xf84a; Bicicletas</option>
-                                    <option class="fa" value="Consolas y Videojuegos">&#xf11b; Consolas y Videojuegos</option>
-                                    <option class="fa" value="Hogar y Jardín">&#xf801; Hogar y Jardín</option>
-                                    <option class="fa" value="Cine, Libros y Música">&#xf008; Cine, Libros y Música</option>
-                                    <option class="fa" value="Niños y Bebés">&#xf77c; Niños y Bebés</option>
-                                    <option class="fa" value="Coleccionismo">&#xf70f; Coleccionismo</option>
-                                    <option class="fa" value="Materiales de construcción">&#xf6e3; Materiales de construcción</option>
-                                    <option class="fa" value="Industria y Agricultura">&#xf722; Industria y Agricultura</option>
-                                    <option class="fa" value="Empleo">&#xf0b1; Empleo</option>
-                                    <option class="fa" value="Servicios">&#xf554; Servicios</option>
-                                    <option class="fa" value="Otros">&#xf069; Otros</option>
+                                    <option class="fa" value="Coches" @if($producto->categoria=="Coches") selected @endif>&#xf1b9; Coches</option>
+                                    <option class="fa" value="Motos" @if($producto->categoria=="Motos") selected @endif>&#xf21c; Motos</option>
+                                    <option class="fa" value="Motor y Accesorios" @if($producto->categoria=="Motor y Accesorios") selected @endif>&#xf5e3; Motor y Accesorios</option>
+                                    <option class="fa" value="Inmobiliaria" @if($producto->categoria=="Inmobiliaria") selected @endif>&#xf015; Inmobiliaria</option>
+                                    <option class="fa" value="Tv, Audio y Foto" @if($producto->categoria=="Tv, Audio y Foto") selected @endif>&#xf26c; Tv, Audio y Foto</option>
+                                    <option class="fa" value="Móviles y Telefonía" @if($producto->categoria=="Móviles y Telefonía") selected @endif>&#xf10b; Móviles y Telefonía</option>
+                                    <option class="fa" value="Informática y Electrónica" @if($producto->categoria=="Informática y Electrónica") selected @endif>&#xf109; Informática y Electrónica</option>
+                                    <option class="fa" value="Deporte y Ocio" @if($producto->categoria=="Deporte y Ocio") selected @endif>&#xf45f; Deporte y Ocio</option>
+                                    <option class="fa" value="Bicicletas" @if($producto->categoria=="Bicicletas") selected @endif>&#xf84a; Bicicletas</option>
+                                    <option class="fa" value="Consolas y Videojuegos" @if($producto->categoria=="Consolas y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
+                                    <option class="fa" value="Hogar y Jardín" @if($producto->categoria=="Hogar y Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
+                                    <option class="fa" value="Cine, Libros y Música" @if($producto->categoria=="Cine, Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
+                                    <option class="fa" value="Niños y Bebés" @if($producto->categoria=="Niños y Bebés") selected @endif>&#xf77c; Niños y Bebés</option>
+                                    <option class="fa" value="Coleccionismo" @if($producto->categoria=="Coleccionismo") selected @endif>&#xf70f; Coleccionismo</option>
+                                    <option class="fa" value="Materiales de construcción" @if($producto->categoria=="Materiales de construcción") selected @endif>&#xf6e3; Materiales de construcción</option>
+                                    <option class="fa" value="Industria y Agricultura" @if($producto->categoria=="Industria y Agricultura") selected @endif>&#xf722; Industria y Agricultura</option>
+                                    <option class="fa" value="Empleo" @if($producto->categoria=="Empleo") selected @endif>&#xf0b1; Empleo</option>
+                                    <option class="fa" value="Servicios" @if($producto->categoria=="Servicios") selected @endif>&#xf554; Servicios</option>
+                                    <option class="fa" value="Otros" @if($producto->categoria=="Otros") selected @endif>&#xf069; Otros</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Descripción:</label>
                             <textarea name="descripcion" class="form-control"
-                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10"></textarea>
+                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10">{{$producto->descripcion}}</textarea>
                                 <small></small>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label>Precio:</label>
-                                <input type="number" name="precio" min="0.01" step="0.01" required class="form-control"
+                                <input type="number" name="precio" min="0.01" value="{{$producto->precio}}" step="0.01" required class="form-control"
                                     placeholder="0.00€" oninput="validarPrecio()">
                                     <small></small>
                             </div>

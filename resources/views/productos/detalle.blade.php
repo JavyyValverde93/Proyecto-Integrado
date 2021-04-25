@@ -40,6 +40,7 @@
                         @else
                             <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
                         @endif
+                        <a href="{{route('productos.edit', $producto)}}"><i class="fas fa-edit"></i></a>
                         {{-- Formulario guardar productos en favoritos y enviar id  --}}
                         <form @if(Auth::user()!=null) action="{{route('guardar', Auth::user()->id)}}" @endif method="GET" name="save_prod">
                            <input type="text" name="ui" class="hidden" value="{{$producto->id}}">

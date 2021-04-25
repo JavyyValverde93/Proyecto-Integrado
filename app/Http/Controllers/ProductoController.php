@@ -48,6 +48,15 @@ class ProductoController extends Controller
     {
 
         try{
+            $request->validate([
+                'nombre'=>['required|min:5'],
+                'descripcion'=>['required'|'min:10'],
+                'categoria'=>['required'],
+                'precio'=>['required'|'min:0.01'],
+                'user_id'=>['required'],
+                'foto1'=>['required|image']
+            ]);
+
             $prod = new Producto();
             $prod->nombre = $request->nombre;
             $prod->descripcion = $request->descripcion;
@@ -138,8 +147,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        $fotos = Picture::orderBy('posicion')->where('producto_id' == $producto->id)->all();
-        return view('producto.edit', compact('producto', 'fotos'));
+        return view('productos.modificar_producto', compact('producto'));
     }
 
     /**
@@ -151,39 +159,66 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        $request->validate([
-            'nombre' => ['required'],
-            'descripcion' => ['required'],
-            'precio' => ['required'],
-            'user_id' => ['required'],
-            'foto' => ['required']
-        ]);
+        try{
+            $request->validate([
+                'nombre'=>['required|min:5'],
+                'descripcion'=>['required'|'min:10'],
+                'categoria'=>['required'],
+                'precio'=>['required'|'min:0.01'],
+                'user_id'=>['required'],
+            ]);
 
-        $producto->nombre = $request->nombre;
-        $producto->descripcion = $request->descripcion;
-        $producto->precio = $request->precio;
-        $producto->user_id = $request->user_id;
+            $producto->update([
+                'nombre'=>$request->nombre,
+                'descripcion'=>$request->descripcion,
+                'categoria'=>$request->categoria,
+                'precio'=>$request->precio,
+                'user_id'=>$request->user_id,
+            ]);
 
-        $request->validate(['foto'=>['image']]);
-        $nom = $request->foto;
-        $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
-        Storage::disk("public")->put($nom2, File::get($nom));
+            if($request->has('foto1')){
+                $request->validate(['foto1'=>['image']]);
+                $nom = $request->foto1;
+                $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
+                Storage::disk("public")->put($nom2, File::get($nom));
+                $producto->update(['foto1'=> 'storage/'.$nom2]);
 
-        $foto0 = new Picture();
-        $foto0->foto = "storage/".$nom2;
-        $foto0->posicion = 0;
-        $foto0->user_id = $request->user_id;
+            }
+            if($request->has('foto2')){
+                $request->validate(['foto2'=>['image']]);
+                $nom = $request->foto2;
+                $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
+                Storage::disk("public")->put($nom2, File::get($nom));
+                $producto->update(['foto2' => 'storage/'.$nom2]);
+            }
 
-        if($request->has('foto1')){
-            $request->validate(['foto1'=>['image']]);
-            $nom = $request->foto;
-            $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
-            Storage::disk("public")->put($nom2, File::get($nom));
+            if($request->has('foto3')){
+                $request->validate(['foto3'=>['image']]);
+                $nom = $request->foto3;
+                $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
+                Storage::disk("public")->put($nom2, File::get($nom));
+                $producto->update(['foto3' => 'storage/'.$nom2]);
+            }
 
-            $foto1 = new Picture();
-            $foto1->foto = "storage/".$nom2;
-            $foto1->posicion = 0;
-            $foto1->user_id = $request->user_id;
+            if($request->has('foto4')){
+                $request->validate(['foto4'=>['image']]);
+                $nom = $request->foto4;
+                $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
+                Storage::disk("public")->put($nom2, File::get($nom));
+                $producto->update(['foto4' => 'storage/'.$nom2]);
+            }
+
+            if($request->has('foto5')){
+                $request->validate(['foto5'=>['image']]);
+                $nom = $request->foto5;
+                $nom2 = "img/productos/".uniqid()."_".$nom->getClientOriginalName();
+                Storage::disk("public")->put($nom2, File::get($nom));
+                $producto->update(['foto5' => 'storage/'.$nom2]);
+            }
+
+            return redirect()->route('productos.index')->with('mensaje', 'Articulo modificado correctamente');
+        }catch(\Exception $ex){
+            return redirect()->back(compact('request'))->with('error', 'Ha habido algún error con los datos, compruebe los datos y las imágenes introducidas: '.$ex);
         }
     }
 
@@ -195,6 +230,29 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        try{
+            if($producto->foto1!=basename("default.png")){
+                unlink($producto->foto1);
+            }
+            if($producto->foto2!=basename("default.png")){
+                unlink($producto->foto2);
+            }
+            if($producto->foto3!=basename("default.png")){
+                unlink($producto->foto3);
+            }
+            if($producto->foto4!=basename("default.png")){
+                unlink($producto->foto4);
+            }
+            if($producto->foto5!=basename("default.png")){
+                unlink($producto->foto5);
+            }
+    
+            $producto->delete();
+    
+            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");    
+
+        }catch(\Exception $ex){
+            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");    
+        }
     }
 }
