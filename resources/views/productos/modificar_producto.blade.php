@@ -70,7 +70,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" autofocus value="{{$producto->nombre}}º" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <input type="text"  value="{{$producto->nombre}}" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
                                 <small></small>
                             </div>
                             <div class="form-group col-md-6">
@@ -142,7 +142,7 @@
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap">
-                                                    <input class="file-upload-input" type='file' required name="foto1" onchange="readURL(this);"
+                                                    <input class="file-upload-input" type='file' name="foto1" onchange="readURL(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>

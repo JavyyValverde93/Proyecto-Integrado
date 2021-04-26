@@ -17,4 +17,9 @@ class UserController extends Controller
         $n_guards = $guardados->count();
         return view('users.user-profile', compact('user', 'productos', 'n_prods', 'guardados', 'n_guards'));
     }
+
+    public function admin_zone(){
+        // $users = User::all();
+        return view('users.admin.index');
+    }
 }

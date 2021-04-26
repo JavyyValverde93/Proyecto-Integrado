@@ -22,9 +22,59 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        $productos = Producto::orderBy('id', 'desc')->nombre($request->nombre)->categoria($request->categoria)->paginate(30);
+        $ord = 'id';
+        $ord2 = 'desc';
+
+        if($request->ordenar!=null){
+            $ord = $request->ordenar;
+            $ord2 = 'asc';
+
+            if($ord=='viejos'){
+                $ord=='id';
+            }else{
+                if($ord=='nuevos'){
+                    $ord = 'id';
+                    $ord2 = 'desc';
+                }else{
+                    if($ord=='precio-bajo'){
+                        $ord ='precio';
+                    }else{
+                        if($ord=='precio-alto'){
+                            $ord ='precio';
+                            $ord2 ='asc';
+                        }else{
+                            if($ord=='vistas'){
+                                $ord = 'visualizaciones';
+                                $ord2 = 'desc';
+                            }else{
+                                if($ord=='menos-vistas'){
+                                    $ord = 'visualizaciones';
+                                    $ord2 = 'asc';
+                                }else{
+                                    if($ord=='gustados'){
+                                        $ord = 'guardados';
+                                        $ord2 = 'desc';
+                                    }else{
+                                        if($ord == 'menos-gustados'){
+                                            $ord = 'guardados';
+                                            $ord2 = 'asc';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(30);
         $scope = $request->nombre;
         $guardados = Guardado::all();
+        if($request->categoria!=null){
+            return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
+        }
         return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
     }
 
@@ -47,15 +97,14 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'nombre'=>['required', 'min:2'],
+            'descripcion'=>['required', 'string', 'min:10'],
+            'categoria'=>['required'],
+            'precio'=>['required', 'min:0.01'],
+            'user_id'=>['required']
+        ]);
         try{
-            $request->validate([
-                'nombre'=>['required|min:5'],
-                'descripcion'=>['required'|'min:10'],
-                'categoria'=>['required'],
-                'precio'=>['required'|'min:0.01'],
-                'user_id'=>['required'],
-                'foto1'=>['required|image']
-            ]);
 
             $prod = new Producto();
             $prod->nombre = $request->nombre;
@@ -161,11 +210,11 @@ class ProductoController extends Controller
     {
         try{
             $request->validate([
-                'nombre'=>['required|min:5'],
-                'descripcion'=>['required'|'min:10'],
+                'nombre'=>['required', 'min:2'],
+                'descripcion'=>['required', 'string', 'min:10'],
                 'categoria'=>['required'],
-                'precio'=>['required'|'min:0.01'],
-                'user_id'=>['required'],
+                'precio'=>['required', 'min:0.01'],
+                'user_id'=>['required']
             ]);
 
             $producto->update([
@@ -246,13 +295,13 @@ class ProductoController extends Controller
             if($producto->foto5!=basename("default.png")){
                 unlink($producto->foto5);
             }
-    
+
             $producto->delete();
-    
-            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");    
+
+            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");
 
         }catch(\Exception $ex){
-            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");    
+            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");
         }
     }
 }

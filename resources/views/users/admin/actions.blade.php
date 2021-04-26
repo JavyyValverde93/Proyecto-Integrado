@@ -1,0 +1,1 @@
+<a href="{{route('productos.edit', $id)}}">Ver</a>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('productos.index');
 });
 
 Route::get('/dashboard', function () {
@@ -35,3 +35,5 @@ Route::get("guardados/{user_id}/guardar", [GuardadoController::class, 'guardar']
 Route::get("guardados/{user_id}/quitar", [GuardadoController::class, 'quitar'])->name('quitar');
 Route::get("users/{user_id}/ver_perfil", [UserController::class, 'ver_perfil'])->name('ver_perfil');
 Route::get("productos/create", [ProductoController::class, 'create'])->name('productos.create')->middleware(['auth']);
+
+Route::get("users/admin_zone", [UserController::class, 'admin_zone'])->name('admin_zone')->middleware(['auth']);

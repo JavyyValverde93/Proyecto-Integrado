@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('users', function(){
+    $btn = "<a href={{route('productos.index', ['categoria=Coches'])}}>l</a>";
+    return datatables()->of(User::query())->addColumn('btn', $btn)->rawColumns(['btn'])->toJson();
+
 });

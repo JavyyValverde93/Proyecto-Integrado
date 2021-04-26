@@ -1,8 +1,10 @@
 <x-app-layout>
         <x-slot name="header">
+            <link rel="stylesheet" href="{{asset('css/index.css')}}">
+
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 <div class="row">
-                    <div class="ui search my-auto mx-3">
+                    <div class="ui search my-auto mx-3 col">
                         <form action="{{route('productos.index')}}" method="GET" class="form form-inline">
                             @csrf
                             <div class="ui icon input">
@@ -16,119 +18,70 @@
                             @endif
 
                         </form>
+
+                    </div>
+                    <div class="col" align="right">
+                        <form action="{{route('productos.index')}}" method="GET" name="2">
+                        @csrf 
+                        <select name="ordenar" onchange="this.form.sumbit()">
+                            <option>Ordenar por...</option>
+                            <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
+                            <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
+                            <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más bajo</option>
+                            <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más alto</option>
+                            <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
+                            <option value="visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos vistos</option>
+                            <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
+                            <option value="gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
+                        </select>
+                    </form>
                     </div>
                 </div>
             </h2>
         </x-slot>
 
         <x-alert-message></x-alert-message>
-    <style>
-        /* Esconder botones de paginación */
-        nav[role='navigation']{
-            visibility: hidden;
-        }
+    
 
-        h5 {
-            margin: 0px;
-            font-size: 1.4em;
-            font-weight: 700;
-        }
-
-        p {
-            font-size: 12px;
-        }
-
-        /* Limitar caracteres por filas */
-        .module {
-            width: 250px;
-            margin: 0 0 1em 0;
-            overflow: hidden;
-        }
-
-        .module p {
-            margin: 0;
-        }
-
-        .line-clamp {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        /*Recortar imagen*/
-        .cardimg {
-            width: 16rem;
-            height: 12rem;
-            overflow: hidden;
-            margin: auto;
-            position: relative;
-        }
-
-        .card-img-top {
-            position: absolute;
-            left: -100%;
-            right: -100%;
-            top: -100%;
-            bottom: -100%;
-            margin: auto;
-            min-height: 100%;
-            min-width: 100%;
-        }
-
-        img:hover,
-        .card:hover,
-        .card-title:hover {
-            transform: scale(1.1)
-        }
-
-        #precio {
-            font-weight: bold;
-        }
-
-        option{
-            font-size:20px;
-        }
-
-        #next:hover{
-            cursor: url(puntero.svg), url(puntero.cur), pointer;
-            transform: scale(1.1);
-        }
-
-    </style>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="container-fluid">
-                        <div class="" align="right">
-                            <form action="{{route('productos.index')}}" method="GET">
-                                <select name="categoria" class="form-control fa rounded my-4" onchange="this.form.submit()">
-                                    <option value="">Seleccione la categoría...</option>
-                                    <option class="fa" value="Coches" @if($request->categoria!=null && $request->categoria=="Coches") selected @endif>&#xf1b9; Coches</option>
-                                    <option class="fa" value="Motos" @if($request->categoria!=null && $request->categoria=="Motos") selected @endif>&#xf21c; Motos</option>
-                                    <option class="fa" value="Motor y Accesorios" @if($request->categoria!=null && $request->categoria=="Motor y Accesorios") selected @endif>&#xf5e3; Motor y Accesorios</option>
-                                    <option class="fa" value="Inmobiliaria" @if($request->categoria!=null && $request->categoria=="Inmobiliaria") selected @endif>&#xf015; Inmobiliaria</option>
-                                    <option class="fa" value="Tv, Audio y Foto" @if($request->categoria!=null && $request->categoria=="Tv, Audio y Foto") selected @endif>&#xf26c; Tv, Audio y Foto</option>
-                                    <option class="fa" value="Móviles y Telefonía" @if($request->categoria!=null && $request->categoria=="Móviles y Telefonía") selected @endif>&#xf10b; Móviles y Telefonía</option>
-                                    <option class="fa" value="Informática y Electrónica" @if($request->categoria!=null && $request->categoria=="Informática y Electrónica") selected @endif>&#xf109; Informática y Electrónica</option>
-                                    <option class="fa" value="Deporte y Ocio" @if($request->categoria!=null && $request->categoria=="Deporte y Ocio") selected @endif>&#xf45f; Deporte y Ocio</option>
-                                    <option class="fa" value="Bicicletas" @if($request->categoria!=null && $request->categoria=="Bicicletas") selected @endif>&#xf84a; Bicicletas</option>
-                                    <option class="fa" value="Consolas y Videojuegos" @if($request->categoria!=null && $request->categoria=="Consolas y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
-                                    <option class="fa" value="Hogar y Jardín" @if($request->categoria!=null && $request->categoria=="Hogar y Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
-                                    <option class="fa" value="Cine, Libros y Música" @if($request->categoria!=null && $request->categoria=="Cine, Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
-                                    <option class="fa" value="Niños y Bebés" @if($request->categoria!=null && $request->categoria=="Niños y Bebés") selected @endif>&#xf77c; Niños y Bebés</option>
-                                    <option class="fa" value="Coleccionismo" @if($request->categoria!=null && $request->categoria=="Coleccionismo") selected @endif>&#xf70f; Coleccionismo</option>
-                                    <option class="fa" value="Materiales de construcción" @if($request->categoria!=null && $request->categoria=="Materiales de construcción") selected @endif>&#xf6e3; Materiales de construcción</option>
-                                    <option class="fa" value="Industria y Agricultura" @if($request->categoria!=null && $request->categoria=="Industria y Agricultura") selected @endif>&#xf722; Industria y Agricultura</option>
-                                    <option class="fa" value="Empleo" @if($request->categoria!=null && $request->categoria=="Empleo") selected @endif>&#xf0b1; Empleo</option>
-                                    <option class="fa" value="Servicios" @if($request->categoria!=null && $request->categoria=="Servicios") selected @endif>&#xf554; Servicios</option>
-                                    <option class="fa" value="Otros" @if($request->categoria!=null && $request->categoria=="Otros") selected @endif>&#xf069; Otros</option>
-                                </select>
-                                @if($request->nombre!=null)
-                                <input type="hidden" value="{{$request->nombre}}" name="nombre">
-                                @endif
-                            </form>
-                        </div>
+                        
+            <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+            {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
+            {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
+            <script src="{{asset('js/index.js')}}"></script>
+                        
+                            <div class="container my-5">
+                            <h2>Categorías</h2>
+                            <section class="customer-logos slider" align="center">
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coches'])}}"><img src="{{asset('storage/imagenes-categorias/coche.jpg')}}">Coches</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motos'])}}"><img src="{{asset('storage/imagenes-categorias/moto.jpg')}}">Motos</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motor y Accesorios'])}}"><img src="{{asset('storage/imagenes-categorias/motor.jpg')}}">Motor y Accesorios</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Inmobiliaria'])}}"><img src="{{asset('storage/imagenes-categorias/casa.jpg')}}">Inmobiliaria</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Tv, Audio y Foto'])}}"><img src="{{asset('storage/imagenes-categorias/tv.jpg')}}">Tv, Audio y Foto</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Móviles y Telefonía'])}}"><img src="{{asset('storage/imagenes-categorias/movil.jpg')}}">Móviles y Telefonía</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Informática y Electrónica'])}}"><img src="{{asset('storage/imagenes-categorias/informatica.jpg')}}">Informática y Electrónica</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Deporte y Ocio'])}}"><img src="{{asset('storage/imagenes-categorias/deporte.jpg')}}">Deporte y Ocio</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Bicicletas'])}}"><img src="{{asset('storage/imagenes-categorias/bici.jpg')}}">Bicicletas</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Consolas y Videojuegos'])}}"><img src="{{asset('storage/imagenes-categorias/consola.jpg')}}">Consolas y Videojuegos</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Hogar y Jardín'])}}"><img src="{{asset('storage/imagenes-categorias/jardin.jpg')}}">Hogar y Jardín</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Cine, Libros y Música'])}}"><img src="{{asset('storage/imagenes-categorias/cine.jpg')}}">Cine, Libros y Música</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Niños y Bebés'])}}"><img src="{{asset('storage/imagenes-categorias/bebe.jpg')}}">Niños y Bebés</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coleccionismo'])}}"><img src="{{asset('storage/imagenes-categorias/coleccionismo.jpg')}}">Coleccionismo</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Materiales de construcción'])}}"><img src="{{asset('storage/imagenes-categorias/construccion.png')}}">Materiales de construcción</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Industria y Agricultura'])}}"><img src="{{asset('storage/imagenes-categorias/tractor.jpg')}}">Industria y Agricultura</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Empleo'])}}"><img src="{{asset('storage/imagenes-categorias/empleo.jpg')}}">Empleo</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Servicios'])}}"><img src="{{asset('storage/imagenes-categorias/servicios.jpg')}}">Servicios</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Otros'])}}"><img src="{{asset('storage/imagenes-categorias/coche.jpg')}}">Otros</a></div>
+                           
+                                
+                            </section>
+                            </div>
+
                         <div class="row mx-auto" id="prods">
                             @if(Auth::user()!=null)<input type="text" class="hidden" name="uui"
                                 value="{{Auth::user()->id}}">@endif
@@ -156,109 +109,8 @@
                             @endforeach
 
                         </div>
-                        <div id="links" align="center">
-                            <a onclick="cargaProd()" id="next" class="btn rounded-pill p-3 px-4" style="background-color: #10FA91"><i class="far fa-plus-circle"></i> Cargar más productos</a>
-                        </div>
-                        {{$productos->appends($request->except('page'))->links()}}
-
-                        <script>
-                            //Variable para guardar en enlace usado
-                            var prevPage = null;
-
-                            //Variables para guardar los dígitos de los números de la página
-                            n1 = null;
-                            n2 = null;
-                            n3 = null;
-
-                            //Variable para controlar numerosas llamadas a cargar productos
-                            intento = 1;
-
-                            var enlase = document.getElementById('links').nextElementSibling.firstElementChild.lastElementChild.href;
-
-                            var enlace = "";
-
-                            let httpRequest = new XMLHttpRequest();
-
-                            //Devuelve el número de la página, después del page= del enlace
-                            function numPage(enl) {
-                                for (i = 1; i <= 4; i++) {
-                                    if (enl[enl.length - i] != "=") {
-                                        if (n1 == null) {
-                                            n1 = enl[enl.length - i];
-                                        } else {
-                                            if (n2 == null) {
-                                                n2 = enl[enl.length - i] * 10;
-                                            } else {
-                                                if (n3 == null) {
-                                                    n3 = enl[enl.length - i] * 100;
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                if (n2 != null) {
-                                    n = n1 + n2;
-                                    if (n3 != null) {
-                                        n = n + n3;
-                                    }
-                                } else {
-                                    n = n1;
-                                }
-                                n1 = +n + 1;
-
-                                if (prevPage == null) {
-                                    prevPage = enl;
-                                } else {
-                                    prevPage = enl.replace("page=" + n, "page=" + n1);
-                                }
-                                n1 = null;
-                                n2 = null;
-                                n3 = null;
-                            }
-
-                            function cargaProd(e) {
-
-                                if(intento==1){
-                                    intento=0;
-                                    if (prevPage == null) {
-                                        numPage(enlase);
-                                    } else {
-                                        //Le suma 1 al page del enlace anterior
-                                        numPage(prevPage);
-                                    }
-
-                                    enlace = prevPage;
-
-
-                                    httpRequest.open('GET', enlace, true);
-                                    httpRequest.overrideMimeType('text/html');
-                                    httpRequest.send(null);
-                                    httpRequest.LOADING = cargando;
-                                    httpRequest.onload = procesarRespuesta;
-                                }
-                            }
-                            //Crea un nuevo DOM con el enlace de la siguiente página, coge los productos y los trae a esta
-                            function procesarRespuesta() {
-                                var respuesta = httpRequest.responseText;
-                                var dom2 = new DOMParser();
-                                var doc = dom2.parseFromString(respuesta, 'text/html');
-
-                                var pag = doc.querySelector('#prods').innerHTML;
-                                document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + pag;
-
-                                history.pushState(null, "", enlace);
-
-                                intento = 1;
-                            }
-
-                            function cargando(){
-                                document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + "<img src={{asset('storage/img/loading.gif')}}>";
-                            }
-
-                        </script>
                     </div>
+                    
                 </div>
             </div>
         </div>

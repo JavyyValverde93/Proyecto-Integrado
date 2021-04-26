@@ -35,23 +35,27 @@
 
                     </div>
                     <div class="col-1 my-auto">
-                        @if(count($guardados)>=1)
-                            <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar()"></i>
+                        {{-- Si el usuario logueado es el propietario del anuncio o admin puede modificarlo --}}
+                        @if(Auth::user()!=null && Auth::user()==$producto->user || Auth::user()!=null && Auth::user()->tipo==1)
+                            <a href="{{route('productos.edit', $producto)}}" style="color:#10FA91"><i class="far fa-edit fa-2x"></i></a>
                         @else
-                            <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
+                            @if(count($guardados)>=1)
+                                <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar()"></i>
+                            @else
+                                <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
+                            @endif
+                            {{-- Formulario guardar productos en favoritos y enviar id  --}}
+                            <form @if(Auth::user()!=null) action="{{route('guardar', Auth::user()->id)}}" @endif method="GET" name="save_prod">
+                            <input type="text" name="ui" class="hidden" value="{{$producto->id}}">
+                            </form>
+                            {{-- Formulario quitar producto de favoritos y enviar id --}}
+                            @foreach($guardados as $save)
+                            <form action="{{route('guardados.destroy', $save)}}" method="POST" name="delete_prod">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                            @endforeach
                         @endif
-                        <a href="{{route('productos.edit', $producto)}}"><i class="fas fa-edit"></i></a>
-                        {{-- Formulario guardar productos en favoritos y enviar id  --}}
-                        <form @if(Auth::user()!=null) action="{{route('guardar', Auth::user()->id)}}" @endif method="GET" name="save_prod">
-                           <input type="text" name="ui" class="hidden" value="{{$producto->id}}">
-                        </form>
-                        {{-- Formulario quitar producto de favoritos y enviar id --}}
-                        @foreach($guardados as $save)
-                        <form action="{{route('guardados.destroy', $save)}}" method="POST" name="delete_prod">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                        @endforeach
 
                     </div>
                 </div>
@@ -98,20 +102,30 @@
                             <input type="image" class="show-image-1" src="{{asset($producto->foto1)}}">
                             @if($producto->foto2!=null)
                             <input type="image" class="show-image-2" src="{{asset($producto->foto2)}}">
+                            @else
+                            <input type="image" class="show-image-2" src="{{asset('storage/logo2.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto3!=null)
                             <input type="image" class="show-image-3" src="{{asset($producto->foto3)}}">
+                            @else
+                            <input type="image" class="show-image-3" src="{{asset('storage/logo2.png')}}">
                             @endif
                             @if($producto->foto4!=null)
                             <input type="image" class="show-image-4" src="{{asset($producto->foto4)}}">
+                            @else
+                            <input type="image" class="show-image-4" src="{{asset('storage/logo2.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto5!=null)
                             <input type="image" class="show-image-5" src="{{asset($producto->foto5)}}">
+                            @else
+                            <input type="image" class="show-image-5" src="{{asset('storage/logo2.png')}}">
                             @endif
                             @if($producto->foto6!=null)
                             <input type="image" class="show-image-6" src="{{asset($producto->foto6)}}">
+                            @else
+                            <input type="image" class="show-image-6" src="{{asset('storage/logo2.png')}}">
                             @endif
                         </div>
                     </div>
@@ -125,6 +139,42 @@
                         <i style="font-size: 0.7em">{{$producto->categoria}}</i><br>
                         <p>{{$producto->precio}}€</p>
                         <p style="font-size: 1em">{{$producto->descripcion}}</p>
+                    </div>
+
+                    {{-- Galería de imágenes --}}
+                    <style>
+                        #galeria img{
+                            border: solid 2px #10FA91;
+                            margin-top: 20px;
+                            max-height: 500px;
+                            max-width: 500px;
+                        }
+
+                        strong{
+                            font-size: 3em;
+                        }
+                    </style>
+                    <div align="center" style="background-color: rgba(214, 212, 212, 0.097)">
+                        <strong>Galería de imágenes</strong>
+                    </div>
+
+                    <div class="row my-5">
+                        <div class="col-10 mx-auto" id="galeria" align="center">
+                            <img src="{{asset($producto->foto1)}}">
+                            @if($producto->foto2!=null)
+                            <img src="{{asset($producto->foto2)}}">
+                            @endif
+                            @if($producto->foto3!=null)
+                            <img src="{{asset($producto->foto3)}}">
+                            @endif
+                            @if($producto->foto4!=null)
+                            <img src="{{asset($producto->foto4)}}">
+                            @endif
+                            @if($producto->foto5!=null)
+                            <img src="{{asset($producto->foto5)}}">
+                            @endif
+                        </div>
+
                     </div>
 
                     {{-- Comentarios y preguntas --}}
@@ -190,7 +240,7 @@
                                         @endif
                                     </form>
                                 </div>
-                                <div class="tab-pane fade " id="nav-profile" style="max-width: 400px" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="tab-pane fade" id="nav-profile" style="max-width: 400px" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <div style="max-width: 400px; max-height:400px; overflow-y:scroll">
                                         <?php $coment = 0; ?>
                                         @foreach($preguntas as $preg)

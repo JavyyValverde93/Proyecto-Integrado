@@ -63,13 +63,14 @@
 
                     </script>
                     <x-alert-message></x-alert-message>
-                    <form action="{{route('productos.store', ['user_id='.Auth::user()->id])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
                                 <input type="text" autofocus class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
                                 <small></small>
+                                <input type="text" name="user_id" value="{{Auth::user()->id}}" class="hidden">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Categoría:</label><br>
