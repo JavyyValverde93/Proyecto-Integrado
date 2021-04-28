@@ -21,21 +21,22 @@
 
                     </div>
                     <div class="col" align="right">
-                        <form action="{{route('productos.index')}}" method="GET" name="2">
-                        @csrf 
-                        <select name="ordenar" onchange="this.form.sumbit()">
-                            <option>Ordenar por...</option>
-                            <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
-                            <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
-                            <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más bajo</option>
-                            <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más alto</option>
-                            <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
-                            <option value="visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos vistos</option>
-                            <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
-                            <option value="gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
-                        </select>
-                    </form>
+                        
                     </div>
+                    <form action="{{route('productos.index')}}" method="GET">
+                        @csrf
+                            <select name="ordenar" onchange="this.form.submit()">
+                                <option>Ordenar por...</option>
+                                <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
+                                <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
+                                <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más bajo</option>
+                                <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más alto</option>
+                                <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
+                                <option value="menos-visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos vistos</option>
+                                <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
+                                <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
+                            </select>
+                    </form>
                 </div>
             </h2>
         </x-slot>
@@ -72,11 +73,11 @@
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Cine, Libros y Música'])}}"><img src="{{asset('storage/imagenes-categorias/cine.jpg')}}">Cine, Libros y Música</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Niños y Bebés'])}}"><img src="{{asset('storage/imagenes-categorias/bebe.jpg')}}">Niños y Bebés</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Coleccionismo'])}}"><img src="{{asset('storage/imagenes-categorias/coleccionismo.jpg')}}">Coleccionismo</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Materiales de construcción'])}}"><img src="{{asset('storage/imagenes-categorias/construccion.png')}}">Materiales de construcción</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Materiales de construcción'])}}"><img src="{{asset('storage/imagenes-categorias/construccion.jpg')}}">Materiales de construcción</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Industria y Agricultura'])}}"><img src="{{asset('storage/imagenes-categorias/tractor.jpg')}}">Industria y Agricultura</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Empleo'])}}"><img src="{{asset('storage/imagenes-categorias/empleo.jpg')}}">Empleo</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Servicios'])}}"><img src="{{asset('storage/imagenes-categorias/servicios.jpg')}}">Servicios</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Otros'])}}"><img src="{{asset('storage/imagenes-categorias/coche.jpg')}}">Otros</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Otros'])}}"><img src="{{asset('storage/imagenes-categorias/otros.png')}}">Otros</a></div>
                            
                                 
                             </section>

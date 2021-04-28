@@ -31,9 +31,22 @@ Route::resource("comentarios", ComentarioController::class)->middleware(['auth']
 Route::resource("preguntas", PreguntaController::class)->middleware(['auth']);
 Route::resource("respuestas", RespuestaController::class)->middleware(['auth']);
 
+Route::get("productos/create", [ProductoController::class, 'create'])
+->name('productos.create')->middleware(['auth']);
+Route::delete('productos/destroy2/{$id}', [ProductoController::class, 'destroy2'])
+->name('destroy2')->middleware('auth', 'password.confirm');
+
+// Añadir y eliminar producto de favoritos
 Route::get("guardados/{user_id}/guardar", [GuardadoController::class, 'guardar'])->name('guardar');
 Route::get("guardados/{user_id}/quitar", [GuardadoController::class, 'quitar'])->name('quitar');
-Route::get("users/{user_id}/ver_perfil", [UserController::class, 'ver_perfil'])->name('ver_perfil');
-Route::get("productos/create", [ProductoController::class, 'create'])->name('productos.create')->middleware(['auth']);
 
-Route::get("users/admin_zone", [UserController::class, 'admin_zone'])->name('admin_zone')->middleware(['auth']);
+//Usuarios
+Route::get("users/{user_id}/ver_perfil", [UserController::class, 'ver_perfil'])
+->name('ver_perfil');
+Route::get("users/admin_zone", [UserController::class, 'admin_zone'])
+->name('admin_zone')->middleware(['auth']);
+Route::get("users/{user_id}/mod_user", [UserController::class, 'mod_user'])
+->name('mod_user')->middleware(['auth', 'password.confirm']);
+Route::put("users/modify_user{user}", [UserController::class, 'modify_user'])
+->name('modify_user') ->middleware(['auth']);
+

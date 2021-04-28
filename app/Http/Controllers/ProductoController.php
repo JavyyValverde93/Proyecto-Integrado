@@ -30,7 +30,7 @@ class ProductoController extends Controller
             $ord2 = 'asc';
 
             if($ord=='viejos'){
-                $ord=='id';
+                $ord='id';
             }else{
                 if($ord=='nuevos'){
                     $ord = 'id';
@@ -41,13 +41,13 @@ class ProductoController extends Controller
                     }else{
                         if($ord=='precio-alto'){
                             $ord ='precio';
-                            $ord2 ='asc';
+                            $ord2 ='desc';
                         }else{
-                            if($ord=='vistas'){
-                                $ord = 'visualizaciones';
-                                $ord2 = 'desc';
+                            if($ord=='visitas'){
+                                $ord='visualizaciones';
+                                $ord2='desc';
                             }else{
-                                if($ord=='menos-vistas'){
+                                if($ord=='menos-visitas'){
                                     $ord = 'visualizaciones';
                                     $ord2 = 'asc';
                                 }else{
@@ -68,12 +68,12 @@ class ProductoController extends Controller
             }
 
         }
-        
-        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(30);
+
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(9);
         $scope = $request->nombre;
         $guardados = Guardado::all();
-        if($request->categoria!=null){
-            return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
+        if($request->categoria!=null || $request->nombre!=null){
+            return view('productos.index2', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
         }
         return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
     }
@@ -280,19 +280,52 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         try{
-            if($producto->foto1!=basename("default.png")){
+            if($producto->foto1!='storage/productos/default.png'){
                 unlink($producto->foto1);
             }
-            if($producto->foto2!=basename("default.png")){
+            if($producto->foto2!='storage/productos/default.png'){
                 unlink($producto->foto2);
             }
-            if($producto->foto3!=basename("default.png")){
+            if($producto->foto3!='storage/productos/default.png'){
                 unlink($producto->foto3);
             }
-            if($producto->foto4!=basename("default.png")){
+            if($producto->foto4!='storage/productos/default.png'){
                 unlink($producto->foto4);
             }
-            if($producto->foto5!=basename("default.png")){
+            if($producto->foto5!='storage/productos/default.png'){
+                unlink($producto->foto5);
+            }
+
+            $producto->delete();
+
+            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");
+
+        }catch(\Exception $ex){
+            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");
+        }
+    }
+
+    public function destroy2($id)
+    {
+        dd($id);
+        $producto = Producto::all()->where('id', $id);
+        foreach($producto as $prod){
+            $producto = $prod;
+        }
+        try{
+            if($producto->foto1!='storage/productos/default.png'){
+                unlink($producto->foto1);
+            }
+            if($producto->foto2!='storage/productos/default.png'){
+                unlink($producto->foto2);
+            }
+            if($producto->foto3!='storage/productos/default.png'){
+                unlink($producto->foto3);
+            }
+            if($producto->foto4!='storage/productos/default.png'){
+                unlink($producto->foto4);
+            }
+            if($producto->foto5!='storage/productos/default.png'){
                 unlink($producto->foto5);
             }
 

@@ -26,11 +26,9 @@
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Propietario</th>
                                     <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Ciudad</th>
-                                    <th>Tipo</th>
+                                    <th>Precio</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -38,16 +36,15 @@
 
                     </div>
                     <script>
+                        
                         $(document).ready(function() {
                             $('#example').DataTable({
                                 "serverSide":true,
-                                "ajax":"{{url('api/users')}}",
+                                "ajax":"{{url('api/products')}}",
                                 "columns":[
-                                    {data:'id'},
                                     {data:'name'},
-                                    {data:'email'},
-                                    {data:'ciudad'},
-                                    {data:'tipo'},
+                                    {data:'nombre'},
+                                    {data:'precio'},
                                     {data:'btn'},
                                 ],
                                 "language":{

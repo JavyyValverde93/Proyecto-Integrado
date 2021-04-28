@@ -19,7 +19,7 @@
                         {{ __('Mis productos') }}
                     </x-nav-link>
                     @if(Auth::user()!= null && Auth::user()->tipo==1)
-                    <x-nav-link :href="route('admin_zone')" :active="request()->routeIs('admin_zone')">
+                    <x-nav-link :href="route('admin_zone', ['menu=1'])" :active="request()->routeIs('admin_zone')">
                         {{ __('Zona admin') }}
                     </x-nav-link>
                     @endif
