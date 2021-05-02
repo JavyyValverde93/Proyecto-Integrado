@@ -35,7 +35,33 @@ class ContactoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'id_user'=>'required',
+                'telefono'=>'integer',
+                'instagram'=>'string',
+                'youtube'=>'string',
+                'correo'=>'string',
+                'twitter'=>'string',
+                'facebook'=>'string'
+            ]);
+            $contacto = new Contacto();
+            $contacto->id_user = $request->id_user;
+            $contacto->telefono = $request->telefono;
+            $contacto->instagram = $request->instagram;
+            $contacto->youtube = $request->youtube;
+            $contacto->correo = $request->correo;
+            $contacto->twitter = $request->twitter;
+            $contacto->facebook = $request->facebook;
+
+            $contacto->save();
+
+            return back()->with('mensaje', 'Datos de contacto creados correctamente');
+
+        }catch(\Exception $ex){
+            return back()->with('error', 'Ha habido algún error al rellenar los campos de contacto');
+
+        }
     }
 
     /**

@@ -16,7 +16,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="m-1 p-3 rounded row" style="border: solid 1px #21ba454e; background-color:rgba(238, 238, 238, 0.313)">
-                    <div class="col-11">
+                    <div class="col-10">
                         <div class="row">
                             <div class="col-auto">
                                 <a href="{{route('ver_perfil', $producto->user->id)}}" style="color: black;">
@@ -34,7 +34,7 @@
 
 
                     </div>
-                    <div class="col-1 my-auto">
+                    <div class="col-2 my-auto">
                         {{-- Si el usuario logueado es el propietario del anuncio o admin puede modificarlo --}}
                         @if(Auth::user()!=null && Auth::user()==$producto->user || Auth::user()!=null && Auth::user()->tipo==1)
                             <a href="{{route('productos.edit', $producto)}}" style="color:#10FA91"><i class="far fa-edit fa-2x"></i></a>

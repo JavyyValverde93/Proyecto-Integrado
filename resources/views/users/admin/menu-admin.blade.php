@@ -200,6 +200,6 @@ a{
         <a href="{{route('admin_zone', ['prod=1'])}}"><button>Productos</button></a>
         <a href="{{route('admin_zone')}}"><button>Volver</button></a>
     </main>
-    
+
 </body>
 </html>

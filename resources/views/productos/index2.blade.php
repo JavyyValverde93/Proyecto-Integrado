@@ -1,6 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <link rel="stylesheet" href="{{asset('css/index.css')}}">
+        <style>
+            /* Esconder botones de paginación */
+            nav[role='navigation']{
+                visibility: hidden;
+            }
+        </style>
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <div class="row">
@@ -60,13 +66,11 @@
                             @endif
                         </form>
                     </div>
-                    
+
 
                     <div class="row mx-auto" id="prods">
-                        @if(Auth::user()!=null)<input type="text" class="hidden" name="uui"
-                            value="{{Auth::user()->id}}">@endif
                         @foreach($productos as $item)
-                        <div class="col-md-6 col-lg-4 my-3">
+                        <div class="col-md-5 col-lg-4 my-3">
                             <div class="card" style="width: 18rem;">
                                 <a href="{{route('productos.show', [$item, 'u=%'])}}" style="text-decoration: none; color: black">
                                     <div class="cardimg">
@@ -179,11 +183,14 @@
                             var doc = dom2.parseFromString(respuesta, 'text/html');
 
                             var pag = doc.querySelector('#prods').innerHTML;
-                            document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + pag;
 
-                            history.pushState(null, "", enlace);
-
-                            intento = 1;
+                            if(pag.length>=50){
+                                document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + pag;
+                                history.pushState(null, "", enlace);
+                                intento = 1;
+                            }else{
+                                document.getElementById('next').innerHTML = 'No hay más productos con estas características';
+                            }
                         }
 
                         function cargando(){

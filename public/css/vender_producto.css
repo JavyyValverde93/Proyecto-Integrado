@@ -5,9 +5,18 @@ body {
 
 .file-upload, .file-upload2, .file-upload3, .file-upload4, .file-upload5 {
     background-color: #ffffff;
-    width: 600px;
+    width: 500px;
     margin: 0 auto;
     padding: 20px;
+}
+
+@media screen and (max-width: 500px){
+    .file-upload, .file-upload2, .file-upload3, .file-upload4, .file-upload5 {
+        background-color: #ffffff;
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 }
 
 .file-upload-btn, .file-upload-btn2, .file-upload-btn3, .file-upload-btn4, .file-upload-btn5 {

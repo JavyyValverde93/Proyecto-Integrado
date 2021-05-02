@@ -122,8 +122,8 @@ small{
 
         </script>
 
-        
-        
+
+
 
         <!-- Validation Errors -->
         {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
@@ -142,7 +142,7 @@ small{
             <p class="mx-auto my-5">Eliminar imágen: <input type="checkbox" class="checkbox" name="del_image"></p>
 
             <!-- Name -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />    
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 
             <div>
                 <x-label for="name" :value="__('Nombre:')" />
@@ -184,7 +184,7 @@ small{
                 <x-button id="actualizar" class="ml-4 mt-4 float-right" onmouseover="validarFormulario(this)">
                     {{ __('Guardar') }}
                 </x-button>
-                <a href="{{route('admin_zone')}}" id="back" class="p-4"><i class="fas fa-backward"></i></a>
+                <a href="{{route('ver_perfil', $user->id)}}" id="back" class="p-4"><i class="fas fa-backward"></i></a>
                 <a href="{{route('productos.index')}}" id="home" class="p-4"><i class="fas fa-home"></i></a>
                 {{-- <a href="{{route('password.reset', $request->route('token'))}}" id="cambiarPass" class="">Cambiar Contraseña</a> --}}
 

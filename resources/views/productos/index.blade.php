@@ -21,7 +21,7 @@
 
                     </div>
                     <div class="col" align="right">
-                        
+
                     </div>
                     <form action="{{route('productos.index')}}" method="GET">
                         @csrf
@@ -41,21 +41,22 @@
             </h2>
         </x-slot>
 
-        <x-alert-message></x-alert-message>
-    
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <x-alert-message2></x-alert-message2>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="container-fluid">
-                        
+
             <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
             {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
             {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
-            <script src="{{asset('js/index.js')}}"></script>
-                        
+            <script src="{{asset('js/index2.js')}}"></script>
+
                             <div class="container my-5">
                             <h2>Categorías</h2>
                             <section class="customer-logos slider" align="center">
@@ -78,8 +79,8 @@
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Empleo'])}}"><img src="{{asset('storage/imagenes-categorias/empleo.jpg')}}">Empleo</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Servicios'])}}"><img src="{{asset('storage/imagenes-categorias/servicios.jpg')}}">Servicios</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Otros'])}}"><img src="{{asset('storage/imagenes-categorias/otros.png')}}">Otros</a></div>
-                           
-                                
+
+
                             </section>
                             </div>
 
@@ -100,7 +101,7 @@
                                             <div class="module line-clamp">
                                                 <p class="card-text mr-5">{{$item->descripcion}}</p>
                                             </div>
-                                            <label class="float-right" align="right" style="opacity: 50%">{{$item->created_at}}</label>
+                                            {{-- <label class="float-right" align="right" style="opacity: 50%">{{$item->created_at}}</label> --}}
                                         </div>
                                     </a>
 
@@ -110,8 +111,9 @@
                             @endforeach
 
                         </div>
+                        {{$productos->appends($request->except('page'))->links()}}
                     </div>
-                    
+
                 </div>
             </div>
         </div>

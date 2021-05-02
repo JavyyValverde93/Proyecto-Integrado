@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Follower;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class FollowerController extends Controller
 {
@@ -35,7 +37,15 @@ class FollowerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $follower = new Follower();
+            $follower->seguidor = Auth::user()->id;
+            $follower->seguido = $request->seguido;
+            $follower->save();
+            return back()->with('mensaje', 'Ahora sigues a este usuario');
+        }catch(\Exception $ex){
+            return back()->with('error', 'No se ha podido seguir al usuario');
+        }
     }
 
     /**
@@ -80,6 +90,11 @@ class FollowerController extends Controller
      */
     public function destroy(Follower $follower)
     {
-        //
+        try{
+            $follower->delete();
+            return back();
+        }catch(\Exception $ex){
+            back()->with('error', 'No se ha podido dejar de seguir al usuario');
+        }
     }
 }

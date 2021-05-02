@@ -67,6 +67,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
@@ -132,12 +133,22 @@
                                         data-toggle="list" href="#list-settings2" role="tab"
                                         aria-controls="settings">Quinta imágen</a>
                                 </div>
-                                <div class="mx-auto">
-                                    <div class="tab-content" id="nav-tabContent">
+                                <script>
+                                    window.onload = o;
+                                    function o(){
+                                        document.getElementById('nav-tabContent').scrollLeft += $(window).width()/2-44;
+
+                                    }
+                                </script>
+                                <div class="mx-auto col-10">
+                                    <div class="tab-content" id="nav-tabContent" style="overflow-x:scroll; margin-right:-50px; margin-left:-50px">
                                         <div class="tab-pane fade show active" id="list-home" role="tabpanel"
                                             aria-labelledby="list-home-list">
                                             {{-- Foto 1 --}}
                                             <div class="file-upload">
+                                                @if($producto->foto1!=null)
+                                                <img src="{{asset($producto->foto1)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                @endif
                                                 <button class="file-upload-btn" type="button"
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
 
@@ -160,6 +171,9 @@
                                             aria-labelledby="list-profile-list">
                                             {{-- Foto 2 --}}
                                             <div class="file-upload2">
+                                                @if($producto->foto2!=null)
+                                                <img src="{{asset($producto->foto2)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                @endif
                                                 <button class="file-upload-btn2" type="button"
                                                     onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o cambiar imágen</button>
 
@@ -180,6 +194,9 @@
                                             aria-labelledby="list-messages-list">
                                             {{-- Foto 3 --}}
                                             <div class="file-upload3">
+                                                @if($producto->foto3!=null)
+                                                <img src="{{asset($producto->foto3)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                @endif
                                                 <button class="file-upload-btn3" type="button"
                                                     onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o cambiar imágen</button>
 
@@ -200,6 +217,9 @@
                                             aria-labelledby="list-settings-list">
                                             {{-- Foto 4 --}}
                                             <div class="file-upload4">
+                                                @if($producto->foto4!=null)
+                                                <img src="{{asset($producto->foto4)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                @endif
                                                 <button class="file-upload-btn4" type="button"
                                                     onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o cambiar imágen</button>
 
@@ -220,6 +240,9 @@
                                             aria-labelledby="list-settings-list2">
                                             {{-- Foto 5 --}}
                                             <div class="file-upload4">
+                                                @if($producto->foto5!=null)
+                                                <img src="{{asset($producto->foto5)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                @endif
                                                 <button class="file-upload-btn5" type="button"
                                                     onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o cambiar imágen</button>
 
@@ -242,8 +265,20 @@
                                 </div>
                             </div>
                         </div>
-                            <button type="submit" class="btn btn-primary col-md-12 p-3" style="background-color: #06ff8f; border: 1px solid green"><b>Subir producto</b></button>
+                            <button type="submit" class="btn btn-primary col-md-12 p-3" style="background-color: #06ff8f; border: 1px solid green"><b>Actualizar producto</b></button>
                     </form>
+                    <div class="m-5">
+
+                    </div>
+                    <div class="col-lg-4 col-xs-7 mx-auto">
+
+            <form action="{{route('productos.destroy', $producto)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar el producto?')" class="btn btn-danger btn-block p-3 rounded-pill" style="background-color: #ff0000; border:2px solid #cd0a20">Eliminar producto</button>
+            </form>
+
+                    </div>
                 </div>
             </div>
 

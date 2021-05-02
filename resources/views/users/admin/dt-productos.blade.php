@@ -7,6 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <x-alert-message2></x-alert-message2>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -17,17 +18,22 @@
                     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
 
                     <style>
-                        form a{
+                        table a{
                             color: black;
                         }
+
+                        table a:last-child{
+                            color: #FF1731;
+                        }
                     </style>
-                    
+
                     <div class="container" style="overflow-x:scroll">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Propietario</th>
+                                    <th>Id</th>
                                     <th>Nombre</th>
+                                    <th>Foto</th>
                                     <th>Precio</th>
                                     <th>&nbsp;</th>
                                 </tr>
@@ -36,19 +42,20 @@
 
                     </div>
                     <script>
-                        
+
                         $(document).ready(function() {
                             $('#example').DataTable({
                                 "serverSide":true,
                                 "ajax":"{{url('api/products')}}",
                                 "columns":[
-                                    {data:'name'},
+                                    {data:'id'},
                                     {data:'nombre'},
+                                    {data:'foto'},
                                     {data:'precio'},
                                     {data:'btn'},
                                 ],
                                 "language":{
-                                    "info": "_TOTAL_ registros",
+                                    "info": "_TOTAL_ productos",
                                     "search":"Buscar",
                                     "paginate":{
                                         "next": "Siguiente",
@@ -61,14 +68,15 @@
                                         '<option value="100">100</option>'+
                                         '<option value="200">200</option>'+
                                         '<option value="-1">Todos</option>'+
-                                        '</select> registros',
+                                        '</select> productos',
                                     "loadingRecords": "Cargando...",
                                     "procesing": "Procesando...",
                                     "emptyTable":"No hay datos",
                                     "infoEmpty":"",
-                                    "infoFiltered":""
+                                    "infoFiltered":"",
+                                    "zeroRecords":"No hay coincidencias con esas características"
                                 }
-                                
+
                             });
                         } );
                     </script>

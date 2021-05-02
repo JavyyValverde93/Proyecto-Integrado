@@ -69,13 +69,13 @@ class ProductoController extends Controller
 
         }
 
-        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(9);
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(4);
         $scope = $request->nombre;
         $guardados = Guardado::all();
         if($request->categoria!=null || $request->nombre!=null){
-            return view('productos.index2', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
+            return view('productos.index2', compact('productos', 'guardados', 'request', 'scope'));
         }
-        return view('productos.index', compact('productos', 'guardados', 'request', 'scope'))->with('error', 'Hostia pilotes');
+        return view('productos.index', compact('productos', 'guardados', 'request', 'scope'));
     }
 
     /**
@@ -196,7 +196,14 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.modificar_producto', compact('producto'));
+        if(Auth::user()==$producto->user){
+            return view('productos.modificar_producto', compact('producto'));
+        }
+        if(Auth::user()->tipo==1){
+            return view('productos.modificar_producto', compact('producto'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -279,62 +286,75 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        try{
-            if($producto->foto1!='storage/productos/default.png'){
-                unlink($producto->foto1);
-            }
-            if($producto->foto2!='storage/productos/default.png'){
-                unlink($producto->foto2);
-            }
-            if($producto->foto3!='storage/productos/default.png'){
-                unlink($producto->foto3);
-            }
-            if($producto->foto4!='storage/productos/default.png'){
-                unlink($producto->foto4);
-            }
-            if($producto->foto5!='storage/productos/default.png'){
-                unlink($producto->foto5);
+        if(Auth::user()==$producto->user || Auth::user()->tipo==1){
+            $id = $producto->user->id;
+            try{
+                if($producto->foto1!=null && $producto->foto1!='storage/productos/default.png'){
+                    unlink($producto->foto1);
+                }
+                if($producto->foto2!=null && $producto->foto2!='storage/productos/default.png'){
+                    unlink($producto->foto2);
+                }
+                if($producto->foto3!=null && $producto->foto3!='storage/productos/default.png'){
+                    unlink($producto->foto3);
+                }
+                if($producto->foto4!=null && $producto->foto4!='storage/productos/default.png'){
+                    unlink($producto->foto4);
+                }
+                if($producto->foto5!=null && $producto->foto5!='storage/productos/default.png'){
+                    unlink($producto->foto5);
+                }
+
+                $producto->delete();
+
+                return redirect()->route('ver_perfil', $id)->with('mensaje', "Producto eliminado con éxito");
+
+            }catch(\Exception $ex){
+                return back()->with('error', "El producto no ha podido eliminarse, intentelo más tarde".$ex->getMessage());
             }
 
-            $producto->delete();
-
-            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");
-
-        }catch(\Exception $ex){
-            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");
+        }else{
+            return redirect()->route('login');
         }
     }
 
-    public function destroy2($id)
+    public function destroyprod($id)
     {
-        dd($id);
         $producto = Producto::all()->where('id', $id);
         foreach($producto as $prod){
             $producto = $prod;
         }
-        try{
-            if($producto->foto1!='storage/productos/default.png'){
-                unlink($producto->foto1);
-            }
-            if($producto->foto2!='storage/productos/default.png'){
-                unlink($producto->foto2);
-            }
-            if($producto->foto3!='storage/productos/default.png'){
-                unlink($producto->foto3);
-            }
-            if($producto->foto4!='storage/productos/default.png'){
-                unlink($producto->foto4);
-            }
-            if($producto->foto5!='storage/productos/default.png'){
-                unlink($producto->foto5);
-            }
 
-            $producto->delete();
+        if(Auth::user()==$producto->user || Auth::user()->tipo==1){
+            try{
+                if($producto->foto1!=null && $producto->foto1!='storage/productos/default.png'){
+                    unlink($producto->foto1);
+                }
+                if($producto->foto2!=null && $producto->foto2!='storage/productos/default.png'){
+                    unlink($producto->foto2);
+                }
+                if($producto->foto3!=null && $producto->foto3!='storage/productos/default.png'){
+                    unlink($producto->foto3);
+                }
+                if($producto->foto4!=null && $producto->foto4!='storage/productos/default.png'){
+                    unlink($producto->foto4);
+                }
+                if($producto->foto5!=null && $producto->foto5!='storage/productos/default.png'){
+                    unlink($producto->foto5);
+                }
 
-            return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");
+                $producto->delete();
 
-        }catch(\Exception $ex){
-            return redirect()->route('productos.index')->with('error', "El producto no ha podido eliminarse, intentelo más tarde");
+                if(isset($_GET['ad'])){
+                    return back()->with('mensaje', "Producto eliminado con éxito");
+                }
+                return redirect()->route('productos.index')->with('mensaje', "Producto eliminado con éxito");
+
+            }catch(\Exception $ex){
+                return back()->with('error', "El producto no ha podido eliminarse, intentelo más tarde: ".$ex->getMessage());
+            }
+        }else{
+            return redirect()->route('login');
         }
     }
 }
