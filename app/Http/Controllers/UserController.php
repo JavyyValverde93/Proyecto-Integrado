@@ -36,6 +36,7 @@ class UserController extends Controller
             }
         }else{
             $follower = null;
+            $n_guards = null;
         }
 
         return view('users.user-profile', compact('user', 'productos', 'n_prods', 'n_guards', 'n_seguidos', 'n_seguidores', 'follower'));

@@ -28,7 +28,7 @@
             min-width: 100%;
         }
 
-        img:hover, .card:hover, .card-title:hover{
+        .profile-card__img img:hover, .card-title:hover{
             transform: scale(1.1)
         }
 
