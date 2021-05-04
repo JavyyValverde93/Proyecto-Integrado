@@ -47,12 +47,20 @@
     }
         </script>
 
-        <form method="POST" action="{{ route('login') }}">
+    <script>
+        function disableButton(form) {
+            var btn = form.lastElementChild;
+            btn.disabled = true;
+            btn.innerText = 'Enviando...'
+        }
+    </script>
+
+        <form method="POST" action="{{ route('login') }}" onsubmit="disableButton(this)">
             @csrf
 
             <!-- Email Address -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Email:')" />
 
                 <x-input id="email" class="block mt-1 w-full" oninput="validarEmail()" type="email" name="email" :value="old('email')" required autofocus />
                 <small></small>
@@ -60,7 +68,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('Contraseña:')" />
 
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"

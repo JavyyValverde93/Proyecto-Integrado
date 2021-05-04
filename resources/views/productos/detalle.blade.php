@@ -40,7 +40,7 @@
                             <a href="{{route('productos.edit', $producto)}}" style="color:#10FA91"><i class="far fa-edit fa-2x"></i></a>
                         @else
                             @if(count($guardados)>=1)
-                                <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar()"></i>
+                                <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar();"></i>
                             @else
                                 <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
                             @endif
@@ -141,6 +141,10 @@
                         <p style="font-size: 1em">{{$producto->descripcion}}</p>
                     </div>
 
+                    <div class="mb-5 mx-5 p-2 mt-5" >
+                        <button class="ui button green" data-toggle="modal" data-target="#modalContacto">Comprar Producto</button>
+                    </div>
+
                     {{-- Galería de imágenes --}}
                     <style>
                         #galeria img{
@@ -190,25 +194,25 @@
                         <div class="row justify-center">
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" style="max-width: 400px;" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <div style="max-width: 400px; max-height:400px; overflow-y:scroll">
+                                    <div style="width: 440px; max-width: 500px; max-height:400px; overflow-y:scroll">
                                         <?php $coment = 0; ?>
                                         @foreach($comentarios as $coments)
-                                            <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #21ba45 @endif">
-                                                <form action="{{route('comentarios.destroy', $coments)}}" method="POST">
+                                            <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #10FA91 @else #0DD97D @endif">
+                                                <form action="{{route('comentarios.destroy', $coments)}}" method="POST" onsubmit="disableButton(this);">
                                                 <p>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif
                                                     <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black"><b>{{$coments->user->name}}: </b></a>{{$coments->comentario}}
                                                         @csrf
-                                                        @if(Auth::user()!=null && Auth::user()->id==$coments->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                        @if(Auth::user()!=null && Auth::user()==$coments->user || Auth::user()!=null && Auth::user()->tipo==1)
                                                         @method('DELETE')
                                                         <button type="submit" style="color:red; font-size:17px;" class="float-right"><i class="far fa-times-circle"></i></button>
                                                         @endif
                                                     </form>
                                                     @foreach($resPreg as $res)
                                                     @if($res->comentario->id==$coments->id)
-                                                    <form action="{{route('respuestas.destroy', $res)}}" method="POST">
+                                                    <form action="{{route('respuestas.destroy', $res)}}" method="POST" onsubmit="disableButton(this);">
                                                             <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black">&nbsp;<b>{{$res->user->name}}: </b></a>{{$res->respuesta}}
                                                                 @csrf
-                                                                @if(Auth::user()!=null && Auth::user()->id==$res->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                                @if(Auth::user()!=null && Auth::user()==$res->user || Auth::user()!=null && Auth::user()->tipo==1)
                                                                 @method('DELETE')
                                                                 <button type="submit" style="color:red; font-size:17px;" class="float-right"><i class="far fa-times-circle"></i></button>
                                                                 @endif
@@ -217,9 +221,9 @@
                                                     @endif
                                                     @endforeach
                                                     @if(Auth::user()!=null)
-                                                    <form action="{{route('respuestas.store', ['idp='.$producto->id, 'idc='.$coments->id, 'idu='.Auth::user()->id])}}" method="POST">
+                                                    <form action="{{route('respuestas.store', ['idp='.$producto->id, 'idc='.$coments->id, 'idu='.Auth::user()->id])}}" method="POST" onsubmit="disableButton(this);">
                                                         @csrf
-                                                        <input type="text" name="respuesta" placeholder="Respuesta comentario..." onchange="this.form.submit()">
+                                                        <input value="{{ old('respuesta') }}" required type="text" name="respuesta" placeholder="Respuesta comentario...">
                                                         <button type="submit" class="ui button">Responder</button>
                                                     </form>
                                                     @endif
@@ -228,15 +232,15 @@
                                             </div>
                                             <?php $coment ++; ?>
                                         @endforeach
-                                        @if($coment==0) <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #21ba45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{__('Sin comentarios')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> @endif
+                                        @if($coment==0) <div class="p-3 rounded-pill mt-3" align="center" style="background-color: #10fa91a7; border-color: 1px solid #0DD97D">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{__('Sin comentarios')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> @endif
                                         <p></p>
                                     </div>
-                                    <form action="{{route('comentarios.store')}}" class="my-4" method="POST" name="com">
+                                    <form action="{{route('comentarios.store')}}" class="my-4" method="POST" name="com" onsubmit="disableButton(this)">
                                         @csrf
                                         @if(Auth::user()!=null)<input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">
                                         <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
-                                        <textarea cols="40" style="width: 100%" name="comentario" placeholder="Escriba aquí para comentar este producto..."></textarea><br>
-                                        <button type="submit" class="btn btn-primary float-right mt-2">Enviar comentario</button>
+                                        <textarea cols="40" style="width: 100%" name="comentario" required minlength="3" placeholder="Escriba aquí para comentar este producto..."></textarea><br>
+                                        <button type="submit" id="btncom" class="btn btn-primary float-right mt-2">Enviar comentario</button>
                                         @endif
                                     </form>
                                 </div>
@@ -246,9 +250,9 @@
                                         @foreach($preguntas as $preg)
                                             <div class="p-3 rounded mt-2" style="background-color: @if($coment%2==0) #3be8b0 @else #00b2a9 @endif">
                                                 <p id="preguntax"><a href="{{route('ver_perfil', $preg->user->id)}}" style="color: black"><b>{{$preg->user->name}}: </b></a>{{$preg->pregunta}}</p>
-                                                @if(Auth::user()!=null && Auth::user()->id==$preg->user->id || Auth::user()!=null && Auth::user()->tipo==1)
+                                                @if(Auth::user()!=null && Auth::user()==$preg->user || Auth::user()!=null && Auth::user()->tipo==1)
                                                 @if($preg->respuesta!=null)
-                                                <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST">
+                                                <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST" onsubmit="disableButton(this);">
                                                     @csrf
                                                     @method('DELETE')
                                                     <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{__('Respuesta del vendedor')}}: </b>{{$preg->respuesta}}
@@ -256,12 +260,14 @@
                                                     </p>
                                                 </form>
                                                 @else
-                                                <form action="{{route('preguntas.update', $preg)}}" method="POST" autocomplete="off">
+                                                @if(Auth::user()!=null && Auth::user()==$producto->user || Auth::user()!=null && Auth::user()->tipo==1)
+                                                <form action="{{route('preguntas.update', $preg)}}" method="POST" autocomplete="off" onsubmit="disableButton(this);">
                                                     @csrf
                                                     @method('PUT')
-                                                    <input type="text" name="respuesta" placeholder="Respuesta a {{$preg->user->name}}: ">
+                                                    <input value="old('respuesta')" required type="text" name="respuesta" placeholder="Respuesta a {{$preg->user->name}}: ">
                                                     <button type="submit" class="ui button mt-2">Enviar respuesta</button>
                                                 </form>
+                                                @endif
                                                 @endif
                                                 @endif
                                             </div>
@@ -275,13 +281,13 @@
                                         <b>{{__(' Sin Preguntas')}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                     @endif
-                                    <form action="{{route('preguntas.store')}}" method="POST">
+                                    <form action="{{route('preguntas.store')}}" method="POST" onsubmit="disableButton(this);">
                                         @csrf
                                         @if(Auth::user()!=null)
                                         <input type="text" class="hidden" value="{{Auth::user()->id}}" name="user_id">
                                             @if(Auth::user()->id!=$producto->user->id)
                                                 <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
-                                                <textarea name="pregunta" style="width: 100%" class="mt-3" cols="50" placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
+                                                <textarea minlength="10" required name="pregunta" style="width: 100%" class="mt-3" cols="50" placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
                                                 <button type="submit" class="btn btn-primary float-right">Enviar pregunta</button>
                                             @endif
                                         @endif
@@ -295,6 +301,51 @@
         </div>
     </div>
 
+    {{-- Modal --}}
+    <div class="modal fade show active" id="modalContacto" tabindex="-1" role="dialog" aria-labelledby="modalContactoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Favoritos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background-image: url({{asset('storage/fondologo1.png')}}); background-repeat: repeat;">
+                        <form action="{{route('contacto', ['prodname='.$producto->nombre, 'correo='.$producto->user->email, 'idprod='.$producto->id])}}" method="POST" onsubmit="ocultarModal(this)">
+                            @csrf
+                            <input type="hidden" name="vendedor" value="{{$producto->user}}">
+                            <input type="hidden" name="vendedor" value="{{$producto}}">
+                            <img class="mx-auto" width="100px" src="https://media.istockphoto.com/vectors/mail-and-email-icon-isolated-on-white-background-envelope-symbol-vector-id1129862448?k=6&m=1129862448&s=170667a&w=0&h=YvJZ_0J83teWOD1IeQm6T9-EFpK55lOUke3k2ZI1c04=">
+                            <div align="center">
+                                <label id="envim" class="hidden">Enviando...</label>
+                            </div>
+                            <div class="form-group" align="center">
+                                <input type="hidden" name="prod" value="{{$producto}}">
+                                <label class="font-bold p-1 rounded" style="background-color: rgb(255, 255, 255)">¿Qué le gustaria decirle al vendedor? :</label><br>
+                                <textarea class="rounded" cols="30" autofocus rows="6" name="mensaje">Hola buenas, soy {{Auth::user()->name}} y me interesa su producto {{$producto->nombre}}, contacte conmigo para negociar los detalles de la transacción.</textarea> <p></p>
+
+                            <button class="ui button blue" class="submit"><i class="fas fa-paper-plane"></i> Enviar correo</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script>
+        function disableButton(form) {
+            var btn = form.lastElementChild;
+            btn.disabled = true;
+            btn.innerText = 'Enviando...'
+        }
+        function ocultarModal(form) {
+            var btn = form.lastElementChild;
+            btn.style.display = 'none';
+            document.getElementById("envim").classList.remove('hidden');
+        }
+    </script>
 
     <script>
         function getFullscreen(element){

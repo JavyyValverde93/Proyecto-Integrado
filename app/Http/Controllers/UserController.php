@@ -131,6 +131,9 @@ class UserController extends Controller
                 if(isset($_GET['ad']) && $_GET['ad']==1){
                     return back()->with('mensaje', 'Usuario eliminado');
                 }
+                if(Auth::user()->tipo==1){
+                    return back()->with('mensaje', 'Usuario eliminado');
+                }
                 return redirect()->route('login')->with('mensaje', 'Usuario eliminado');
             }else{
                 return redirect()->route('productos.index');

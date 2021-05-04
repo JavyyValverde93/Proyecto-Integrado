@@ -98,12 +98,17 @@ class ProductoController extends Controller
     {
 
         $request->validate([
-            'nombre'=>['required', 'min:2'],
+            'nombre'=>['required', 'min:5'],
             'descripcion'=>['required', 'string', 'min:10'],
             'categoria'=>['required'],
-            'precio'=>['required', 'min:0.01'],
+            'precio'=>['required', 'min:0.05'],
+            'foto1'=>['required', 'image'],
             'user_id'=>['required']
+        ],[
+            'foto1.required'=>'Es obligatorio usar al menos una imágen',
+            'foto1.image'=>'Es obligatorio usar una imágen'
         ]);
+
         try{
 
             $prod = new Producto();
@@ -215,14 +220,17 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        try{
             $request->validate([
-                'nombre'=>['required', 'min:2'],
+                'nombre'=>['required', 'min:5'],
                 'descripcion'=>['required', 'string', 'min:10'],
                 'categoria'=>['required'],
-                'precio'=>['required', 'min:0.01'],
-                'user_id'=>['required']
+                'precio'=>['required', 'min:0.05'],
+                'user_id'=>['required'],
+                'foto1'=>['required', 'image']
             ]);
+
+
+            try{
 
             $producto->update([
                 'nombre'=>$request->nombre,

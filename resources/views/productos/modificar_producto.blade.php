@@ -63,7 +63,7 @@
 
                     </script>
                     <x-alert-message></x-alert-message>
-                    <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
                         @csrf
                         @method('PUT')
                         <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
@@ -71,8 +71,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text"  value="{{$producto->nombre}}" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
-                                <small></small>
+                                <input type="text" value="{{$producto->nombre}}" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <small>{{$errors->first('nombre')}}</small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Categoría:</label><br>
@@ -98,20 +98,21 @@
                                     <option class="fa" value="Servicios" @if($producto->categoria=="Servicios") selected @endif>&#xf554; Servicios</option>
                                     <option class="fa" value="Otros" @if($producto->categoria=="Otros") selected @endif>&#xf069; Otros</option>
                                 </select>
+                                <small>{{$errors->first('categoria')}}</small>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Descripción:</label>
                             <textarea name="descripcion" class="form-control"
                                 placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10">{{$producto->descripcion}}</textarea>
-                                <small></small>
+                                <small>{{$errors->first('descripcion')}}</small>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label>Precio:</label>
-                                <input type="number" name="precio" min="0.01" value="{{$producto->precio}}" step="0.01" required class="form-control"
+                                <input type="number" name="precio" min="0.05" value="{{$producto->precio}}" step="0.01" required class="form-control"
                                     placeholder="0.00€" oninput="validarPrecio()">
-                                    <small></small>
+                                    <small>{{$errors->first('precio')}}</small>
                             </div>
                         </div>
                         <div class="form-row">
@@ -153,7 +154,7 @@
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap">
-                                                    <input class="file-upload-input" type='file' name="foto1" onchange="readURL(this);"
+                                                    <input class="file-upload-input" required type='file' name="foto1" onchange="readURL(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -272,7 +273,7 @@
                     </div>
                     <div class="col-lg-4 col-xs-7 mx-auto">
 
-            <form action="{{route('productos.destroy', $producto)}}" method="POST">
+            <form action="{{route('productos.destroy', $producto)}}" method="POST" onsubmit="disableButton(this)">
                 @csrf
                 @method('DELETE')
                 <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar el producto?')" class="btn btn-danger btn-block p-3 rounded-pill" style="background-color: #ff0000; border:2px solid #cd0a20">Eliminar producto</button>
@@ -281,6 +282,14 @@
                     </div>
                 </div>
             </div>
+
+    <script>
+        function disableButton(form) {
+            var btn = form.lastElementChild;
+            btn.disabled = true;
+            btn.innerText = 'Enviando...'
+        }
+    </script>
 
         </div>
     </div>

@@ -30,7 +30,7 @@
 
                         function validarNombre(){
                             var name = document.getElementsByName('nombre')[0];
-                            if(name.value.length<4){
+                            if(name.value.length<5){
                                 name.style.border = rojo;
                                 name.nextElementSibling.innerHTML = "El nombre del producto no es válido";
                             }else{
@@ -41,7 +41,7 @@
 
                         function validarPrecio(){
                             var name = document.getElementsByName('precio')[0];
-                            if(name.value<0.01){
+                            if(name.value<0.05){
                                 name.style.border = rojo;
                                 name.nextElementSibling.innerHTML = "Este campo es obligatorio";
                             }else{
@@ -63,13 +63,13 @@
 
                     </script>
                     <x-alert-message></x-alert-message>
-                    <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" autofocus class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
-                                <small></small>
+                                <input type="text" required autofocus class="form-control" value="{{old('nombre')}}"  minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <small>{{$errors->first('nombre')}}</small>
                                 <input type="text" name="user_id" value="{{Auth::user()->id}}" class="hidden">
                             </div>
                             <div class="form-group col-md-6">
@@ -96,20 +96,21 @@
                                     <option class="fa" value="Servicios">&#xf554; Servicios</option>
                                     <option class="fa" value="Otros">&#xf069; Otros</option>
                                 </select>
+                                <small>{{$errors->first('categoria')}}</small>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Descripción:</label>
                             <textarea name="descripcion" class="form-control"
-                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10"></textarea>
-                                <small></small>
+                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10">{{old('descripcion')}}</textarea>
+                                <small>{{$errors->first('descripcion')}}</small>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label>Precio:</label>
-                                <input type="number" name="precio" min="0.01" step="0.01" required class="form-control"
+                                <input type="number" value="{{old('precio')}}" name="precio" min="0.05" step="0.01" required class="form-control"
                                     placeholder="0.00€" oninput="validarPrecio()">
-                                    <small></small>
+                                    <small>{{$errors->first('precio')}}</small>
                             </div>
                         </div>
                         <div class="form-row">
@@ -237,6 +238,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div align="center">
+                                    <small>{{$errors->first('foto1')}}</small>
+                                </div>
                                 <div class="form-group col-md-7">
                                 </div>
                             </div>
@@ -245,6 +249,14 @@
                     </form>
                 </div>
             </div>
+
+            <script>
+                function disableButton(form) {
+                    var btn = form.lastElementChild;
+                    btn.disabled = true;
+                    btn.innerText = 'Enviando...'
+                }
+            </script>
 
         </div>
     </div>

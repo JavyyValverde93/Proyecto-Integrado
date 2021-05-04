@@ -23,7 +23,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-use App\Http\Controllers\{GuardadoController, ProductoController, ComentarioController, PreguntaController, UserController, RespuestaController, FollowerController};
+use App\Http\Controllers\{GuardadoController, ProductoController, ComentarioController, PreguntaController, UserController, RespuestaController, FollowerController, MailController};
 
 Route::resource("productos", ProductoController::class);
 Route::resource("guardados", GuardadoController::class)->middleware(['auth']);
@@ -59,7 +59,7 @@ Route::put("users/modify_user{user}", [UserController::class, 'modify_user'])
 ->name('modify_user') ->middleware(['auth']);
 //Eliminar usuario
 Route::get("users/{user_id}/destroy_user", [UserController::class, 'destroy_user'])
-->name('destroy_user')->middleware(['auth', 'password.confirm']);
+->name('destroy_user')->middleware(['auth', 'password.confirm', 'verified']);
 //Hacer usuario admin
 Route::get("users/{user_id}/do_admin", [UserController::class, 'do_admin'])
 ->name('do_admin')->middleware(['auth', 'password.confirm']);
@@ -70,3 +70,10 @@ Route::get("users/{user_id}/undo_admin", [UserController::class, 'undo_admin'])
 //Modals-data
 Route::get("users/{user_id}/modals_data", [UserController::class, 'modals_data'])
 ->name('modals_data');
+
+//Correos
+Route::get('emails1/', function(){
+    return view('emails.form');
+});
+
+Route::post('/conctacto', [MailController::class, 'store'])->name('contacto');

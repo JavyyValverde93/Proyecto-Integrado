@@ -4,7 +4,7 @@
 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 <div class="row">
-                    <div class="ui search my-auto mx-3 col">
+                    <div class="ui search my-auto mx-3 col-auto mt-2">
                         <form action="{{route('productos.index')}}" method="GET" class="form form-inline">
                             @csrf
                             <div class="ui icon input">
@@ -23,7 +23,7 @@
                     <div class="col" align="right">
 
                     </div>
-                    <form action="{{route('productos.index')}}" method="GET">
+                    <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
                         @csrf
                             <select name="ordenar" onchange="this.form.submit()">
                                 <option>Ordenar por...</option>
@@ -101,6 +101,7 @@
                                             <div class="module line-clamp">
                                                 <p class="card-text mr-5">{{$item->descripcion}}</p>
                                             </div>
+                                            {{-- {{($item->created_at->getTimestamp())}} --}}
                                             {{-- <label class="float-right" align="right" style="opacity: 50%">{{$item->created_at}}</label> --}}
                                         </div>
                                     </a>

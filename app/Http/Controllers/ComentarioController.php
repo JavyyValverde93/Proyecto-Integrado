@@ -36,12 +36,13 @@ class ComentarioController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'comentario'=>['required'],
-            'user_id'=>['required'],
-            'producto_id'=>['required']
-        ]);
+            $request->validate([
+                'comentario'=>'required|min:7',
+                'user_id'=>'required',
+                'producto_id'=>'required'
+            ]);
         try{
+
             $coment = new Comentario();
             $coment->comentario = $request->comentario;
             $coment->user_id = $request->user_id;

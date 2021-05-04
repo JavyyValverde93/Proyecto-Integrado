@@ -150,7 +150,15 @@ small{
         <!-- Validation Errors -->
         {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
-        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+        <script>
+            function disableButton(form) {
+                var btn = form.lastElementChild;
+                btn.disabled = true;
+                btn.innerText = 'Enviando...'
+            }
+        </script>
+
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" onsubmit="disableButton(this)">
             @csrf
 
             <!--Foto de perfil -->
@@ -167,14 +175,14 @@ small{
                 <x-label for="name" :value="__('Nombre:')" />
 
                 <x-input id="name" oninput="validarNombre()" class="block mt-1 w-full" type="text" minlength=3 name="name" :value="old('name')" required autofocus />
-                <small></small>
+                <small>{{$errors->first('name')}}</small>
             </div>
             <!-- Ciudad -->
             <div class="mt-4">
                 <x-label for="ciudad" :value="__('Ciudad:')" />
 
                 <x-input id="ciudad" oninput="validarCiudad()" class="block mt-1 w-full" type="text" name="ciudad" :value="old('ciudad')" required autofocus />
-                <small></small>
+                <small>{{$errors->first('ciudad')}}</small>
             </div>
 
             <!-- Email Address -->
@@ -182,7 +190,7 @@ small{
                 <x-label for="email" :value="__('Correo:')" />
 
                 <x-input id="email" oninput="validarEmail()" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-                <small></small>
+                <small>{{$errors->first('email')}}</small>
             </div>
 
             <!-- Password -->
@@ -193,7 +201,7 @@ small{
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" />
-                                <small></small>
+                                <small>{{$errors->first('password')}}</small>
             </div>
 
             <!-- Confirm Password -->

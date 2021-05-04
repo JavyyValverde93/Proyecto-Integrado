@@ -37,7 +37,7 @@ class RespuestaController extends Controller
     {
         try{
             $request->validate([
-                'respuesta'=>['required'],
+                'respuesta'=>'required|min:7',
                 'idc'=>['required'],
                 'idu'=>['required'],
                 'idp'=>['required']

@@ -123,13 +123,20 @@ small{
         </script>
 
 
+    <script>
+        function disableButton(form) {
+            var btn = form.getElementById('actualizar');
+            btn.disabled = true;
+            btn.innerText = 'Enviando...'
+        }
+    </script>
 
 
         <!-- Validation Errors -->
         {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
         <x-alert-message></x-alert-message>
 
-        <form action="{{ route('modify_user', $user) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('modify_user', $user) }}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
             @csrf
             @method('PUT')
             <!--Foto de perfil -->
