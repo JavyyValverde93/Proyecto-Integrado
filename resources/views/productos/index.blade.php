@@ -25,7 +25,7 @@
                     </div>
                     <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
                         @csrf
-                            <select name="ordenar" onchange="this.form.submit()">
+                        <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
                                 <option>Ordenar por...</option>
                                 <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
                                 <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>

@@ -15,9 +15,11 @@
                     <x-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
                         {{ __('Productos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
+                    @if(Auth::user()!= null)
+                    <x-nav-link :href="route('ver_perfil', Auth::user()->id)" :active="request()->routeIs('ver_perfil', Auth::user()->id)">
                         {{ __('Mis productos') }}
                     </x-nav-link>
+                    @endif
                     @if(Auth::user()!= null && Auth::user()->tipo==1)
                     <x-nav-link :href="route('admin_zone', ['menu=1'])" :active="request()->routeIs('admin_zone')">
                         {{ __('Zona admin') }}
@@ -34,9 +36,9 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @if(Auth::user()!=null) <a href="{{route('ver_perfil', Auth::user()->id)}}" class="float-right ui button rounded-pill mr-3">Perfil</a> @endif
                 <a href="{{route('productos.create')}}" class="ui button positive float-right rounded-pill mr-3" style="background: #10FA91;"><i
-                    class="far fa-envelope-open-dollar"></i> Vender Producto</a>
+                    class="far fa-envelope-open-dollar mr-1"></i> Vender Producto</a>
                     @if(Auth::user()!=null) <img src="{{asset(Auth::user()->foto)}}" width="30px" height="30px" style="background-color: white" class="mr-1 rounded">
-                    @else   <a href="{{route('login')}}" class="ui button rounded-pill">Iniciar sesión o registrarse</a>
+                    @else   <a href="{{route('login')}}" class="ui button rounded-pill"><i class="fas fa-sign-in-alt mr-1"></i> Iniciar sesión o registrarse</a>
 
                     @endif
                 @if(Auth::user()!=null)

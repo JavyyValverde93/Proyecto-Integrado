@@ -76,6 +76,7 @@
                                 </div>
 
                                 <div class="profile-card-ctr">
+                                    @if(Auth::user()!=null && Auth::user()!=$user)
                                     @if(!isset($follower->seguido))
                                     <form action="{{route('followers.store', ['seguido='.$user->id])}}" method="POST">
                                         @csrf
@@ -92,7 +93,7 @@
                                     </form>
 
                                     @endif
-
+                                    @endif
                                 </div>
 
                                 <div class="row"
@@ -206,11 +207,23 @@
                 var doc = dom2.parseFromString(respuesta, 'text/html');
 
                 var seguidos = doc.querySelector('#seguidos').innerHTML;
-                document.querySelector('#seguidos').innerHTML = seguidos;
+                if(seguidos.length<50){
+                    document.querySelector('#seguidos').innerHTML = "<div align='center'>Este usuario no sigue a nadie</div>";
+                }else{
+                    document.querySelector('#seguidos').innerHTML = seguidos;
+                }
                 var seguidores = doc.querySelector('#seguidores').innerHTML;
-                document.querySelector('#seguidores').innerHTML = seguidores;
+                if(seguidores.length<50){
+                    document.querySelector('#seguidores').innerHTML = "<div align='center'>Este usuario tiene seguidores</div>";
+                }else{
+                    document.querySelector('#seguidores').innerHTML = seguidores;
+                }
                 var favoritos = doc.querySelector('#favoritos').innerHTML;
-                document.querySelector('#favoritos').innerHTML = favoritos;
+                if(favoritos.length<50){
+                    document.querySelector('#favoritos').innerHTML = "<div align='center'>Aún no has añadido ningún producto a favoritos</div>";
+                }else{
+                    document.querySelector('#favoritos').innerHTML = favoritos;
+                }
             }
 
             function cargando() {

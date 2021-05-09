@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Notifications\UserResetPassword;
+
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -62,6 +65,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function Follower(){
         return $this->hasMany(Follower::class);
+    }
+
+    //Notificiones
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new UserResetPassword($token));
     }
 
 }
