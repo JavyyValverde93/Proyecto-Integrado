@@ -57,27 +57,27 @@
             {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
             <script src="{{asset('js/index2.js')}}"></script>
 
-                            <div class="container my-5">
+                            <div class="container my-5" style="background-image:url({{asset('storage/fondologo1.png')}})">
                             <h2>Categorías</h2>
                             <section class="customer-logos slider" align="center">
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coches'])}}"><img src="{{asset('storage/imagenes-categorias/coche.jpg')}}">Coches</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motos'])}}"><img src="{{asset('storage/imagenes-categorias/moto.jpg')}}">Motos</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motor y Accesorios'])}}"><img src="{{asset('storage/imagenes-categorias/motor.jpg')}}">Motor y Accesorios</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Inmobiliaria'])}}"><img src="{{asset('storage/imagenes-categorias/casa.jpg')}}">Inmobiliaria</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Tv, Audio y Foto'])}}"><img src="{{asset('storage/imagenes-categorias/tv.jpg')}}">Tv, Audio y Foto</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Móviles y Telefonía'])}}"><img src="{{asset('storage/imagenes-categorias/movil.jpg')}}">Móviles y Telefonía</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Informática y Electrónica'])}}"><img src="{{asset('storage/imagenes-categorias/informatica.jpg')}}">Informática y Electrónica</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Deporte y Ocio'])}}"><img src="{{asset('storage/imagenes-categorias/deporte.jpg')}}">Deporte y Ocio</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Bicicletas'])}}"><img src="{{asset('storage/imagenes-categorias/bici.jpg')}}">Bicicletas</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Consolas y Videojuegos'])}}"><img src="{{asset('storage/imagenes-categorias/consola.jpg')}}">Consolas y Videojuegos</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Hogar y Jardín'])}}"><img src="{{asset('storage/imagenes-categorias/jardin.jpg')}}">Hogar y Jardín</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Cine, Libros y Música'])}}"><img src="{{asset('storage/imagenes-categorias/cine.jpg')}}">Cine, Libros y Música</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Niños y Bebés'])}}"><img src="{{asset('storage/imagenes-categorias/bebe.jpg')}}">Niños y Bebés</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coleccionismo'])}}"><img src="{{asset('storage/imagenes-categorias/coleccionismo.jpg')}}">Coleccionismo</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Materiales de construcción'])}}"><img src="{{asset('storage/imagenes-categorias/construccion.jpg')}}">Materiales de construcción</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Industria y Agricultura'])}}"><img src="{{asset('storage/imagenes-categorias/tractor.jpg')}}">Industria y Agricultura</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Empleo'])}}"><img src="{{asset('storage/imagenes-categorias/empleo.jpg')}}">Empleo</a></div>
-                                <div class="slide"><a href="{{route('productos.index', ['categoria=Servicios'])}}"><img src="{{asset('storage/imagenes-categorias/servicios.jpg')}}">Servicios</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coches'])}}"><img src="{{asset('storage/imagenes-categorias/coche.png')}}">Coches</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motos'])}}"><img src="{{asset('storage/imagenes-categorias/moto.png')}}">Motos</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Motor y Accesorios'])}}"><img src="{{asset('storage/imagenes-categorias/motor.png')}}">Motor y Accesorios</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Inmobiliaria'])}}"><img src="{{asset('storage/imagenes-categorias/casa.png')}}">Inmobiliaria</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Tv, Audio y Foto'])}}"><img src="{{asset('storage/imagenes-categorias/tv.png')}}">Tv, Audio y Foto</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Móviles y Telefonía'])}}"><img src="{{asset('storage/imagenes-categorias/movil.png')}}">Móviles y Telefonía</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Informática y Electrónica'])}}"><img src="{{asset('storage/imagenes-categorias/informatica.png')}}">Informática y Electrónica</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Deporte y Ocio'])}}"><img src="{{asset('storage/imagenes-categorias/deporte.png')}}">Deporte y Ocio</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Bicicletas'])}}"><img src="{{asset('storage/imagenes-categorias/bici.png')}}">Bicicletas</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Consolas y Videojuegos'])}}"><img src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y Videojuegos</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Hogar y Jardín'])}}"><img src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Cine, Libros y Música'])}}"><img src="{{asset('storage/imagenes-categorias/cine.png')}}">Cine, Libros y Música</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Niños y Bebés'])}}"><img src="{{asset('storage/imagenes-categorias/bebe.png')}}">Niños y Bebés</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Coleccionismo'])}}"><img src="{{asset('storage/imagenes-categorias/coleccionismo.png')}}">Coleccionismo</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Materiales de construcción'])}}"><img src="{{asset('storage/imagenes-categorias/construccion.png')}}">Materiales de construcción</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Industria y Agricultura'])}}"><img src="{{asset('storage/imagenes-categorias/tractor.png')}}">Industria y Agricultura</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Empleo'])}}"><img src="{{asset('storage/imagenes-categorias/empleo.png')}}">Empleo</a></div>
+                                <div class="slide"><a href="{{route('productos.index', ['categoria=Servicios'])}}"><img src="{{asset('storage/imagenes-categorias/servicios.png')}}">Servicios</a></div>
                                 <div class="slide"><a href="{{route('productos.index', ['categoria=Otros'])}}"><img src="{{asset('storage/imagenes-categorias/otros.png')}}">Otros</a></div>
 
 

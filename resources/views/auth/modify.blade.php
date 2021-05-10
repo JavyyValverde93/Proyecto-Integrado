@@ -178,6 +178,7 @@ small{
                 function inicio(){
                     document.getElementById('home').classList = document.getElementById('actualizar').classList;
                     document.getElementById('back').classList = document.getElementById('actualizar').classList;
+                    document.getElementById('destr').classList = document.getElementById('actualizar').classList;
 
                     document.getElementById('back').classList.remove('float-right');
                     document.getElementById('back').classList.remove('ml-4');
@@ -196,7 +197,11 @@ small{
                 {{-- <a href="{{route('password.reset', $request->route('token'))}}" id="cambiarPass" class="">Cambiar Contraseña</a> --}}
 
             </div>
-
         </form>
+
+            <div>
+                <a id="destr" class="mr-0 ml-0" style="background-color: red; padding:3% 10%;" href={{route("destroy_user", $user->id)}} onclick="return confirm(`¿Está seguro de que quiere eliminar este usuario ?`)"><i class="fas fa-trash-alt mr-2"></i> Eliminar Cuenta</a>
+            </div>
+
     </x-auth-card>
 </x-guest-layout>

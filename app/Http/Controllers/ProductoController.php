@@ -220,17 +220,17 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-            $request->validate([
-                'nombre'=>['required', 'min:5'],
-                'descripcion'=>['required', 'string', 'min:10'],
-                'categoria'=>['required'],
-                'precio'=>['required', 'min:0.05'],
-                'user_id'=>['required'],
-                'foto1'=>['required', 'image']
-            ]);
+        $request->validate([
+            'nombre'=>['required', 'min:5'],
+            'descripcion'=>['required', 'string', 'min:10'],
+            'categoria'=>['required'],
+            'precio'=>['required', 'min:0.05'],
+            'user_id'=>['required'],
+            'foto1'=>['required', 'image']
+        ]);
 
 
-            try{
+        try{
 
             $producto->update([
                 'nombre'=>$request->nombre,
