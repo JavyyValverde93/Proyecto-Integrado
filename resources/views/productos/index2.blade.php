@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <link rel="stylesheet" href="{{asset('css/index.css')}}">
+        <script src="https://momstudio.es/img/img-elmaquetadorweb/cookieconsent.min.js"></script>
+
         <style>
             /* Esconder botones de paginación */
             nav[role='navigation']{
@@ -30,6 +32,7 @@
     </x-slot>
 
     <x-alert-message></x-alert-message>
+    <script src="{{asset('js/index2.js')}}"></script>
 
 
 <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">

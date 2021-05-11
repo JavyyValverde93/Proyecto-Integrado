@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
-                        {{ __('Productos') }}
+                        {{ __('Inicio') }}
                     </x-nav-link>
                     @if(Auth::user()!= null)
                     <x-nav-link :href="route('ver_perfil', Auth::user()->id)" :active="request()->routeIs('ver_perfil', Auth::user()->id)">
@@ -91,8 +91,18 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Inicio') }}
             </x-responsive-nav-link>
+            @if(Auth::user()!= null)
+            <x-responsive-nav-link :href="route('ver_perfil', Auth::user()->id)" :active="request()->routeIs('ver_perfil', Auth::user()->id)">
+                {{ __('Mis productos') }}
+            </x-responsive-nav-link>
+            @endif
+            @if(Auth::user()!= null && Auth::user()->tipo==1)
+            <x-responsive-nav-link :href="route('admin_zone', ['menu=1'])" :active="request()->routeIs('admin_zone')">
+                {{ __('Zona admin') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

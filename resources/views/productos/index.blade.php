@@ -1,6 +1,7 @@
 <x-app-layout>
         <x-slot name="header">
             <link rel="stylesheet" href="{{asset('css/index.css')}}">
+            <script src="https://momstudio.es/img/img-elmaquetadorweb/cookieconsent.min.js"></script>
 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 <div class="row">
