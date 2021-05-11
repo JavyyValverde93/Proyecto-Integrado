@@ -10,6 +10,17 @@ Document
 /**
 Use a better box model (opinionated).
 */
+    
+@media (max-width: 632px) {
+  .fixed-bottom{
+    visibility: hidden;
+  }
+}
+@media (min-width: 633px) {
+  .fixed-bottom{
+    visibility: hidden;
+  }
+}
 
 *,
 *::before,

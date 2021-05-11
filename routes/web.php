@@ -76,4 +76,4 @@ Route::get('emails1/', function(){
     return view('emails.form');
 });
 
-Route::post('/conctacto', [MailController::class, 'store'])->name('contacto')->middleware(['auth', 'verified']);
+Route::post('/contacto', [MailController::class, 'store'])->name('contacto')->middleware(['auth', 'verified']);

@@ -19,6 +19,7 @@
 
 
         <!-- Scripts -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
@@ -31,10 +32,31 @@
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
-
+                </header>
             </div>
-            </header>
             <!-- Page Content -->
+            <script>
+                var lastScrollTop = 0;
+                $(window).scroll(function(event){
+                var st = $(this).scrollTop();
+                if (st > lastScrollTop){
+                    document.getElementsByClassName('fixed-top')[0].style.visibility = 'hidden';
+                    document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'hidden';
+                    if(window.scrollY==0){
+                        document.getElementsByClassName('font-semibold')[0].style.visibility = 'hidden';
+                    }
+                } else {
+                    if(window.innerWidth<=632){
+                        document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'initial';
+                    }else{
+                        document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'hidden';
+                    }
+                    document.getElementsByClassName('fixed-top')[0].style.visibility = 'initial';
+                    document.getElementsByClassName('font-semibold')[0].style.visibility = 'inicial';
+                }
+                lastScrollTop = st;
+                });
+            </script>
             <style>
                 main{
                     margin-top: 100px;

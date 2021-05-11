@@ -136,3 +136,21 @@
         </div>
     </div>
 </nav>
+
+<div class="fixed-bottom row mx-auto py-1" style="background-color: white; opacity:92%">
+    <div class="col-auto mx-auto">
+        <a href="{{route('productos.index')}}"><img src="{{asset('storage/btn-movil/home.png')}}" style="max-width: 40px"></a>
+    </div>
+    <div class="col-auto mx-auto">
+        <a @if(Auth::user()==null)href="{{route('login')}}"@else href="{{route('ver_perfil', [Auth::user()->id, 'fav=y'])}}" @endif><img src="{{asset('storage/btn-movil/liked.png')}}" style="max-width: 40px"></a>
+    </div>
+    <div class="col-auto mx-auto">
+        <a href="{{route('productos.create')}}"><img src="{{asset('storage/btn-movil/sell.png')}}" style="max-width: 40px"></a>
+    </div>
+    <div class="col-auto mx-auto">
+        <a @if(Auth::user()==null)href="{{route('login')}}"@else href="{{route('mod_user', Auth::user()->id)}}" @endif><img src="{{asset('storage/btn-movil/config.png')}}" style="max-width: 40px"></a>
+    </div>
+    <div class="col-auto mx-auto">
+        <a @if(Auth::user()==null)href="{{route('login')}}"@else href="{{route('ver_perfil', Auth::user()->id)}}" @endif><img src="{{asset('storage/btn-movil/profile.png')}}" style="max-width: 40px"></a>
+    </div>
+</div>

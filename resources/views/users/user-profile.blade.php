@@ -66,7 +66,7 @@
                                         </div>
                                     </button>
                                     @if(Auth::user()!=null && Auth::user()==$user)
-                                    <button type="button" data-toggle="modal" data-target="#modalFavoritos">
+                                    <button id="btnFavoritos" type="button" data-toggle="modal" data-target="#modalFavoritos">
                                         <div class="profile-card-inf__item">
                                             <div class="profile-card-inf__title">{{$n_guards}}</div>
                                             <div class="profile-card-inf__txt">Favoritos</div>
@@ -74,6 +74,17 @@
                                     </button>
                                     @endif
                                 </div>
+                                <script>
+                                    var queryString = window.location.search;
+                                    var urlParams = new URLSearchParams(queryString);
+                                    var fav = urlParams.get('fav');
+                                    if(fav=="y"){
+                                        setTimeout(function(){
+                                            document.getElementById('btnFavoritos').click();
+
+                                        }, 1000);
+                                    }
+                                </script>
 
                                 <div class="profile-card-ctr">
                                     @if(Auth::user()!=null && Auth::user()!=$user)
