@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-alert-message2></x-alert-message2>
 

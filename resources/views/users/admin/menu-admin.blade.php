@@ -195,7 +195,7 @@ a{
     color: black;
 }
     </style>
-    <main>
+    <main style="background: url({{asset('storage/fondologo1.png')}})">
         <a href="{{route('admin_zone')}}"><button><span>Usuarios</span></button></a>
         <a href="{{route('admin_zone', ['prod=1'])}}"><button>Productos</button></a>
         <a href="{{route('admin_zone')}}"><button>Volver</button></a>

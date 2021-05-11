@@ -13,7 +13,7 @@
   </script>
   <script src="{{asset('js/vender_producto.js')}}"></script>
   <link rel="stylesheet" href="{{asset('css/vender_producto.css')}}">
-    <div class="py-12">
+    <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
   <x-alert-message></x-alert-message>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

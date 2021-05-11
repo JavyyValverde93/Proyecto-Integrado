@@ -69,7 +69,7 @@ class ProductoController extends Controller
 
         }
 
-        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(4);
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(25);
         $scope = $request->nombre;
         $guardados = Guardado::all();
         if($request->categoria!=null || $request->nombre!=null){

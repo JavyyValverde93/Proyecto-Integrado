@@ -31,9 +31,8 @@
                     {{ $header }}
                 </div>
             </header>
-
             <!-- Page Content -->
-            <main style="background-image: url({{asset('storage/fondologo1.png')}});">
+            <main>
                 {{ $slot }}
             </main>
         </div>

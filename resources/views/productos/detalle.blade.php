@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/detalle_producto.css')}}">
     <script src="{{asset('js/detalle_producto.js')}}"></script>
 
-    <div class="py-12">
+    <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-alert-message></x-alert-message>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
