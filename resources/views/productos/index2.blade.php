@@ -91,6 +91,10 @@
                             @if($request->nombre!=null)
                             <input type="hidden" value="{{$request->nombre}}" name="nombre">
                             @endif
+                            
+                            @if($request->ordenar!=null)
+                            <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                            @endif
                         </form>
                     </div>
 

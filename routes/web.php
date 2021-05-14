@@ -77,3 +77,4 @@ Route::get('emails1/', function(){
 });
 
 Route::post('/contacto', [MailController::class, 'store'])->name('contacto')->middleware(['auth', 'verified']);
+Route::post('/sugerencias', [MailController::class, 'sugerencia'])->name('sugerencia');

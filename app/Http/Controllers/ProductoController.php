@@ -56,7 +56,7 @@ class ProductoController extends Controller
                                 
                         
 
-        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(25);
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(24);
         $scope = $request->nombre;
         if($request->categoria!=null || $request->nombre!=null){
             return view('productos.index2', compact('productos', 'request', 'scope'));
