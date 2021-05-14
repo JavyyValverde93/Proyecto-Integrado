@@ -154,7 +154,7 @@
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap">
-                                                    <input class="file-upload-input" required type='file' name="foto1" onchange="readURL(this);"
+                                                    <input class="file-upload-input" type='file' name="foto1" onchange="readURL(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>

@@ -18,6 +18,9 @@
                             <input type="hidden" value="{{$request->categoria}}" name="categoria">
                             @endif
 
+                            @if($request->ordenar!=null)
+                            <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                            @endif
                         </form>
 
                     </div>
@@ -37,6 +40,9 @@
                                 <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
                                 <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
                             </select>
+                            @if($request->categoria!=null)
+                            <input type="hidden" value="{{$request->categoria}}" name="categoria">
+                            @endif
                     </form>
                 </div>
             </h2>
@@ -58,7 +64,7 @@
             {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
             <script src="{{asset('js/index2.js')}}"></script>
             
-                            <div class="container my-5 rounded" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
+                            <div class="container my-5 rounded">
                             <h2>Categorías</h2>
                             <section class="customer-logos slider" align="center">
                                 <div class="slide font-bold"><a href="{{route('productos.index', ['categoria=Coches'])}}"><img src="{{asset('storage/imagenes-categorias/coche.png')}}">Coches</a></div>

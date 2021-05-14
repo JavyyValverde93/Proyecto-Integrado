@@ -5,7 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"></script>
 
 @if($texto=Session::get('mensaje'))
-
+<div class="m-5"></div>
 <div class="alert alert-success" role="alert">
     <i class="start-icon far fa-check-circle faa-tada animated"></i>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -14,6 +14,7 @@
 
 @endif
 @if($texto=Session::get('error'))
+<div class="m-5"></div>
 
 <div class="alert alert-danger" role="alert">
     <i class="start-icon far fa-times-circle faa-pulse animated"></i>

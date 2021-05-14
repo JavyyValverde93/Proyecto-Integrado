@@ -202,7 +202,9 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <p>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif
-                                                    <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black"><b>{{$coments->user->name}}: </b></a>{{$coments->comentario}}
+                                                    <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0" style="color: black">
+                                                        <b>{{$coments->user->name}}: </b></a>
+                                                        <small style="max-width: 90px">{{$coments->comentario}}</small>
                                                         
                                                         @if(Auth::user()!=null && Auth::user()==$coments->user)
                                                         <button type="submit" style="color:red; font-size:17px;" class="float-right"><i class="far fa-times-circle"></i></button>

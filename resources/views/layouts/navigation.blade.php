@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex col-xl-5 col-1">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center hidden">
                     <a href="{{ route('productos.index') }}">
@@ -28,12 +28,11 @@
                 </div>
             </div>
 
-            <div class="m-auto">
-                <a href="{{route('productos.index')}}"><img src="{{asset('storage/logo6a.png')}}" width="150"></a>
-            </div>
-
+            <a href="{{route('productos.index')}}" class="m-auto"><img src="{{asset('storage/logo6a.png')}}" width="150"></a>
+            
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center sm:ml-6 col-5">
+
                 @if(Auth::user()!=null) <a href="{{route('ver_perfil', Auth::user()->id)}}" class="float-right ui button rounded-pill mr-3">Perfil</a> @endif
                 <a href="{{route('productos.create')}}" class="ui button positive float-right rounded-pill mr-3" style="background: #10FA91;"><i
                     class="far fa-envelope-open-dollar mr-1"></i> Vender Producto</a>

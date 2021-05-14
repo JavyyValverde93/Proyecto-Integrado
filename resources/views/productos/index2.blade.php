@@ -12,7 +12,7 @@
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <div class="row">
-                <div class="ui search my-auto mx-3">
+                <div class="ui search my-auto mx-3 col-auto mt-2">
                     <form action="{{route('productos.index')}}" method="GET" class="form form-inline">
                         @csrf
                         <div class="ui icon input">
@@ -25,8 +25,32 @@
                         <input type="hidden" value="{{$request->categoria}}" name="categoria">
                         @endif
 
+                        @if($request->ordenar!=null)
+                        <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                        @endif
                     </form>
+
                 </div>
+                <div class="col" align="right">
+
+                </div>
+                <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
+                    @csrf
+                    <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
+                            <option>Ordenar por...</option>
+                            <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
+                            <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
+                            <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más bajo</option>
+                            <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más alto</option>
+                            <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
+                            <option value="menos-visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos vistos</option>
+                            <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
+                            <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
+                        </select>
+                        @if($request->categoria!=null)
+                        <input type="hidden" value="{{$request->categoria}}" name="categoria">
+                        @endif
+                </form>
             </div>
         </h2>
     </x-slot>

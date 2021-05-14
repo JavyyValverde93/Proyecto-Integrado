@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('foto')->default('storage/img/users/default.png');
             $table->string('ciudad')->nullable();
-            $table->integer('guardados')->default(0);
             
             $table->integer('tipo')->default(0);
             $table->rememberToken();

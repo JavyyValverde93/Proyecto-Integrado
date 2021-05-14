@@ -31,51 +31,37 @@ class ProductoController extends Controller
 
             if($ord=='viejos'){
                 $ord='id';
-            }else{
-                if($ord=='nuevos'){
-                    $ord = 'id';
-                    $ord2 = 'desc';
-                }else{
-                    if($ord=='precio-bajo'){
-                        $ord ='precio';
-                    }else{
-                        if($ord=='precio-alto'){
-                            $ord ='precio';
-                            $ord2 ='desc';
-                        }else{
-                            if($ord=='visitas'){
-                                $ord='visualizaciones';
-                                $ord2='desc';
-                            }else{
-                                if($ord=='menos-visitas'){
-                                    $ord = 'visualizaciones';
-                                    $ord2 = 'asc';
-                                }else{
-                                    if($ord=='gustados'){
-                                        $ord = 'guardados';
-                                        $ord2 = 'desc';
-                                    }else{
-                                        if($ord == 'menos-gustados'){
-                                            $ord = 'guardados';
-                                            $ord2 = 'asc';
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            }else if($ord=='nuevos'){
+                $ord = 'id';
+                $ord2 = 'desc';
+            }else if($ord=='precio-bajo'){
+                $ord ='precio';
+            }else if($ord=='precio-alto'){
+                $ord ='precio';
+                $ord2 ='desc';
+            }else if($ord=='visitas'){
+                $ord='visualizaciones';
+                $ord2='desc';
+            }else if($ord=='menos-visitas'){
+                $ord = 'visualizaciones';
+                $ord2 = 'asc';
+            }else if($ord=='gustados'){
+                $ord = 'guardados';
+                $ord2 = 'desc';
+            }else if($ord == 'menos-gustados'){
+                $ord = 'guardados';
+                $ord2 = 'asc';
             }
-
         }
+                                
+                        
 
         $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(25);
         $scope = $request->nombre;
-        $guardados = Guardado::all();
         if($request->categoria!=null || $request->nombre!=null){
-            return view('productos.index2', compact('productos', 'guardados', 'request', 'scope'));
+            return view('productos.index2', compact('productos', 'request', 'scope'));
         }
-        return view('productos.index', compact('productos', 'guardados', 'request', 'scope'));
+        return view('productos.index', compact('productos', 'request', 'scope'));
     }
 
     /**
