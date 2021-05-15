@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pregunta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PreguntaController extends Controller
 {
@@ -111,17 +113,22 @@ class PreguntaController extends Controller
      */
     public function destroy(Pregunta $pregunta)
     {
-        try{
-            if(isset($_GET['p']) && $_GET['p']=="|"){
-                $pregunta->update([
-                    'respuesta'=>null
-                ]);
-                return back()->with('mensaje', 'Respuesta borrada con éxito');
+        if(Auth::user()==$pregunta->user_id || Auth::user()->tipo==1){
+            try{
+                if(isset($_GET['p']) && $_GET['p']=="|"){
+                    $pregunta->update([
+                        'respuesta'=>null
+                    ]);
+                    return back()->with('mensaje', 'Respuesta borrada con éxito');
+                }
+                $pregunta->delete();
+                return back()->with('mensaje', 'Pregunta eliminada con éxito');
+            }catch(\Exception $ex){
+                return back()->with('error', 'Tu respuesta/pregunta no ha podido eliminarse');
             }
-            $pregunta->delete();
-            return back()->with('mensaje', 'Pregunta eliminada con éxito');
-        }catch(\Exception $ex){
-            return back()->with('error', 'Tu respuesta/pregunta no ha podido eliminarse');
+        }else{
+            return back();
         }
+
     }
 }

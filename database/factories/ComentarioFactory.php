@@ -23,8 +23,8 @@ class ComentarioFactory extends Factory
     {
         return [
             'comentario'=>$this->faker->text($maxNbChars=50),
-            'user_id'=>$this->faker->numberBetween(4, 100),
-            'producto_id'=>$this->faker->numberBetween(2, 200)
+            'user_id'=>$this->faker->numberBetween(4, 300),
+            'producto_id'=>$this->faker->numberBetween(2, 600)
         ];
     }
 }

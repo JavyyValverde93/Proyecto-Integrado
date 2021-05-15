@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comentario;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ComentarioController extends Controller
@@ -98,11 +99,15 @@ class ComentarioController extends Controller
      */
     public function destroy(Comentario $comentario)
     {
-        try{
-            $comentario->delete();
-            return back()->with('mensaje', 'Tu comentario se ha eliminado correctamente');
-        }catch(\Exception $ex){
-            return back()->with('error', 'Tu comentario no ha podido eliminarse');
+        if(Auth::user()==$comentario->user_id || Auth::user()->tipo==1){
+            try{
+                $comentario->delete();
+                return back()->with('mensaje', 'Tu comentario se ha eliminado correctamente');
+            }catch(\Exception $ex){
+                return back()->with('error', 'Tu comentario no ha podido eliminarse');
+            }
+        }else{
+            return back();
         }
     }
 }

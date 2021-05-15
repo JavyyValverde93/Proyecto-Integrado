@@ -27,6 +27,7 @@
                 <div class="col" align="right">
 
                 </div>
+                
                 <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
                     @csrf
                     <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
@@ -67,7 +68,7 @@
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
                         {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
                         {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
-                        <script src="{{asset('js/index2.js')}}"></script>
+                        <script src="{{asset('js/index.js')}}"></script>
 
                         <div class="container my-5 rounded">
                             <h2>Categorías</h2>
@@ -106,13 +107,17 @@
                                         href="{{route('productos.index', ['categoria=Bicicletas', 'ordenar='.$request->ordenar])}}"><img
                                             src="{{asset('storage/imagenes-categorias/bici.png')}}">Bicicletas</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar])}}"><img
-                                            src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y
-                                        Videojuegos</a></div>
-                                <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar])}}"><img
-                                            src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a>
-                                </div>
+                                    href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar])}}"><img
+                                        src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y
+                                    Videojuegos</a></div>
+                                    <div class="slide font-bold"><a
+                                            href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar])}}"><img
+                                                src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a>
+                                    </div>
+                                    <div class="slide font-bold"><a
+                                            href="{{route('productos.index', ['categoria=Electrodomésticos', 'ordenar='.$request->ordenar])}}"><img
+                                                src="{{asset('storage/imagenes-categorias/electrodomesticos.png')}}">Electrodomésticos</a>
+                                    </div>
                                 <div class="slide font-bold"><a
                                         href="{{route('productos.index', ['categoria=Cine, Libros y Música', 'ordenar='.$request->ordenar])}}"><img
                                             src="{{asset('storage/imagenes-categorias/cine.png')}}">Cine, Libros y
@@ -147,7 +152,6 @@
 
                             </section>
                         </div>
-
                         <div class="row mx-auto" id="prods">
                             @if(Auth::user()!=null)<input type="text" class="hidden" name="uui"
                                 value="{{Auth::user()->id}}">@endif

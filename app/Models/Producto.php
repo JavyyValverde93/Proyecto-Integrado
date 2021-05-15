@@ -13,7 +13,8 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["nombre", "categoria", "descripcion", "precio", "guardados", "visualizaciones", 'foto1', 'foto2', 'foto3', 'foto4', 'foto5', "user_id"];
+    protected $fillable = ["nombre", "categoria", "descripcion", "precio", 
+    "guardados", "visualizaciones", 'foto1', 'foto2', 'foto3', 'foto4', 'foto5', "user_id"];
 
     public function Picture(){
         return $this->hasMany(Picture::class);

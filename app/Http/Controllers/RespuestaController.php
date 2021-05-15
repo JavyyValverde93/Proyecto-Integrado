@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Respuesta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RespuestaController extends Controller
@@ -101,11 +102,15 @@ class RespuestaController extends Controller
      */
     public function destroy(Respuesta $respuesta)
     {
-        try{
-            $respuesta->delete();
-            return back()->with('mensaje', 'Respuesta eliminada correctamente');
-        }catch(\Exception $ex){
-            return back()->with('error', 'No se ha podido eliminar la respuesta');
+        if(Auth::user()==$respuesta->user_id || Auth::user()->tipo==1){
+            try{
+                $respuesta->delete();
+                return back()->with('mensaje', 'Respuesta eliminada correctamente');
+            }catch(\Exception $ex){
+                return back()->with('error', 'No se ha podido eliminar la respuesta');
+            }
+        }else{
+            return back();
         }
     }
 }

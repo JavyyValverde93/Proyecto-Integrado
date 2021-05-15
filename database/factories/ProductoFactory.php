@@ -28,7 +28,7 @@ class ProductoFactory extends Factory
         $precio1 = 1;
         $precio2 = 40000;
 
-        $categorias = ['Coches', 'Motos', 'Motor y Accesorios', 'Moda y Accesorios', 'Inmoviliaria', 'Tv, Audio y Foto',
+        $categorias = ['Coches', 'Motos', 'Motor y Accesorios', 'Moda y Accesorios', 'Inmobiliaria', 'Tv, Audio y Foto',
         'Móviles y Telefonía', 'Informática y Electrónica', 'Deporte y Ocio', 'Bicicletas', 'Consolas Y Videojuegos',
         'Hogar y Jardín', 'Electrodomésticos', 'Cine, Libros y Música', 'Niños y Bebés', 'Coleccionismo',
         'Materiales de construcción', 'Industria y Agricultura', 'Empleo', 'Servicios', 'Otros'];
@@ -177,7 +177,7 @@ class ProductoFactory extends Factory
             'categoria'=>$categorias[$num],
             'descripcion'=>$this->faker->text($maxNbChars=60),
             'precio'=>mt_rand($precio1, $precio2)/100,
-            'guardados'=>$this->faker->numberBetween(1, 40),
+            'guardados'=>$this->faker->numberBetween(1, 90),
             'visualizaciones'=>$this->faker->numberBetween(1, 200),
             'user_id'=>$this->faker->numberBetween(5, 100),
         ];

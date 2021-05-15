@@ -79,6 +79,7 @@
                                 <option class="fa" value="Bicicletas" @if($request->categoria!=null && $request->categoria=="Bicicletas") selected @endif>&#xf84a; Bicicletas</option>
                                 <option class="fa" value="Consolas y Videojuegos" @if($request->categoria!=null && $request->categoria=="Consolas y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
                                 <option class="fa" value="Hogar y Jardín" @if($request->categoria!=null && $request->categoria=="Hogar y Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
+                                <option class="fa" value="Electrodomésticos" @if($request->categoria!=null && $request->categoria=="Electrodomésticos") selected @endif>&#xf898; Electrodomésticos</option>
                                 <option class="fa" value="Cine, Libros y Música" @if($request->categoria!=null && $request->categoria=="Cine, Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
                                 <option class="fa" value="Niños y Bebés" @if($request->categoria!=null && $request->categoria=="Niños y Bebés") selected @endif>&#xf77c; Niños y Bebés</option>
                                 <option class="fa" value="Coleccionismo" @if($request->categoria!=null && $request->categoria=="Coleccionismo") selected @endif>&#xf70f; Coleccionismo</option>
@@ -142,7 +143,7 @@
                         intento = 1;
 
                         var enlase = document.getElementById('links').nextElementSibling.firstElementChild.lastElementChild.href;
-
+                        
                         var enlace = "";
 
                         let httpRequest = new XMLHttpRequest();
@@ -187,6 +188,9 @@
                         }
 
                         function cargaProd(e) {
+                            if(enlase==null){
+                                document.getElementById('next').innerHTML = 'No hay más productos con estas características';
+                            }
 
                             if(intento==1){
                                 intento=0;
@@ -203,7 +207,6 @@
                                 httpRequest.open('GET', enlace, true);
                                 httpRequest.overrideMimeType('text/html');
                                 httpRequest.send(null);
-                                httpRequest.LOADING = cargando;
                                 httpRequest.onload = procesarRespuesta;
                             }
                         }
@@ -222,10 +225,6 @@
                             }else{
                                 document.getElementById('next').innerHTML = 'No hay más productos con estas características';
                             }
-                        }
-
-                        function cargando(){
-                            document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + "<img src={{asset('storage/img/loading.gif')}}>";
                         }
 
                     </script>

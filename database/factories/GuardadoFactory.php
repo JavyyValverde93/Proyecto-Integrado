@@ -21,8 +21,21 @@ class GuardadoFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+        // $user = rand(1, 300);
+        // $producto = rand(1, 600);
+        // $bucle = 0;
+        // $distinto = Guardado::where('user_id', $user)->where('producto_id', $producto)->find(1);
+        // while($bucle==0){
+        //     if($distinto==null){
+        //         return [
+        //             'user_id'=>$this->faker->numberBetween(1, 300),
+        //             'producto_id'=>$this->faker->numberBetween(2, 600)
+        //         ];
+        //     }else{
+        //         $user = rand(1, 300);
+        //         $producto = rand(1, 600);
+        //         $distinto = Guardado::where('user_id', $user)->where('producto_id', $producto)->find(1);
+        //     }
+        // }
     }
 }

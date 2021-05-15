@@ -211,8 +211,6 @@ class ProductoController extends Controller
             'descripcion'=>['required', 'string', 'min:10'],
             'categoria'=>['required'],
             'precio'=>['required', 'min:0.05'],
-            'user_id'=>['required'],
-            'foto1'=>['required', 'image']
         ]);
 
 
@@ -223,7 +221,6 @@ class ProductoController extends Controller
                 'descripcion'=>$request->descripcion,
                 'categoria'=>$request->categoria,
                 'precio'=>$request->precio,
-                'user_id'=>$request->user_id,
             ]);
 
             if($request->has('foto1')){

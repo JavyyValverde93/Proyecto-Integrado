@@ -66,7 +66,6 @@
                     <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -87,8 +86,9 @@
                                     <option class="fa" value="Informática y Electrónica" @if($producto->categoria=="Informática y Electrónica") selected @endif>&#xf109; Informática y Electrónica</option>
                                     <option class="fa" value="Deporte y Ocio" @if($producto->categoria=="Deporte y Ocio") selected @endif>&#xf45f; Deporte y Ocio</option>
                                     <option class="fa" value="Bicicletas" @if($producto->categoria=="Bicicletas") selected @endif>&#xf84a; Bicicletas</option>
-                                    <option class="fa" value="Consolas y Videojuegos" @if($producto->categoria=="Consolas y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
+                                    <option class="fa" value="Consolas Y Videojuegos" @if($producto->categoria=="Consolas Y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
                                     <option class="fa" value="Hogar y Jardín" @if($producto->categoria=="Hogar y Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
+                                    <option class="fa" value="Electrodomésticos" @if($producto->categoria=="Electrodomésticos") selected @endif>&#xf898; Electrodomésticos</option>
                                     <option class="fa" value="Cine, Libros y Música" @if($producto->categoria=="Cine, Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
                                     <option class="fa" value="Niños y Bebés" @if($producto->categoria=="Niños y Bebés") selected @endif>&#xf77c; Niños y Bebés</option>
                                     <option class="fa" value="Coleccionismo" @if($producto->categoria=="Coleccionismo") selected @endif>&#xf70f; Coleccionismo</option>
@@ -173,7 +173,10 @@
                                             {{-- Foto 2 --}}
                                             <div class="file-upload2">
                                                 @if($producto->foto2!=null)
-                                                <img src="{{asset($producto->foto2)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                <img src="{{asset($producto->foto2)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <div align="center">
+                                                    <input type="checkbox" class="m-2" name="foto2d">Eliminar foto
+                                                </div>
                                                 @endif
                                                 <button class="file-upload-btn2" type="button"
                                                     onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o cambiar imágen</button>
@@ -196,7 +199,10 @@
                                             {{-- Foto 3 --}}
                                             <div class="file-upload3">
                                                 @if($producto->foto3!=null)
-                                                <img src="{{asset($producto->foto3)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                <img src="{{asset($producto->foto3)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <div align="center">
+                                                    <input type="checkbox" class="m-2" name="foto3d">Eliminar foto
+                                                </div>
                                                 @endif
                                                 <button class="file-upload-btn3" type="button"
                                                     onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o cambiar imágen</button>
@@ -219,7 +225,10 @@
                                             {{-- Foto 4 --}}
                                             <div class="file-upload4">
                                                 @if($producto->foto4!=null)
-                                                <img src="{{asset($producto->foto4)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                <img src="{{asset($producto->foto4)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <div align="center">
+                                                    <input type="checkbox" class="m-2" name="foto4d">Eliminar foto
+                                                </div>
                                                 @endif
                                                 <button class="file-upload-btn4" type="button"
                                                     onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o cambiar imágen</button>
@@ -242,7 +251,10 @@
                                             {{-- Foto 5 --}}
                                             <div class="file-upload4">
                                                 @if($producto->foto5!=null)
-                                                <img src="{{asset($producto->foto5)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                <img src="{{asset($producto->foto5)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <div align="center">
+                                                    <input type="checkbox" class="m-2" name="foto5d">Eliminar foto
+                                                </div>
                                                 @endif
                                                 <button class="file-upload-btn5" type="button"
                                                     onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o cambiar imágen</button>

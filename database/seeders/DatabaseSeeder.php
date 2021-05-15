@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
 
-        \App\Models\User::factory(101)->create();
-        // \App\Models\Picture::factory(201)->create();
-        \App\Models\Producto::factory(201)->create();
-        \App\Models\Pregunta::factory(201)->create();
-        \App\Models\Comentario::factory(201)->create();
-        // \App\Models\Respuesta::factory(401)->create();
+        \App\Models\User::factory(500)->create();
+        \App\Models\Producto::factory(600)->create();
+        \App\Models\Pregunta::factory(1601)->create();
+        \App\Models\Comentario::factory(1514)->create();
+        \App\Models\Follower::factory(5000)->create();
+        \App\Models\Respuesta::factory(3401)->create();
     }
 }

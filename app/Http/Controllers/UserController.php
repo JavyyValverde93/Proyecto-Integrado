@@ -76,6 +76,9 @@ class UserController extends Controller
                 'name' => 'required|string|max:255|min:3',
                 'email' => 'required|string|email|max:255',
                 'ciudad' => 'required|string|min:4'
+            ],[
+                'name.required' => 'El campo nombre es obligatorio',
+                'name.min' => 'El campo nombre no cumple los requisitos mínimos'
             ]);
 
             $foto = $user->foto;
@@ -98,6 +101,12 @@ class UserController extends Controller
                     unlink($user->foto);
                 }
                 $foto = "storage/img/users/default.png" ;
+            }
+
+            if($request->email!=$user->email){
+                $user->update([
+                    'email_verified_at' => null
+                ]);
             }
 
             $user->update([

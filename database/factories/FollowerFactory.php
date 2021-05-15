@@ -21,8 +21,29 @@ class FollowerFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+        $user = rand(1, 503);
+        $user2 = rand(1, 503);
+        if($user==$user2){
+            $user2 = rand(1, 503);
+            $user = rand(1, 503);
+        }
+        $bucle = 0;
+        $distinto = Follower::where('seguidor', $user)->where('seguido', $user2)->find(1);
+        while($bucle==0){
+            if($distinto==null){
+                return [
+                    'seguidor'=>$user,
+                    'seguido'=>$user2
+                ];
+            }else{
+                $user = rand(1, 503);
+                $user2 = rand(1, 503);
+                if($user==$user2){
+                    $user2 = rand(1, 503);
+                    $user = rand(1, 503);
+                }
+                $distinto = Follower::where('seguidor', $user)->where('seguido', $user2)->find(1);
+            }
+        }
     }
 }

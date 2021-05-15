@@ -80,27 +80,27 @@
                                 @if($producto->foto2!=null)
                                 <img class="cube-face-image image-2 card-img-top" src="{{asset($producto->foto2)}}">
                                 @else
-                                <img class="cube-face-image image-2 card-img-top" src="{{asset('storage/logo2.png')}}">
+                                <img class="cube-face-image image-2 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto3!=null)
                                 <img class="cube-face-image image-3 card-img-top" src="{{asset($producto->foto3)}}">
                                 @else
-                                <img class="cube-face-image image-3 card-img-top" src="{{asset('storage/logo2.png')}}">
+                                <img class="cube-face-image image-3 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto4!=null)
                                 <img class="cube-face-image image-4 card-img-top" src="{{asset($producto->foto4)}}">
                                 @else
-                                <img class="cube-face-image image-4 card-img-top" src="{{asset('storage/logo2.png')}}">
+                                <img class="cube-face-image image-4 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto5!=null)
                                 <img class="cube-face-image image-5 card-img-top" src="{{asset($producto->foto5)}}">
                                 @else
-                                <img class="cube-face-image image-5 card-img-top" src="{{asset('storage/logo2.png')}}">
+                                <img class="cube-face-image image-5 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto6!=null)
                                 <img class="cube-face-image image-6 card-img-top" src="{{asset($producto->foto6)}}">
                                 @else
-                                <img class="cube-face-image image-6 card-img-top" src="{{asset('storage/logo2.png')}}">
+                                <img class="cube-face-image image-6 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                             </div>
                         </div>
@@ -111,29 +111,29 @@
                             @if($producto->foto2!=null)
                             <input type="image" class="show-image-2" src="{{asset($producto->foto2)}}">
                             @else
-                            <input type="image" class="show-image-2" src="{{asset('storage/logo2.png')}}">
+                            <input type="image" class="show-image-2" src="{{asset('storage/logo6.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto3!=null)
                             <input type="image" class="show-image-3" src="{{asset($producto->foto3)}}">
                             @else
-                            <input type="image" class="show-image-3" src="{{asset('storage/logo2.png')}}">
+                            <input type="image" class="show-image-3" src="{{asset('storage/logo6.png')}}">
                             @endif
                             @if($producto->foto4!=null)
                             <input type="image" class="show-image-4" src="{{asset($producto->foto4)}}">
                             @else
-                            <input type="image" class="show-image-4" src="{{asset('storage/logo2.png')}}">
+                            <input type="image" class="show-image-4" src="{{asset('storage/logo6.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto5!=null)
                             <input type="image" class="show-image-5" src="{{asset($producto->foto5)}}">
                             @else
-                            <input type="image" class="show-image-5" src="{{asset('storage/logo2.png')}}">
+                            <input type="image" class="show-image-5" src="{{asset('storage/logo6.png')}}">
                             @endif
                             @if($producto->foto6!=null)
                             <input type="image" class="show-image-6" src="{{asset($producto->foto6)}}">
                             @else
-                            <input type="image" class="show-image-6" src="{{asset('storage/logo2.png')}}">
+                            <input type="image" class="show-image-6" src="{{asset('storage/logo6.png')}}">
                             @endif
                         </div>
                     </div>
@@ -157,7 +157,7 @@
 
                     {{-- Galería de imágenes --}}
                     <style>
-                        #galeria img {
+                        #imagess img {
                             border: solid 2px #10FA91;
                             margin-top: 20px;
                             max-height: 500px;
@@ -181,7 +181,7 @@
                             }
 
                         </style>
-                        <div id="imagess" class="col-10 mx-auto" id="galeria" align="center">
+                        <div id="imagess" class="col-10 mx-auto" align="center">
                             <img src="{{asset($producto->foto1)}}">
                             @if($producto->foto2!=null)
                             <img src="{{asset($producto->foto2)}}">

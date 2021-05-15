@@ -23,5 +23,20 @@ class UserSeeder extends Seeder
             'tipo'=>1,
             'email_verified_at'=>now()
         ]);
+        User::create([
+            'name'=>'administrador',
+            'email'=>'administrador@correo.com',
+            'password'=>Hash::make('derecho12'),
+            'ciudad'=>'Andorra',
+            'tipo'=>1,
+            'email_verified_at'=>now()
+        ]);
+        User::create([
+            'name'=>'UsuarioEstandar',
+            'email' => 'estandar@correo.com',
+            'password' => Hash::make('derecho12'),
+            'ciudad' => 'Cataluña',
+            'email_verified_at' => now()
+        ]);
     }
 }

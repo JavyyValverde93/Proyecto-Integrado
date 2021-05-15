@@ -125,7 +125,7 @@ small{
     function validarPassword2(){
         var pass1 = document.getElementById('password');
         var pass2 = document.getElementById('password_confirmation');
-        if(pass2<8 || !Object.is(pass1.value, pass2.value)){
+        if(pass2>8 || Object.is(pass1.value, pass2.value)){
             pass2.style.border = rojo;
             pass2.nextElementSibling.innerHTML = "Las contraseñas no coinciden";
         }else{

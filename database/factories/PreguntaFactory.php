@@ -22,10 +22,10 @@ class PreguntaFactory extends Factory
     public function definition()
     {
         return [
-            'pregunta'=>$this->faker->text($maxNbChars=50),
+            'pregunta'=>"¿".$this->faker->text($maxNbChars=50)."?",
             'respuesta'=>$this->faker->text($maxNbChars=50),
-            'user_id'=>$this->faker->numberBetween(5, 99),
-            'producto_id'=>$this->faker->numberBetween(2, 200)
+            'user_id'=>$this->faker->numberBetween(5, 300),
+            'producto_id'=>$this->faker->numberBetween(2, 600)
         ];
     }
 }
