@@ -40,7 +40,7 @@ class PreguntaController extends Controller
         try{
 
             $request->validate([
-                'pregunta'=>['required'],
+                'pregunta'=>['required|min:6|max:150'],
                 'user_id'=>['required'],
                 'producto_id'=>['required']
             ]);
@@ -91,7 +91,7 @@ class PreguntaController extends Controller
     {
         try{
             $request->validate([
-                'respuesta'=>['required']
+                'respuesta'=>['required|min:2|max:150']
             ]);
 
             $pregunta->update([
@@ -113,7 +113,7 @@ class PreguntaController extends Controller
      */
     public function destroy(Pregunta $pregunta)
     {
-        if(Auth::user()==$pregunta->user_id || Auth::user()->tipo==1){
+        if(Auth::user()==$pregunta->user || Auth::user()->tipo==1){
             try{
                 if(isset($_GET['p']) && $_GET['p']=="|"){
                     $pregunta->update([

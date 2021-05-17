@@ -194,7 +194,7 @@ small{
                 </x-button>
                 <a href="{{route('ver_perfil', $user->id)}}" id="back" class="p-4"><i class="fas fa-backward"></i></a>
                 <a href="{{route('productos.index')}}" id="home" class="p-4"><i class="fas fa-home"></i></a>
-                {{-- <a href="{{route('password.reset', $request->route('token'))}}" id="cambiarPass" class="">Cambiar Contraseña</a> --}}
+                
 
             </div>
         </form>
@@ -202,6 +202,10 @@ small{
             <div>
                 <a id="destr" class="mr-0 ml-0" style="background-color: red; padding:3% 10%;" href={{route("destroy_user", $user->id)}} onclick="return confirm(`¿Está seguro de que quiere eliminar su usuario ?`)"><i class="fas fa-trash-alt mr-2"></i> Eliminar Cuenta</a>
             </div>
+            {{-- <form action="{{route('password.reset', ['token' => 'ojhaijhchsigcw76fwr76t2g3fiw'])}}" method="GET">
+                @csrf 
+                <button type="submit" class="btn btn-secondary">Cambiar contraseña</button>
+            </form> --}}
 
     </x-auth-card>
 </x-guest-layout>

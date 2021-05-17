@@ -68,7 +68,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" required autofocus class="form-control" value="{{old('nombre')}}"  minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <input type="text" required autofocus class="form-control" value="{{old('nombre')}}" maxlength="20"  minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
                                 <small>{{$errors->first('nombre')}}</small>
                                 <input type="text" name="user_id" value="{{Auth::user()->id}}" class="hidden">
                             </div>
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label>Descripción:</label>
                             <textarea name="descripcion" class="form-control"
-                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10">{{old('descripcion')}}</textarea>
+                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10" maxlength="400">{{old('descripcion')}}</textarea>
                                 <small>{{$errors->first('descripcion')}}</small>
                         </div>
                         <div class="form-row">

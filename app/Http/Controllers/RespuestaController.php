@@ -36,13 +36,14 @@ class RespuestaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'respuesta'=>'required|min:7|max:150',
+            'idc'=>['required'],
+            'idu'=>['required'],
+            'idp'=>['required']
+        ]);
+
         try{
-            $request->validate([
-                'respuesta'=>'required|min:7',
-                'idc'=>['required'],
-                'idu'=>['required'],
-                'idp'=>['required']
-            ]);
 
             $respuesta = new Respuesta();
             $respuesta->respuesta = $request->respuesta;
@@ -102,7 +103,7 @@ class RespuestaController extends Controller
      */
     public function destroy(Respuesta $respuesta)
     {
-        if(Auth::user()==$respuesta->user_id || Auth::user()->tipo==1){
+        if(Auth::user()==$respuesta->user || Auth::user()->tipo==1){
             try{
                 $respuesta->delete();
                 return back()->with('mensaje', 'Respuesta eliminada correctamente');

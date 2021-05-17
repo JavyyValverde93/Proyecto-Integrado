@@ -149,12 +149,13 @@
                         <p>{{$producto->precio}}€</p>
                         <p style="font-size: 1em">{{$producto->descripcion}}</p>
                     </div>
-
                     <div class="mb-5 mx-5 p-2 mt-5">
+                    @if(Auth::user()!=null && Auth::user()!=$producto->user)
                         <button class="ui button blue" data-toggle="modal" data-target="#modalContacto"><i
                                 class="fad fa-handshake mr-1"></i> Comprar Producto</button>
+                    @endif
                     </div>
-
+                    
                     {{-- Galería de imágenes --}}
                     <style>
                         #imagess img {
@@ -226,12 +227,11 @@
                                                 onsubmit="disableButton(this);">
                                                 @csrf
                                                 @method('DELETE')
-                                                <p>@if($coment%2==1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif
+                                                <p>
                                                     <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0"
                                                         style="color: black">
                                                         <b>{{$coments->user->name}}: </b></a>
                                                     <span class="fullpost">{{$coments->comentario}}</span>
-
                                                     @if(Auth::user()!=null && Auth::user()==$coments->user)
                                                     <button type="submit" style="color:red; font-size:17px;"
                                                         class="float-right"><i class="far fa-times-circle"></i></button>
@@ -243,8 +243,8 @@
                                                 onsubmit="disableButton(this);">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0"
-                                                    style="color: black">&nbsp;<b>{{$res->user->name}}:
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{route('ver_perfil', $coments->user->id)}}" class="p-0"
+                                                    style="color: black"><b>{{$res->user->name}}:
                                                     </b></a>{{$res->respuesta}}
                                                 @if(Auth::user()!=null && Auth::user()==$res->user)
                                                 <button type="submit" style="color:red; font-size:17px;"
@@ -260,10 +260,11 @@
                                                 method="POST" onsubmit="disableButton(this);">
                                                 @csrf
                                                 <input value="{{ old('respuesta') }}" required type="text"
-                                                    name="respuesta" placeholder="Respuesta comentario...">
+                                                    name="respuesta" required minlength="2" maxlength="150" placeholder="Respuesta comentario...">
                                                 <button type="submit" class="ui button"><i
                                                         class="fas fa-comments-alt mr-2"></i>Responder</button>
                                             </form>
+                                            <small style="color: red">{{$errors->first('respuesta')}}</small>
                                             @endif
 
                                             </p>
@@ -282,7 +283,7 @@
                                         @if(Auth::user()!=null && Auth::user()!=$producto->user)<input type="text"
                                             class="hidden" value="{{Auth::user()->id}}" name="user_id">
                                         <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
-                                        <textarea cols="40" style="width: 100%" name="comentario" required minlength="3"
+                                        <textarea cols="40" maxlength="150" style="width: 100%" name="comentario" required minlength="3"
                                             placeholder="Escriba aquí para comentar este producto..."></textarea><br>
                                         <button type="submit" id="btncom" class="btn btn-primary float-right mt-2"><i
                                                 class="fas fa-comment-alt mr-2"></i>Enviar comentario</button>
@@ -300,8 +301,7 @@
                                                     style="color: black;">
                                                     <b>{{$preg->user->name}}: </b></a>
                                                 {{$preg->pregunta}}</p>
-                                            @if(Auth::user()!=null && Auth::user()==$preg->user || Auth::user()!=null &&
-                                            Auth::user()==$producto->user)
+                                                
                                             @if($preg->respuesta!=null)
                                             <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST"
                                                 onsubmit="disableButton(this);">
@@ -309,8 +309,10 @@
                                                 @method('DELETE')
                                                 <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{__('Respuesta del vendedor')}}:
                                                     </b>{{$preg->respuesta}}
+                                                    @if(Auth::user()!=null && Auth::user()==$producto->user)
                                                     <button type="submit" class="btn btn-danger" name="hidd">Eliminar
                                                         respuesta</button>
+                                                    @endif 
                                                 </p>
                                             </form>
                                             @else
@@ -319,12 +321,11 @@
                                                 autocomplete="off" onsubmit="disableButton(this);">
                                                 @csrf
                                                 @method('PUT')
-                                                <input value="{{old('respuesta')}}" required type="text"
+                                                <input minlength="2" maxlength="150" value="{{old('respuesta')}}" required type="text"
                                                     name="respuesta" placeholder="Respuesta a {{$preg->user->name}}: ">
                                                 <button type="submit" class="ui button mt-2"><i
                                                         class="fas fa-comments mr-2"></i>Enviar respuesta</button>
                                             </form>
-                                            @endif
                                             @endif
                                             @endif
                                         </div>
@@ -348,7 +349,7 @@
                                         @if(Auth::user()->id!=$producto->user->id)
                                         <input type="text" class="hidden" value="{{$producto->id}}" name="producto_id">
                                         <textarea minlength="10" required name="pregunta" style="width: 100%"
-                                            class="mt-3" cols="50"
+                                            class="mt-3" cols="50" minlength="6" maxlength="150"
                                             placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
                                         <button type="submit" class="btn btn-primary float-right"><i
                                                 class="fas fa-comment mr-2"></i>Enviar pregunta</button>

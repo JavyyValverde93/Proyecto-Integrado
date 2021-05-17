@@ -75,13 +75,15 @@ small{
     var verde = "lime 2px solid";
     var rojo = "red 2px solid";
 
-    var validar = false;
+    var validar = true;
 
     function validarNombre(){
         var name = document.getElementById('name');
         if(name.value.length<3){
             name.style.border = rojo;
             name.nextElementSibling.innerHTML = "El nombre debe tener 3 caracteres mínimo";
+            validar = false;
+
         }else{
             name.style.border = verde;
             name.nextElementSibling.innerHTML = "";
@@ -93,6 +95,7 @@ small{
         if(city.value.length<4){
             city.style.border = rojo;
             city.nextElementSibling.innerHTML = "La ciudad no existe";
+            validar = false;
         }else{
             city.style.border = verde;
             city.nextElementSibling.innerHTML = "";
@@ -105,6 +108,7 @@ small{
         if(email.value.length<5 || !comprobar.test(email.value)){
             email.style.border = rojo;
             email.nextElementSibling.innerHTML = "El email no es correcto";
+            validar = false;
         }else{
             email.style.border = verde;
             email.nextElementSibling.innerHTML = "";
@@ -116,6 +120,7 @@ small{
         if(pass1.value.length<8){
             pass1.style.border = rojo;
             pass1.nextElementSibling.innerHTML = "La contraseña debe tener como mínimo 8 caracteres";
+            validar = false;
         }else{
             pass1.style.border = verde;
             pass1.nextElementSibling.innerHTML = "";
@@ -125,9 +130,14 @@ small{
     function validarPassword2(){
         var pass1 = document.getElementById('password');
         var pass2 = document.getElementById('password_confirmation');
-        if(pass2>8 || Object.is(pass1.value, pass2.value)){
+        if(pass2.value.length<=8 || !Object.is(pass1.value, pass2.value)){
             pass2.style.border = rojo;
-            pass2.nextElementSibling.innerHTML = "Las contraseñas no coinciden";
+            if(pass2.value.length<=8){
+                pass2.nextElementSibling.innerHTML = "Es obligatorio confirmar la contraseña";
+            }else{
+                pass2.nextElementSibling.innerHTML = "Las contraseñas no coinciden";
+            }
+            validar = false;
         }else{
             pass2.style.border = verde;
             pass2.nextElementSibling.innerHTML = "";
@@ -135,15 +145,15 @@ small{
     }
 
     function validarFormulario(event){
+        validar = true;
         validarNombre();
         validarCiudad();
         validarEmail();
         validarPassword();
         validarPassword2();
-        if(validar!=true){
-            event.preventDefault();
-        }
     }
+
+
 
         </script>
 
@@ -219,7 +229,7 @@ small{
                     {{ __('Ya tiene cuenta?') }}
                 </a>
 
-                <x-button class="ml-4" onmouseover="validarFormulario(this)">
+                <x-button class="ml-4" id="btnRegistrarse" onmouseover="validarFormulario(this)">
                     {{ __('Registrarse') }}
                 </x-button>
             </div>

@@ -70,7 +70,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" value="{{$producto->nombre}}" class="form-control" required minlength="5" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <input type="text" value="{{$producto->nombre}}" class="form-control" required minlength="5" maxlength="20" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
                                 <small>{{$errors->first('nombre')}}</small>
                             </div>
                             <div class="form-group col-md-6">
@@ -104,7 +104,7 @@
                         <div class="form-group">
                             <label>Descripción:</label>
                             <textarea name="descripcion" class="form-control"
-                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10">{{$producto->descripcion}}</textarea>
+                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10" maxlength="400">{{$producto->descripcion}}</textarea>
                                 <small>{{$errors->first('descripcion')}}</small>
                         </div>
                         <div class="form-row">

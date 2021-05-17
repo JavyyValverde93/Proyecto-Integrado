@@ -15,12 +15,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function ver_perfil($user_id){
+    public function ver_perfil(Request $request, $user_id){
         $user = User::get()->where('id', "=", $user_id)->take(1);
         foreach($user as $u){
             $user = $u;
         }
-        $productos = Producto::orderBy('id', 'desc')->where('user_id', "=", $user_id)->paginate(25);
+        $productos = Producto::orderBy('id', 'desc')->where('user_id', "=", $user_id)->paginate(18);
         $n_prods = $productos->count();
         $n_seguidos = Follower::get()->where('seguidor', $user_id)->count();
         $n_seguidores = Follower::get()->where('seguido', $user_id)->count();
@@ -39,7 +39,7 @@ class UserController extends Controller
             $n_guards = null;
         }
 
-        return view('users.user-profile', compact('user', 'productos', 'n_prods', 'n_guards', 'n_seguidos', 'n_seguidores', 'follower'));
+        return view('users.user-profile', compact('request', 'user', 'productos', 'n_prods', 'n_guards', 'n_seguidos', 'n_seguidores', 'follower'));
     }
 
     public function admin_zone(){
@@ -73,9 +73,9 @@ class UserController extends Controller
 
         try{
             $request->validate([
-                'name' => 'required|string|max:255|min:3',
-                'email' => 'required|string|email|max:255',
-                'ciudad' => 'required|string|min:4'
+                'name' => 'required|string|max:20|min:3',
+                'email' => 'required|string|email|max:20',
+                'ciudad' => 'required|string|min:4|max:20'
             ],[
                 'name.required' => 'El campo nombre es obligatorio',
                 'name.min' => 'El campo nombre no cumple los requisitos mínimos'
@@ -201,7 +201,7 @@ class UserController extends Controller
     public function modals_data($user_id){
         $seguidos = Follower::get()->where('seguidor', $user_id);
         $seguidores = Follower::get()->where('seguido', $user_id);
-        if(Auth::user()->id == $user_id){
+        if(Auth::user()!=null && Auth::user()->id == $user_id){
             $guardados = Guardado::orderBy('id', 'desc')->where('user_id', "=", $user_id)->get();
         }else{
             $guardados = [];

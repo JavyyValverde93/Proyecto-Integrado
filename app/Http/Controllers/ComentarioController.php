@@ -38,7 +38,7 @@ class ComentarioController extends Controller
     {
 
             $request->validate([
-                'comentario'=>'required|min:7',
+                'comentario'=>'required|min:7|max:150',
                 'user_id'=>'required',
                 'producto_id'=>'required'
             ]);
@@ -99,7 +99,7 @@ class ComentarioController extends Controller
      */
     public function destroy(Comentario $comentario)
     {
-        if(Auth::user()==$comentario->user_id || Auth::user()->tipo==1){
+        if(Auth::user()==$comentario->user || Auth::user()->tipo==1){
             try{
                 $comentario->delete();
                 return back()->with('mensaje', 'Tu comentario se ha eliminado correctamente');
