@@ -47,6 +47,7 @@
                                 class="far fa-edit fa-2x"></i></a>
                         @else
                         <div id="reemplazar">
+                            <div>
                             @if(count($guardados)>=1)
                             <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar();"></i>
                             @else
@@ -66,6 +67,8 @@
                             @method('DELETE')
                         </form>
                         @endforeach
+                    </div>
+
                         @endif
 
                     </div>
@@ -80,6 +83,7 @@
                                 event.preventDefault();
                             //Actualiza ese id sin recargar la página
                             $("#reemplazar").load("{{$_SERVER['PHP_SELF']}} #reemplazar");
+                            $("#actualisa").load("{{$_SERVER['PHP_SELF']}} #actualisa");
                         }
                     </script>
                 </div>
@@ -153,11 +157,13 @@
                     </div>
 
                     <div class="mb-5 mx-5 p-2 mt-5" style="font-size:1.5em; background: rgba(214, 212, 212, 0.097)">
-                        <b>{{$producto->nombre}}</b><i class="float-right mx-3"><i class="far fa-eye"></i>
-                            {{$producto->visualizaciones}}<i class="far fa-bookmark ml-3"></i> {{$producto->guardados}}</i> <br>
-                        <i style="font-size: 0.7em">{{$producto->categoria}}</i><br>
-                        <p>{{$producto->precio}}€</p>
-                        <p style="font-size: 1em">{{$producto->descripcion}}</p>
+                        <div id="actualisa">
+                            <b>{{$producto->nombre}}</b><i class="float-right mx-3"><i class="far fa-eye"></i>
+                                {{$producto->visualizaciones}}<i class="far fa-bookmark ml-3"></i> {{$favoritos}}</i> <br>
+                            <i style="font-size: 0.7em">{{$producto->categoria}}</i><br>
+                            <p>{{$producto->precio}}€</p>
+                            <p style="font-size: 1em">{{$producto->descripcion}}</p>
+                        </div>
                     </div>
                     <div class="mb-5 mx-5 p-2 mt-5">
                     @if(Auth::user()!=null && Auth::user()!=$producto->user)

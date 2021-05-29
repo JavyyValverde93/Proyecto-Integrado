@@ -39,7 +39,7 @@ Route::get('users', function(){
 Route::get('products', function(){
     $btn = '
         <a href={{route("ver_perfil", $user_id)}} target="black"><i class="fas fa-user"></i></a>
-        <a href={{route("productos.show", ["$id, u=%"])}} target="black"><i class="fas fa-eye"></i></a>
+        <a href={{route("productos.show", ["$id?u=%"])}} target="black"><i class="fas fa-eye"></i></a>
         <a href={{route("productos.edit", $id)}} target="black"><i class="fas fa-edit"></i></a>
         <a href={{route("productos.destroyprod", [$id, "ad=1"])}}><i class="fas fa-trash-alt"></i></a>
     ';
