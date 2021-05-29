@@ -82,8 +82,8 @@
                                 });
                                 event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#reemplazar").load("{{$_SERVER['PHP_SELF']}} #reemplazar");
-                            $("#actualisa").load("{{$_SERVER['PHP_SELF']}} #actualisa");
+                            $("#reemplazar").load(window.location.href+" #reemplazar");
+                            $("#actualisa").load(window.location.href+" #actualisa");
                         }
                     </script>
                 </div>
