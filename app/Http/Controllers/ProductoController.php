@@ -95,8 +95,11 @@ class ProductoController extends Controller
             'foto1.image'=>'Es obligatorio usar una imágen'
         ]);
 
+        $validar = Producto::where('nombre', $request->nombre)->where('descripcion', $request->descripcion)->where('user_id', $request->user_id)->first();
+        if($validar!=null){
+            return back();
+        }
         try{
-
             $prod = new Producto();
             $prod->nombre = $request->nombre;
             $prod->descripcion = $request->descripcion;
@@ -213,9 +216,11 @@ class ProductoController extends Controller
             'precio'=>['required', 'min:0.05'],
         ]);
 
-
         try{
-
+            $validar = Producto::where('nombre', $request->nombre)->where('descripcion', $request->descripcion)->where('user_id', $request->user_id)->first();
+            if($validar!=null && $validar->id!=$producto->id){
+                return back()->with('error', 'Este producto ya existe');
+            }
             $producto->update([
                 'nombre'=>$request->nombre,
                 'descripcion'=>$request->descripcion,
@@ -277,6 +282,7 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
+        dd($producto);
         if(Auth::user()==$producto->user || Auth::user()->tipo==1){
             $id = $producto->user->id;
             try{

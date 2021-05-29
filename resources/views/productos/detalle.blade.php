@@ -46,15 +46,18 @@
                         <a href="{{route('productos.edit', $producto)}}" style="color:#10FA91"><i
                                 class="far fa-edit fa-2x"></i></a>
                         @else
-                        @if(count($guardados)>=1)
-                        <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar();"></i>
-                        @else
-                        <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
-                        @endif
+                        <div id="reemplazar">
+                            @if(count($guardados)>=1)
+                            <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar();"></i>
+                            @else
+                            <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
+                            @endif
+                        </div>
                         {{-- Formulario guardar productos en favoritos y enviar id  --}}
                         <form @if(Auth::user()!=null) action="{{route('guardar', Auth::user()->id)}}" @endif
-                            method="GET" name="save_prod">
+                            method="GET" name="save_prod" id="formularioaenviar" onsubmit="submitForm(event);">
                             <input type="text" name="ui" class="hidden" value="{{$producto->id}}">
+                            <button type="submit"></button>
                         </form>
                         {{-- Formulario quitar producto de favoritos y enviar id --}}
                         @foreach($guardados as $save)
@@ -66,21 +69,33 @@
                         @endif
 
                     </div>
+                    <script type="text/javascript">
+                        function submitForm(event){
+                            $.ajax({
+                                type: $('#formularioaenviar').attr('method'), 
+                                    url: $('#formularioaenviar').attr('action'),
+                                data: $('#formularioaenviar').serialize(),
+                                success: function (data) { console.log('Datos enviados !!!');} 
+                                });
+                                event.preventDefault();
+                            //Actualiza ese id sin recargar la página
+                            $("#reemplazar").load("{{$_SERVER['PHP_SELF']}} #reemplazar");
+                        }
+                    </script>
                 </div>
-
                 <div class="p-6 bg-white border-b border-gray-200 mt-5">
 
 
                     <div class="dado-molon row mt-2 ml-2">
-                        <div class="cube-container col-lg-6 col-md-12">
+                        <div class="cube-container col-lg-6 col-md-6">
 
                             <div class="cube initial-position cardimg mt-0">
 
                                 <img class="cube-face-image image-1 card-img-top" src="{{asset($producto->foto1)}}">
                                 @if($producto->foto2!=null)
-                                <img class="cube-face-image image-2 card-img-top" src="{{asset($producto->foto2)}}">
+                                <img class="cube-face-image image-6 card-img-top" src="{{asset($producto->foto2)}}">
                                 @else
-                                <img class="cube-face-image image-2 card-img-top" src="{{asset('storage/logo6.png')}}">
+                                <img class="cube-face-image image-6 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto3!=null)
                                 <img class="cube-face-image image-3 card-img-top" src="{{asset($producto->foto3)}}">
@@ -98,20 +113,20 @@
                                 <img class="cube-face-image image-5 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                                 @if($producto->foto6!=null)
-                                <img class="cube-face-image image-6 card-img-top" src="{{asset($producto->foto6)}}">
+                                <img class="cube-face-image image-2 card-img-top" src="{{asset($producto->foto6)}}">
                                 @else
-                                <img class="cube-face-image image-6 card-img-top" src="{{asset('storage/logo6.png')}}">
+                                <img class="cube-face-image image-2 card-img-top" src="{{asset('storage/logo6.png')}}">
                                 @endif
                             </div>
                         </div>
 
-                        <div class="image-buttons col-6 mx-auto">
+                        <div class="image-buttons col-5 mx-auto">
 
                             <input type="image" class="show-image-1" src="{{asset($producto->foto1)}}">
                             @if($producto->foto2!=null)
-                            <input type="image" class="show-image-2" src="{{asset($producto->foto2)}}">
+                            <input type="image" class="show-image-6" src="{{asset($producto->foto2)}}">
                             @else
-                            <input type="image" class="show-image-2" src="{{asset('storage/logo6.png')}}">
+                            <input type="image" class="show-image-6" src="{{asset('storage/logo6.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto3!=null)
@@ -130,11 +145,6 @@
                             @else
                             <input type="image" class="show-image-5" src="{{asset('storage/logo6.png')}}">
                             @endif
-                            @if($producto->foto6!=null)
-                            <input type="image" class="show-image-6" src="{{asset($producto->foto6)}}">
-                            @else
-                            <input type="image" class="show-image-6" src="{{asset('storage/logo6.png')}}">
-                            @endif
                         </div>
                     </div>
 
@@ -144,7 +154,7 @@
 
                     <div class="mb-5 mx-5 p-2 mt-5" style="font-size:1.5em; background: rgba(214, 212, 212, 0.097)">
                         <b>{{$producto->nombre}}</b><i class="float-right mx-3"><i class="far fa-eye"></i>
-                            {{$producto->visualizaciones}}<i class="far fa-bookmark ml-3"></i> {{$favoritos}}</i> <br>
+                            {{$producto->visualizaciones}}<i class="far fa-bookmark ml-3"></i> {{$producto->guardados}}</i> <br>
                         <i style="font-size: 0.7em">{{$producto->categoria}}</i><br>
                         <p>{{$producto->precio}}€</p>
                         <p style="font-size: 1em">{{$producto->descripcion}}</p>
@@ -222,7 +232,7 @@
                                         <?php $coment = 0; ?>
                                         @foreach($comentarios as $coments)
                                         <div class="p-3 rounded mt-2"
-                                            style="word-wrap: break-word;background-color: @if($coment%2==0) #10FA91 @else #0DD97D @endif">
+                                            style="word-wrap: break-word;background-color: @if($coment%2==0) #10FA91 @else #00b2a9 @endif">
                                             <form action="{{route('comentarios.destroy', $coments)}}" method="POST"
                                                 onsubmit="disableButton(this);">
                                                 @csrf
@@ -341,7 +351,7 @@
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                     @endif
-                                    <form action="{{route('preguntas.store')}}" method="POST"
+                                    <form id="formularioaenviar" action="{{route('preguntas.store')}}" method="POST"
                                         onsubmit="disableButton(this);">
                                         @csrf
                                         @if(Auth::user()!=null)
@@ -351,7 +361,7 @@
                                         <textarea minlength="10" required name="pregunta" style="width: 100%"
                                             class="mt-3" cols="50" minlength="6" maxlength="150"
                                             placeholder="Escriba aquí para preguntar sobre este producto..."></textarea><br>
-                                        <button type="submit" class="btn btn-primary float-right"><i
+                                        <button type="submit" class="btn btn-primary float-right mt-2"><i
                                                 class="fas fa-comment mr-2"></i>Enviar pregunta</button>
                                         @endif
                                         @endif
@@ -363,7 +373,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     {{-- Modal --}}
 

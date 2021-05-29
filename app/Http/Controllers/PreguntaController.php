@@ -37,13 +37,19 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        $request->validate([
+            'pregunta'=>'required|min:6|max:150',
+            'user_id'=>'required',
+            'producto_id'=>'required'
+        ],[
+            'pregunta.required' => 'El campo pregunta es obligatorio',
+        ]);
 
-            $request->validate([
-                'pregunta'=>['required|min:6|max:150'],
-                'user_id'=>['required'],
-                'producto_id'=>['required']
-            ]);
+        try{
+            $validar = Pregunta::where('pregunta', $request->pregunta)->where('producto_id', $request->producto_id)->first();
+            if($validar!=null){
+                return back()->with('error', 'La pregunta ya existe');
+            }
 
             $preg = new Pregunta();
             $preg->pregunta = $request->pregunta;
@@ -54,7 +60,7 @@ class PreguntaController extends Controller
 
             return back()->with('mensaje', 'Pregunta realizada correctamente');
         }catch(\Exception $ex){
-            return back()->with('error', 'No se ha podido realizar la pregunta');
+            return back()->with('error', 'No se ha podido realizar la pregunta: '.$ex->getMessage());
         }
     }
 
@@ -89,10 +95,11 @@ class PreguntaController extends Controller
      */
     public function update(Request $request, Pregunta $pregunta)
     {
+        $request->validate([
+            'respuesta'=>'required|min:2|max:150'
+        ]);
+        
         try{
-            $request->validate([
-                'respuesta'=>['required|min:2|max:150']
-            ]);
 
             $pregunta->update([
                 'respuesta'=>$request->respuesta

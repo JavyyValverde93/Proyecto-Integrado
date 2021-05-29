@@ -47,6 +47,9 @@
                                         {{$user->ciudad}}
                                     </span>
                                 </div>
+                                @if(Auth::user()!=null && Auth::user()->email_verified_at==null && Auth::user()==$user)
+                                    <a href="{{route('verification.notice')}}"><div class="profile-card__txt mt-4" style="color: red"><strong>*Usuario sin Verificar*</strong></div></a>
+                                @endif
 
                                 <div class="profile-card-inf">
                                     <div class="profile-card-inf__item">

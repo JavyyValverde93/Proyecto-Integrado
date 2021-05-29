@@ -5,175 +5,27 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a> --}}
         </x-slot>
-
+        <style>
+            
+            label:not(.no)::after{
+                content: " *";
+                color: red;
+            }
+        </style>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <style>
-#uploadFile {
-  opacity: 0;
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
-}
-#uploadFile:hover + .hover {
-  opacity: 1;
-}
-
-#imagePreview {
-  border-radius: 100%;
-  border: 5px solid rgba(0, 0, 0, 0.3);
-  width: 130px;
-  height: 130px;
-  background-image: url(https://i.pinimg.com/236x/70/a2/05/70a2054d4f873ee9c6c208b9d6b31f15.jpg);
-  background-position: center center;
-  background-size: cover;
-  overflow: hidden;
-  display: flex;
-  position: relative;
-}
-
-.hover {
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  position: absolute;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition-duration: 450ms;
-}
-.hover i {
-  color: white;
-  font-size: 55px;
-}
-
-small{
-    color: red;
-    font-style: italic;
-}
-        </style>
-        <script>
-            $(function() {
-  $("#uploadFile").on("change", function()
-                      {
-    var files = !!this.files ? this.files : [];
-    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-
-    if (/^image/.test( files[0].type)){ // only image file
-      var reader = new FileReader(); // instance of the FileReader
-      reader.readAsDataURL(files[0]); // read the local file
-
-      reader.onloadend = function(){ // set image data as background of div
-        $("#imagePreview").css("background-image", "url("+this.result+")");
-      }
-    }
-  });
-});
-
-    var verde = "lime 2px solid";
-    var rojo = "red 2px solid";
-
-    var validar = true;
-
-    function validarNombre(){
-        var name = document.getElementById('name');
-        if(name.value.length<3){
-            name.style.border = rojo;
-            name.nextElementSibling.innerHTML = "El nombre debe tener 3 caracteres mínimo";
-            validar = false;
-
-        }else{
-            name.style.border = verde;
-            name.nextElementSibling.innerHTML = "";
-        }
-    }
-
-    function validarCiudad(){
-        var city = document.getElementById('ciudad');
-        if(city.value.length<4){
-            city.style.border = rojo;
-            city.nextElementSibling.innerHTML = "La ciudad no existe";
-            validar = false;
-        }else{
-            city.style.border = verde;
-            city.nextElementSibling.innerHTML = "";
-        }
-    }
-
-    function validarEmail(){
-        var email = document.getElementById('email');
-        var comprobar = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if(email.value.length<5 || !comprobar.test(email.value)){
-            email.style.border = rojo;
-            email.nextElementSibling.innerHTML = "El email no es correcto";
-            validar = false;
-        }else{
-            email.style.border = verde;
-            email.nextElementSibling.innerHTML = "";
-        }
-    }
-
-    function validarPassword(){
-        var pass1 = document.getElementById('password');
-        if(pass1.value.length<8){
-            pass1.style.border = rojo;
-            pass1.nextElementSibling.innerHTML = "La contraseña debe tener como mínimo 8 caracteres";
-            validar = false;
-        }else{
-            pass1.style.border = verde;
-            pass1.nextElementSibling.innerHTML = "";
-        }
-    }
-
-    function validarPassword2(){
-        var pass1 = document.getElementById('password');
-        var pass2 = document.getElementById('password_confirmation');
-        if(pass2.value.length<=8 || !Object.is(pass1.value, pass2.value)){
-            pass2.style.border = rojo;
-            if(pass2.value.length<=8){
-                pass2.nextElementSibling.innerHTML = "Es obligatorio confirmar la contraseña";
-            }else{
-                pass2.nextElementSibling.innerHTML = "Las contraseñas no coinciden";
-            }
-            validar = false;
-        }else{
-            pass2.style.border = verde;
-            pass2.nextElementSibling.innerHTML = "";
-        }
-    }
-
-    function validarFormulario(event){
-        validar = true;
-        validarNombre();
-        validarCiudad();
-        validarEmail();
-        validarPassword();
-        validarPassword2();
-    }
-
-
-
-        </script>
-
-        <!-- Validation Errors -->
-        {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
-
-        <script>
-            function disableButton(form) {
-                var btn = form.lastElementChild;
-                btn.disabled = true;
-                btn.innerText = 'Enviando...'
-            }
-        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="{{asset('css/register.css')}}">
+        <script src="{{asset('js/register.js')}}"></script>
 
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" onsubmit="disableButton(this)">
             @csrf
 
             <!--Foto de perfil -->
             <div id="imagePreview" class="mx-auto">
-                <x-input id="uploadFile" type="file" name="image" class="img" />
+                <x-input id="uploadFile" type="file" name="image" class="img tamanio_img" />
                 <div class="hover">
                 <i class="ion-camera"></i>
                 </div>
@@ -221,7 +73,7 @@ small{
                 <x-input id="password_confirmation" oninput="validarPassword2()" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
-                                <small></small>
+                                <small>{{$errors->first('password_confirmation')}}</small>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -229,7 +81,7 @@ small{
                     {{ __('Ya tiene cuenta?') }}
                 </a>
 
-                <x-button class="ml-4" id="btnRegistrarse" onmouseover="validarFormulario(this)">
+                <x-button class="ml-4" id="btnRegistrarse" onclick="validarFormulario(event)">
                     {{ __('Registrarse') }}
                 </x-button>
             </div>

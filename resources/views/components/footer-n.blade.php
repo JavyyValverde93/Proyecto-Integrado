@@ -1,22 +1,32 @@
 
-<footer align="center" class="py-5 rounded" style="font-size: 1.2vw;background-color: #131A22; color:white">
-    <div class="row">
+<footer align="center" class="rounded" style="font-size: 1.2vw;background-color: #131A22; color:white">
+    <div class="col-12 bg-dark text-white mt-5" style="font-size: 1.2vw; text-align: center;">
+        Javier Valverde Rivera
+        <div align="center" class="mb-2 mb-0">
+            <a rel="license" target="black" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img
+                alt="Creative Commons License" style="border-width:0;"
+                src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+        </div>
+            <br />This work is licensed under a <a target="black"
+          rel="license" style="color: red;" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
+          Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </div>
+    <div class="row mt-4">
         <div class="col-1"></div>
         <div class="col-3">
             <button type="button" data-toggle="modal" data-target="#modalSugerencias"> Contactar con nosotros<br>
             Sugerencias</button> 
         </div>
         <div class="col-3">
-            Diseñado por Javier Valverde Rivera <br>
-            <a href="#">valverdepruebas93@gmail.com</a>
+
         </div>
         <div class="col-3">
             <a href="https://www.instagram.com/javyyvalverde93_" target="black"><i class="fab fa-instagram"></i> @javyyvalverde93_</a> <br>
             <a href="https://www.instagram.com/milesy" target="black"><i class="fab fa-instagram"></i> @milesy</a> <br>
             <a href="https://www.youtube.com/" target="black"><i class="fab fa-youtube"></i> @milesy</a>
         </div>
-
     </div>
+    
 </footer>
 
 {{-- Modal --}}

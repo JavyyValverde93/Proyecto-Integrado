@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // Añadir y retirar de favoritos
 
 function guardar() {
-    document.save_prod.submit();
+    document.save_prod.lastElementChild.click();
 }
 
 function quitar() {

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -71,15 +72,18 @@ class UserController extends Controller
 
     public function modify_user(Request $request, User $user){
 
+        $request->validate([
+            'name' => 'required|string|max:20|min:3',
+            'email' => 'required|string|email',
+            'ciudad' => 'required|string|min:4|max:20'
+        ],[
+            'name.required' => 'El campo nombre es obligatorio',
+            'name.max' => 'El campo nombre es demasiado largo',
+            'ciudad.max' => 'El campo ciudad es demasiado largo',
+            'name.min' => 'El campo nombre no cumple los requisitos mínimos'
+        ]);
+
         try{
-            $request->validate([
-                'name' => 'required|string|max:20|min:3',
-                'email' => 'required|string|email|max:20',
-                'ciudad' => 'required|string|min:4|max:20'
-            ],[
-                'name.required' => 'El campo nombre es obligatorio',
-                'name.min' => 'El campo nombre no cumple los requisitos mínimos'
-            ]);
 
             $foto = $user->foto;
 
@@ -121,7 +125,7 @@ class UserController extends Controller
             return back()->with('mensaje', 'Usuario actiualizado correctamente');
 
         }catch(\Exception $ex){
-            return back()->with('error', 'El usuario no ha podido modificarse, compruebe los campos o pruebe más tarde');
+            return back()->with('error', 'El usuario no ha podido modificarse, compruebe los campos o pruebe más tarde'.$ex->getMessage());
         }
     }
 
@@ -208,5 +212,34 @@ class UserController extends Controller
         }
 
         return view('users.modals-data', compact('seguidos', 'seguidores', 'guardados'));
+    }
+
+    public function reset_password(Request $request){
+        return view('auth.reset-password');
+    }
+
+    public function change_password(Request $request){
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+
+        $user = User::where('id', Auth::user()->id)->first();
+
+        try{
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+    
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/');
+
+        }catch(\Exception $ex){
+            return back()->with('error', 'No se ha podido cambiar la contraseña');
+        }
     }
 }

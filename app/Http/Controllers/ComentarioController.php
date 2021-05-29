@@ -41,8 +41,15 @@ class ComentarioController extends Controller
                 'comentario'=>'required|min:7|max:150',
                 'user_id'=>'required',
                 'producto_id'=>'required'
+            ],[
+                'comentario.required' => 'El comentario está vacío',
+                'comentario.min' => 'El comentario no supera el mínimo de caracteres',
             ]);
         try{
+            $validar = Comentario::where('comentario', $request->comentario)->where('user_id', $request->user_id)->where('producto_id', $request->producto_id)->first();
+            if($validar!=null){
+                return back()->with('error', 'El comentario ya existe');
+            }
 
             $coment = new Comentario();
             $coment->comentario = $request->comentario;

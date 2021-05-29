@@ -15,7 +15,13 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+        <style>
+            
+            label:not(.no)::after{
+                            content: " *";
+                            color: red;
+                        }
+        </style>
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
 

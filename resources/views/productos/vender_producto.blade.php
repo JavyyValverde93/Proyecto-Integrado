@@ -9,8 +9,11 @@
   </script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
   <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
   </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="{{asset('js/vender_producto.js')}}"></script>
   <link rel="stylesheet" href="{{asset('css/vender_producto.css')}}">
     <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
@@ -23,45 +26,12 @@
                             color: red;
                             font-style: italic;
                         }
+                        
+                        label:not(.no)::after{
+                            content: " *";
+                            color: red;
+                        }
                     </style>
-                    <script>
-                        var verde = "solid 2px lime";
-                        var rojo = "solid 2px red";
-
-                        function validarNombre(){
-                            var name = document.getElementsByName('nombre')[0];
-                            if(name.value.length<5){
-                                name.style.border = rojo;
-                                name.nextElementSibling.innerHTML = "El nombre del producto no es válido";
-                            }else{
-                                name.style.border = verde;
-                                name.nextElementSibling.innerHTML = "";
-                            }
-                        }
-
-                        function validarPrecio(){
-                            var name = document.getElementsByName('precio')[0];
-                            if(name.value<0.05){
-                                name.style.border = rojo;
-                                name.nextElementSibling.innerHTML = "Este campo es obligatorio";
-                            }else{
-                                name.style.border = verde;
-                                name.nextElementSibling.innerHTML = "";
-                            }
-                        }
-
-                        function validarDescripcion(){
-                            var name = document.getElementsByName('descripcion')[0];
-                            if(name.value.length<10){
-                                name.style.border = rojo;
-                                name.nextElementSibling.innerHTML = "Este campo debe contener más caracteres";
-                            }else{
-                                name.style.border = verde;
-                                name.nextElementSibling.innerHTML = "";
-                            }
-                        }
-
-                    </script>
                     <x-alert-message></x-alert-message>
                     <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
                         @csrf
@@ -142,7 +112,7 @@
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap">
-                                                    <input class="file-upload-input" type='file' required name="foto1" onchange="readURL(this);"
+                                                    <input class="file-upload-input tamanio_img" type='file' required name="foto1" onchange="readURL(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -164,7 +134,7 @@
                                                     onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap2">
-                                                    <input class="file-upload-input2" name="foto2" type='file' onchange="readURL2(this);"
+                                                    <input class="file-upload-input2 tamanio_img" name="foto2" type='file' onchange="readURL2(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text2">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -184,7 +154,7 @@
                                                     onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap3">
-                                                    <input class="file-upload-input3" name="foto3" type='file' onchange="readURL3(this);"
+                                                    <input class="file-upload-input3 tamanio_img" name="foto3" type='file' onchange="readURL3(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text2">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -204,7 +174,7 @@
                                                     onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap4">
-                                                    <input class="file-upload-input4" name="foto4" type='file' onchange="readURL4(this);"
+                                                    <input class="file-upload-input4 tamanio_img" name="foto4" type='file' onchange="readURL4(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text4">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -224,7 +194,7 @@
                                                     onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o cambiar imágen</button>
 
                                                 <div class="image-upload-wrap5">
-                                                    <input class="file-upload-input5" name="foto5" type='file' onchange="readURL5(this);"
+                                                    <input class="file-upload-input5 tamanio_img" name="foto5" type='file' onchange="readURL5(this);"
                                                         accept="image/*" />
                                                     <div class="drag-text5">
                                                         <h3>Arrastra y suelta una imágen o seleccionala</h3>
@@ -245,18 +215,11 @@
                                 </div>
                             </div>
                         </div>
-                            <button type="submit" class="btn btn-primary col-md-12 p-3" style="background-color: #06ff8f; border: 1px solid green"><b>Subir producto</b></button>
+                            <button type="submit" class="btn btn-primary col-md-12 p-3" style="background-color: #06ff8f; border: 1px solid green" onclick="validarFormulario(event);"><b>Subir producto</b></button>
                     </form>
                 </div>
             </div>
 
-            <script>
-                function disableButton(form) {
-                    var btn = form.lastElementChild;
-                    btn.disabled = true;
-                    btn.innerText = 'Enviando...'
-                }
-            </script>
 
         </div>
     </div>

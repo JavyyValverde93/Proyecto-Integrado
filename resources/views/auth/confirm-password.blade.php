@@ -5,7 +5,13 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-
+        <style>
+            
+            label:not(.no)::after{
+                            content: " *";
+                            color: red;
+                        }
+        </style>
         <script>
             var verde = "lime 2px solid";
             var rojo = "red 2px solid";

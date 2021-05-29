@@ -59,13 +59,16 @@ Route::put("users/modify_user{user}", [UserController::class, 'modify_user'])
 ->name('modify_user') ->middleware(['auth']);
 //Eliminar usuario
 Route::get("users/{user_id}/destroy_user", [UserController::class, 'destroy_user'])
-->name('destroy_user')->middleware(['auth', 'password.confirm', 'verified']);
+->name('destroy_user')->middleware(['auth', 'password.confirm']);
 //Hacer usuario admin
 Route::get("users/{user_id}/do_admin", [UserController::class, 'do_admin'])
 ->name('do_admin')->middleware(['auth', 'password.confirm']);
 //Hacer usuario normal
 Route::get("users/{user_id}/undo_admin", [UserController::class, 'undo_admin'])
 ->name('undo_admin')->middleware(['auth', 'password.confirm']);
+//Password_reset
+Route::get("password_reset", [UserController::class, 'reset_password'])->name('users.password_reset')->middleware(['auth', 'password.confirm']);
+Route::post("changing_passsword", [UserController::class, 'change_password'])->name('users.change_password')->middleware(['auth', 'password.confirm']);
 
 //Modals-data
 Route::get("users/{user_id}/modals_data", [UserController::class, 'modals_data'])

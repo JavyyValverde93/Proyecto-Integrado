@@ -5,7 +5,12 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-
+        <style>
+            label:not(.no)::after{
+                content: " *";
+                color: red;
+            }
+        </style>
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Gracias por entrar en Milesy! Antes de comenzar, tienes que  verificar el correo, para ello te hemos enviado un correo, solo debe clickear en el enlace. Si no lo recive, le enviaremos otro.') }}
         </div>

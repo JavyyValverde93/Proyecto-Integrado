@@ -173,7 +173,7 @@ class ProductoFactory extends Factory
         }
 
         return [
-            'nombre'=>$nombre[rand(0, count($nombre)-1)]." ".$nombre2[rand(0, count($nombre2)-1)]." ".$nombre3[rand(0, count($nombre3)-1)],
+            'nombre'=>$nombre[rand(0, count($nombre)-1)]."".$nombre2[rand(0, count($nombre2)-1)]." ".$nombre3[rand(0, count($nombre3)-1)],
             'categoria'=>$categorias[$num],
             'descripcion'=>$this->faker->text($maxNbChars=60),
             'precio'=>mt_rand($precio1, $precio2)/100,

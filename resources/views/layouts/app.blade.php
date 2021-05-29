@@ -45,20 +45,22 @@
                 var lastScrollTop = 0;
                 $(window).scroll(function(event){
                 var st = $(this).scrollTop();
-                if (st > lastScrollTop){
-                    document.getElementsByClassName('fixed-top')[0].style.visibility = 'hidden';
-                    document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'hidden';
-                    if(window.scrollY==0){
-                        document.getElementsByClassName('font-semibold')[0].style.visibility = 'hidden';
-                    }
-                } else {
-                    if(window.innerWidth<=632){
-                        document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'initial';
-                    }else{
+                if(st-155 >= 0){
+                    if (st > lastScrollTop){
+                        document.getElementsByClassName('fixed-top')[0].style.visibility = 'hidden';
                         document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'hidden';
+                        if(window.scrollY==0){
+                            document.getElementsByClassName('font-semibold')[0].style.visibility = 'hidden';
+                        }
+                    } else {
+                        if(window.innerWidth<=632){
+                            document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'initial';
+                        }else{
+                            document.getElementsByClassName('fixed-bottom')[0].style.visibility = 'hidden';
+                        }
+                        document.getElementsByClassName('fixed-top')[0].style.visibility = 'initial';
+                        document.getElementsByClassName('font-semibold')[0].style.visibility = 'inicial';
                     }
-                    document.getElementsByClassName('fixed-top')[0].style.visibility = 'initial';
-                    document.getElementsByClassName('font-semibold')[0].style.visibility = 'inicial';
                 }
                 lastScrollTop = st;
                 });

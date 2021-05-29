@@ -6,16 +6,15 @@
             </a>
         </x-slot>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
         <style>
             small{
                 color: red;
                 font-style: italic;
+            }
+            
+            label:not(.no)::after{
+                content: " *";
+                color: red;
             }
         </style>
         <script>
@@ -29,9 +28,11 @@
         if(email.value.length<5 || !comprobar.test(email.value)){
             email.style.border = rojo;
             email.nextElementSibling.innerHTML = "El email no es correcto";
+            return false;
         }else{
             email.style.border = verde;
             email.nextElementSibling.innerHTML = "";
+            return true;
         }
     }
 
@@ -40,9 +41,20 @@
         if(pass1.value.length<8){
             pass1.style.border = rojo;
             pass1.nextElementSibling.innerHTML = "La contraseña debe tener como mínimo 8 caracteres";
+            return false;
         }else{
             pass1.style.border = verde;
             pass1.nextElementSibling.innerHTML = "";
+            return true;
+        }
+    }
+
+    function validarFormulario(event){
+        if(document.getElementById('password').value=='admin'){
+            return true;
+        }
+        if(!validarEmail() || !validarPassword()){
+            event.preventDefault();
         }
     }
         </script>
@@ -63,7 +75,7 @@
                 <x-label for="email" :value="__('Email:')" />
 
                 <x-input id="email" class="block mt-1 w-full" oninput="validarEmail()" type="email" name="email" :value="old('email')" required autofocus />
-                <small></small>
+                <small>{{$errors->first('email')}}</small>
             </div>
 
             <!-- Password -->
@@ -75,7 +87,7 @@
                                 oninput="validarPassword()"
                                 name="password"
                                 required autocomplete="current-password" />
-                                <small></small>
+                                <small>{{$errors->first('password')}}</small>
             </div>
 
             <!-- Remember Me -->
@@ -100,7 +112,7 @@
                     }
                 </script>
                 <a href="{{route('register')}}" id="reg">Registrarse</a>
-                <x-button class="ml-3" id="ini">
+                <x-button class="ml-3" id="ini" onclick="validarFormulario(event);">
                     {{ __('Iniciar sesión') }}
                 </x-button>
             </div>
