@@ -1,4 +1,4 @@
-<p><a href="https://docs.google.com/document/d/1gRsizWlva1M4w53tu9CZpWBa3xQlReg-T0Vqsyf7DtA/edit#">Documentación Proyecto Integrado</a>: https://docs.google.com/document/d/1gRsizWlva1M4w53tu9CZpWBa3xQlReg-T0Vqsyf7DtA/edit#</p>
+<p><a>Documentación Proyecto Integrado</a>: https://docs.google.com/document/d/1gRsizWlva1M4w53tu9CZpWBa3xQlReg-T0Vqsyf7DtA/edit#</p>
 <p></p>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
