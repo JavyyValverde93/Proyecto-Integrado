@@ -1,5 +1,18 @@
 <p><a>Documentación Proyecto Integrado</a>: https://docs.google.com/document/d/1gRsizWlva1M4w53tu9CZpWBa3xQlReg-T0Vqsyf7DtA/edit#</p>
 <p></p>
+<p>Procedimiento para instalar el proyecto:</p>
+-Crear la base de datos desde el CMD: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->mysql -u root -p contrasena <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->create database milesy1; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->create user milesy1@'localhost' identified by 'milesy1'; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->grant all on milesy1.* to milesy1@'localhost'; <br>
+-En Visual Studio Code, una vez importado el proyecto ejecutamos el comando "composer update" en la raiz del proyecto. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->Una vez hecho modificamos el archivo .env(nombre, usuario, contraseña de base de datos):  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->De nuevo en la raiz del proyecto ejecutamos el comando "php artisan migrate:fresh --seed" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->Ahora el comando "php artisan storage:link" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;->Y teniendo instalado NodeJs ejecutamos el comando "php artisan serve" y nuestro proyecto se verá en la url http://127.0.0.1:8000/
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
