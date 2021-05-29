@@ -7,31 +7,31 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Sobre Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Laravel es un marco de aplicación web con una sintaxis elegante y expresiva. Creemos que el desarrollo debe ser una experiencia divertida y creativa para ser verdaderamente satisfactorio. Laravel elimina la molestia del desarrollo al facilitar las tareas comunes que se utilizan en muchos proyectos web, como:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- [Motor de enrutamiento simple y rápido](https://laravel.com/docs/routing).
+- [Potente contenedor de inyección de dependencia](https://laravel.com/docs/container).
+- Múltiples back-end para almacenamiento de [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
 - Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
 - Database agnostic [schema migrations](https://laravel.com/docs/migrations).
 - [Robust background job processing](https://laravel.com/docs/queues).
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Laravel es accesible, potente y proporciona las herramientas necesarias para aplicaciones grandes y robustas.
 
-## Learning Laravel
+## Aprendiendo Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Laravel tiene la biblioteca de tutoriales de video y [documentación](https://laravel.com/docs) más extensa y completa de todos los marcos de aplicaciones web modernos, por lo que es muy fácil comenzar con el marco.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Si no tiene ganas de leer, [Laracasts](https://laracasts.com) puede ayudarlo. Laracasts contiene más de 1500 videos tutoriales sobre una variedad de temas que incluyen Laravel, PHP moderno, pruebas unitarias y JavaScript. Mejore sus habilidades buscando en nuestra completa biblioteca de videos.
 
-## Laravel Sponsors
+## Patrocinadores de Laravel
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Nos gustaría extender nuestro agradecimiento a los siguientes patrocinadores por financiar el desarrollo de Laravel. Si está interesado en convertirse en patrocinador, visite la [página de Laravel Patreon](https://patreon.com/taylorotwell).
 
-### Premium Partners
+### Socios Premium
 
 - **[Vehikl](https://vehikl.com/)**
 - **[Tighten Co.](https://tighten.co)**
