@@ -8,6 +8,15 @@
                 visibility: hidden;
             }
         </style>
+        <datalist id="ciudades">
+            <option>Cualquier Lugar</option>
+            @auth
+                <option>{{Auth::user()->ciudad}}</option>
+            @endauth
+            @foreach ($ciudades as $item)
+                <option value="{{$item->ciudad}}" @if($request->ciudad==$item->ciudad) selected @endif>{{$item->ciudad}}</option>
+            @endforeach
+        </datalist>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <div class="row">
                 <div class="ui search my-auto mx-3 col-auto mt-2">
@@ -15,7 +24,7 @@
                         @csrf
                         <div class="ui icon input">
                             <input class="prompt form-control px-2" value="{{$scope}}" name="nombre" size="50%"
-                                type="text" placeholder="Buscar..." onchange="this.form.sumbit()">
+                                type="text" placeholder="Buscar..." onchange="this.form.sumbit()" autofocus>
                             <i class="search icon"></i>
                         </div>
 
@@ -32,11 +41,18 @@
                 <div class="col" align="right">
 
                 </div>
-                
+                <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
+                    @csrf
+                    <i class="fal fa-map-marker-alt mr-2"></i>
+                    @php if($request->ciudad=="%"){$request->ciudad="";} @endphp
+                    <input list="ciudades" placeholder="Buscar en..." value="{{$request->ciudad}}" onchange="this.form.submit()" class="p-2 rounded" name="ciudad" style="border: solid 2px black">
+                    <input type="hidden" value="{{$request->categoria}}" name="categoria">
+                    <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                </form>
                 <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
                     @csrf
                     <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
-                        <option>Ordenar por...</option>
+                        <option value="">Ordenar por...</option>
                         <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
                         <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
                         <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más
@@ -51,9 +67,8 @@
                         <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos
                             gustados</option>
                     </select>
-                    @if($request->categoria!=null)
                     <input type="hidden" value="{{$request->categoria}}" name="categoria">
-                    @endif
+                    <input type="hidden" name="ciudad" value="{{$request->ciudad}}">
                 </form>
             </div>
         </h2>
@@ -79,79 +94,79 @@
                             <h2>Categorías</h2>
                             <section class="customer-logos slider" align="center">
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Coches', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Coches', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/coche.png')}}">Coches</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Motos', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Motos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/moto.png')}}">Motos</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Motor y Accesorios', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Motor y Accesorios', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/motor.png')}}">Motor y
                                         Accesorios</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Inmobiliaria', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Inmobiliaria', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/casa.png')}}">Inmobiliaria</a>
                                 </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Tv, Audio y Foto', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Tv, Audio y Foto', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/tv.png')}}">Tv, Audio y Foto</a>
                                 </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Móviles y Telefonía', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Móviles y Telefonía', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/movil.png')}}">Móviles y
                                         Telefonía</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Informática y Electrónica', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Informática y Electrónica', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/informatica.png')}}">Informática y
                                         Electrónica</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Deporte y Ocio', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Deporte y Ocio', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/deporte.png')}}">Deporte y
                                         Ocio</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Bicicletas', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Bicicletas', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/bici.png')}}">Bicicletas</a></div>
                                 <div class="slide font-bold"><a
-                                    href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar])}}"><img
+                                    href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                         src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y
                                     Videojuegos</a></div>
                                     <div class="slide font-bold"><a
-                                            href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar])}}"><img
+                                            href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                                 src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a>
                                     </div>
                                     <div class="slide font-bold"><a
-                                            href="{{route('productos.index', ['categoria=Electrodomésticos', 'ordenar='.$request->ordenar])}}"><img
+                                            href="{{route('productos.index', ['categoria=Electrodomésticos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                                 src="{{asset('storage/imagenes-categorias/electrodomesticos.png')}}">Electrodomésticos</a>
                                     </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Cine, Libros y Música', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Cine, Libros y Música', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/cine.png')}}">Cine, Libros y
                                         Música</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Niños y Bebés', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Niños y Bebés', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/bebe.png')}}">Niños y Bebés</a>
                                 </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Coleccionismo', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Coleccionismo', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/coleccionismo.png')}}">Coleccionismo</a>
                                 </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Materiales de construcción', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Materiales de construcción', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/construccion.png')}}">Materiales
                                         de construcción</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Industria y Agricultura', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Industria y Agricultura', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/tractor.png')}}">Industria y
                                         Agricultura</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Empleo', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Empleo', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/empleo.png')}}">Empleo</a></div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Servicios', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Servicios', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/servicios.png')}}">Servicios</a>
                                 </div>
                                 <div class="slide font-bold"><a
-                                        href="{{route('productos.index', ['categoria=Otros', 'ordenar='.$request->ordenar])}}"><img
+                                        href="{{route('productos.index', ['categoria=Otros', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/otros.png')}}">Otros</a></div>
 
 

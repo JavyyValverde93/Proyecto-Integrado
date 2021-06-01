@@ -9,15 +9,23 @@
                 visibility: hidden;
             }
         </style>
-
+        <datalist id="ciudades">
+            <option>Cualquier Lugar</option>
+            @auth
+                <option>{{Auth::user()->ciudad}}</option>
+            @endauth
+            @foreach ($ciudades as $item)
+                <option value="{{$item->ciudad}}" @if($request->ciudad==$item->ciudad) selected @endif>{{$item->ciudad}}</option>
+            @endforeach
+        </datalist>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <div class="row">
                 <div class="ui search my-auto mx-3 col-auto mt-2">
                     <form action="{{route('productos.index')}}" method="GET" class="form form-inline">
                         @csrf
                         <div class="ui icon input">
-                            <input class="prompt form-control px-2" value="{{$scope}}" name="nombre" size="50%" type="text"
-                                placeholder="Buscar..." onchange="this.form.sumbit()">
+                            <input class="prompt form-control px-2" value="{{$scope}}" name="nombre" size="50%"
+                                type="text" placeholder="Buscar..." onchange="this.form.sumbit()" autofocus>
                             <i class="search icon"></i>
                         </div>
 
@@ -36,20 +44,32 @@
                 </div>
                 <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
                     @csrf
+                    <i class="fal fa-map-marker-alt mr-2"></i>
+                    @php if($request->ciudad=="%"){$request->ciudad="";} @endphp
+                    <input list="ciudades" placeholder="Buscar en..." value="{{$request->ciudad}}" onchange="this.form.submit()" class="p-2 rounded" name="ciudad" style="border: solid 2px black">
+                    <input type="hidden" value="{{$request->categoria}}" name="categoria">
+                    <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                </form>
+                <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
+                    @csrf
                     <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
-                            <option>Ordenar por...</option>
-                            <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
-                            <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
-                            <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más bajo</option>
-                            <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más alto</option>
-                            <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
-                            <option value="menos-visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos vistos</option>
-                            <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados</option>
-                            <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos gustados</option>
-                        </select>
-                        @if($request->categoria!=null)
-                        <input type="hidden" value="{{$request->categoria}}" name="categoria">
-                        @endif
+                        <option value="">Ordenar por...</option>
+                        <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
+                        <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
+                        <option value="precio-bajo" @if($request->ordenar=='precio-bajo') selected @endif>Precio más
+                            bajo</option>
+                        <option value="precio-alto" @if($request->ordenar=='precio-alto') selected @endif>Precio más
+                            alto</option>
+                        <option value="visitas" @if($request->ordenar=='visitas') selected @endif>Más vistos</option>
+                        <option value="menos-visitas" @if($request->ordenar=='menos-visitas') selected @endif>Menos
+                            vistos</option>
+                        <option value="gustados" @if($request->ordenar=='gustados') selected @endif>Más gustados
+                        </option>
+                        <option value="menos-gustados" @if($request->ordenar=='menos-gustados') selected @endif>Menos
+                            gustados</option>
+                    </select>
+                    <input type="hidden" value="{{$request->categoria}}" name="categoria">
+                    <input type="hidden" name="ciudad" value="{{$request->ciudad}}">
                 </form>
             </div>
         </h2>
@@ -96,6 +116,7 @@
                             @if($request->ordenar!=null)
                             <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
                             @endif
+                            <input type="hidden" name="ciudad" value="{{$request->ciudad}}">
                         </form>
                     </div>
 

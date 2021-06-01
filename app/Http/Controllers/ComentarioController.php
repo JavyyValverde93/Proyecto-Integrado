@@ -46,7 +46,8 @@ class ComentarioController extends Controller
                 'comentario.min' => 'El comentario no supera el mínimo de caracteres',
             ]);
         try{
-            $validar = Comentario::where('comentario', $request->comentario)->where('user_id', $request->user_id)->where('producto_id', $request->producto_id)->first();
+            $validar = Comentario::where('comentario', $request->comentario)->where('user_id', $request->user_id)
+            ->where('producto_id', $request->producto_id)->first();
             if($validar!=null){
                 return back()->with('error', 'El comentario ya existe');
             }

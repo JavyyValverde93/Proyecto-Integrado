@@ -37,10 +37,12 @@ class RespuestaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'respuesta'=>'required|min:7|max:150',
+            'respuesta'=>'required|max:150',
             'idc'=>['required'],
             'idu'=>['required'],
             'idp'=>['required']
+        ],[
+            'respuesta.required' => 'No se ha escrito ninguna respuesta',
         ]);
 
         try{

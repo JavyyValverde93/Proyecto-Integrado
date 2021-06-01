@@ -41,7 +41,7 @@ Route::get('products', function(){
         <a href={{route("ver_perfil", $user_id)}} target="black"><i class="fas fa-user"></i></a>
         <a href={{route("productos.show", ["$id?u=%"])}} target="black"><i class="fas fa-eye"></i></a>
         <a href={{route("productos.edit", $id)}} target="black"><i class="fas fa-edit"></i></a>
-        <a href={{route("productos.destroyprod", [$id, "ad=1"])}}><i class="fas fa-trash-alt"></i></a>
+        <a href={{route("productos.destroyprod", [$id, "ad=1"])}} onclick="return confirm(`¿Está seguro de que quiere eliminar este producto ?`)"><i class="fas fa-trash-alt"></i></a>
     ';
     $foto = '<img src={{asset("$foto1")}} width=50 height=50 class="mx-auto">';
     return datatables()->eloquent(Producto::query())->addColumn('btn', $btn)->addColumn('foto', $foto)

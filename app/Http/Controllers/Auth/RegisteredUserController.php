@@ -40,6 +40,12 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'ciudad' => 'required|string|min:4'
+        ],[
+            'name.required' => 'El campo nombre es obligatorio',
+            'name.min' => 'El campo nombre no cumple los requisitos mínimos',
+            'password.required' => 'La contraseña no supera la longitud mínima',
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'ciudad.required' => 'El campo ciudad es obligatorio',
         ]);
 
         $foto = "storage/img/users/default.png";

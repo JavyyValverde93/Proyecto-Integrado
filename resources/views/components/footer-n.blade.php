@@ -1,6 +1,6 @@
 
 <footer align="center" class="rounded" style="font-size: 1.2vw;background-color: #131A22; color:white">
-    <div class="col-12 bg-dark text-white mt-5" style="font-size: 1.2vw; text-align: center;">
+    <div class="col-12 bg-dark text-white" style="font-size: 1.2vw; text-align: center;">
         Javier Valverde Rivera
         <div align="center" class="mb-2 mb-0">
             <a rel="license" target="black" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img

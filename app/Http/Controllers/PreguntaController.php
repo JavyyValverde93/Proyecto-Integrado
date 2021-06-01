@@ -97,6 +97,9 @@ class PreguntaController extends Controller
     {
         $request->validate([
             'respuesta'=>'required|min:2|max:150'
+        ],[
+            'respuesta.required' => 'La respuesta es obligatoria',
+            'respuesta.min' => 'La respuesta no supera la longitud mínima'
         ]);
         
         try{

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Models\Picture;
+use App\Models\User;
 use App\Models\Guardado;
 use App\Models\Comentario;
 use App\Models\Pregunta;
@@ -53,15 +53,18 @@ class ProductoController extends Controller
                 $ord2 = 'asc';
             }
         }
-                                
+        if($request->ciudad==null || $request->ciudad=="Cualquier Lugar"){
+            $request->ciudad = "%";
+        }                   
                         
-
-        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)->categoria($request->categoria)->paginate(24);
+        $ciudades = User::select('ciudad')->distinct()->orderBy('ciudad')->get();
+        $productos = Producto::orderBy($ord, $ord2)->nombre($request->nombre)
+        ->categoria($request->categoria)->whereIn('user_id', User::where('ciudad', 'like', "%$request->ciudad%")->get('id')->toArray())->paginate(24);
         $scope = $request->nombre;
         if($request->categoria!=null || $request->nombre!=null){
-            return view('productos.index2', compact('productos', 'request', 'scope'));
+            return view('productos.index2', compact('productos', 'request', 'scope', 'ciudades'));
         }
-        return view('productos.index', compact('productos', 'request', 'scope'));
+        return view('productos.index', compact('productos', 'request', 'scope', 'ciudades'));
     }
 
     /**
@@ -91,6 +94,12 @@ class ProductoController extends Controller
             'foto1'=>['required', 'image'],
             'user_id'=>['required']
         ],[
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.min' => 'El nombre no supera la longitud mínima',
+            'descripcion.required' => 'El campo descripción es obligatorio',
+            'descripcion.min' => 'El campo descripción no supera la longitud mínima',
+            'categoria.required' => 'No se ha seleccionado ninguna categoría',
+            'precio.required' => 'El precio es obligatorio',
             'foto1.required'=>'Es obligatorio usar al menos una imágen',
             'foto1.image'=>'Es obligatorio usar una imágen'
         ]);
@@ -214,6 +223,13 @@ class ProductoController extends Controller
             'descripcion'=>['required', 'string', 'min:10', 'max:400'],
             'categoria'=>['required'],
             'precio'=>['required', 'min:0.05'],
+        ],[
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.min' => 'El nombre no supera la longitud mínima',
+            'descripcion.required' => 'El campo descripción es obligatorio',
+            'descripcion.min' => 'El campo descripción no supera la longitud mínima',
+            'categoria.required' => 'No se ha seleccionado ninguna categoría',
+            'precio.required' => 'El precio es obligatorio',
         ]);
 
         try{
@@ -282,7 +298,6 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        dd($producto);
         if(Auth::user()==$producto->user || Auth::user()->tipo==1){
             $id = $producto->user->id;
             try{

@@ -70,6 +70,8 @@ https://codepen.io/GeorgePark/full/gegavO/
     box-shadow: 0 0 0.5rem #fff,
         0 0 1.5rem var(--border-color),
         0 0 3rem var(--border-color);
+    max-width: 400px;
+    max-height: 400px;
 }
 
 .image-buttons {
@@ -158,3 +160,9 @@ https://codepen.io/GeorgePark/full/gegavO/
     font-size: 15px
 }
 
+@media screen and (max-width: 800px){
+    .cube-face-image {
+        max-width: 300px;
+        max-height: 300px;
+    }
+}
