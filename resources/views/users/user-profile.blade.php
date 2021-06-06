@@ -56,18 +56,20 @@
                                         <div class="profile-card-inf__title">{{$n_prods}}</div>
                                         <div class="profile-card-inf__txt">Productos</div>
                                     </div>
-                                    <button type="button" data-toggle="modal" data-target="#modalSeguidos">
-                                        <div class="profile-card-inf__item">
-                                            <div class="profile-card-inf__title">{{$n_seguidos}}</div>
-                                            <div class="profile-card-inf__txt">Siguiendo</div>
-                                        </div>
-                                    </button>
-                                    <button type="button" data-toggle="modal" data-target="#modalSeguidores">
-                                        <div class="profile-card-inf__item">
-                                            <div class="profile-card-inf__title">{{$n_seguidores}}</div>
-                                            <div class="profile-card-inf__txt">Seguidores</div>
-                                        </div>
-                                    </button>
+                                    <div id="actualisa2">
+                                        <button type="button" data-toggle="modal" data-target="#modalSeguidos">
+                                            <div class="profile-card-inf__item">
+                                                <div class="profile-card-inf__title">{{$n_seguidos}}</div>
+                                                <div class="profile-card-inf__txt">Siguiendo</div>
+                                            </div>
+                                        </button>
+                                        <button type="button" data-toggle="modal" data-target="#modalSeguidores">
+                                            <div class="profile-card-inf__item">
+                                                <div class="profile-card-inf__title">{{$n_seguidores}}</div>
+                                                <div class="profile-card-inf__txt">Seguidores</div>
+                                            </div>
+                                        </button>
+                                    </div>
                                     @if(Auth::user()!=null && Auth::user()==$user)
                                     <button id="btnFavoritos" type="button" data-toggle="modal" data-target="#modalFavoritos">
                                         <div class="profile-card-inf__item">
@@ -92,27 +94,56 @@
                                         }
                                     }
                                 </script>
+                                <div id="actualisa">
+                                    <div class="profile-card-ctr">
+                                        @if(Auth::user()!=null && Auth::user()!=$user)
+                                        @if(!isset($follower->seguido))
+                                        <form action="{{route('followers.store', ['seguido='.$user->id])}}" onsubmit="submitForm(event)" id="formFollow" method="POST">
+                                            @csrf
+                                            <button class="profile-card__button button--orange"><i
+                                                    class="fas fa-plus mr-1"></i>
+                                                Seguir</button>
+                                        </form>
+                                        @else
+                                        <form action="{{route('followers.destroy', $follower)}}" id="deleteFollow" onsubmit="submitForm2(event)" method="POST">
+                                            @csrf
+                                            <button class="profile-card__button button--orange"><i
+                                                    class="fas fa-minus mr-1"></i> Dejar de seguir</button>
+                                        </form>
 
-                                <div class="profile-card-ctr">
-                                    @if(Auth::user()!=null && Auth::user()!=$user)
-                                    @if(!isset($follower->seguido))
-                                    <form action="{{route('followers.store', ['seguido='.$user->id])}}" method="POST">
-                                        @csrf
-                                        <button class="profile-card__button button--orange"><i
-                                                class="fas fa-plus mr-1"></i>
-                                            Seguir</button>
-                                    </form>
-                                    @else
-                                    <form action="{{route('followers.destroy', $follower)}}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="profile-card__button button--orange"><i
-                                                class="fas fa-minus mr-1"></i> Dejar de seguir</button>
-                                    </form>
-
-                                    @endif
-                                    @endif
+                                        @endif
+                                        @endif
+                                    </div>
                                 </div>
+
+                                <script type="text/javascript">
+                                    function submitForm(event){
+                                        $.ajax({
+                                            type: $('#formFollow').attr('method'), 
+                                                url: $('#formFollow').attr('action'),
+                                            data: $('#formFollow').serialize(),
+                                            success: function (data) { console.log('Datos enviados !!!');} 
+                                            });
+                                            event.preventDefault();
+                                            document.getElementById('formFollow').innerHTML="<img src={{asset('storage/img/loading2.gif')}} width='150'>";
+                                        //Actualiza ese id sin recargar la página
+                                        $("#actualisa").load(window.location.href+" #actualisa");
+                                        $("#actualisa2").load(window.location.href+" #actualisa2");
+                                    }
+                                    function submitForm2(event){
+                                        $.ajax({
+                                            type: $('#deleteFollow').attr('method'), 
+                                                url: $('#deleteFollow').attr('action'),
+                                            data: $('#deleteFollow').serialize(),
+                                            success: function (data) { console.log('Datos enviados !!!');} 
+                                            });
+                                            event.preventDefault();
+                                            document.getElementById('deleteFollow').innerHTML="<img src={{asset('storage/img/loading2.gif')}} width='150'>";
+                                        //Actualiza ese id sin recargar la página
+                                        $("#actualisa").load(window.location.href+" #actualisa");
+                                        $("#actualisa2").load(window.location.href+" #actualisa2");
+                                    }
+                                </script>
 
                                 <div class="row"
                                     style="border-top: 1px solid rgb(211, 209, 209); border-bottom: 1px solid rgb(211, 209, 209)">

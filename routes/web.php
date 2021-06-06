@@ -25,20 +25,30 @@ require __DIR__.'/auth.php';
 
 use App\Http\Controllers\{GuardadoController, ProductoController, ComentarioController, PreguntaController, UserController, RespuestaController, FollowerController, MailController};
 
-Route::resource("productos", ProductoController::class);
-Route::resource("guardados", GuardadoController::class)->middleware(['auth']);
+//Followers
+Route::post('follower/store', [FollowerController::class, 'store'])->name('followers.store')->middleware('auth');
+Route::post('follower/destroy/{follower}', [FollowerController::class, 'destroy'])->name('followers.destroy')->middleware('auth');
+//Comentarios
 Route::resource("comentarios", ComentarioController::class)->middleware(['auth']);
-Route::resource("preguntas", PreguntaController::class)->middleware(['auth']);
+Route::post('comentario/store', [ComentarioController::class, 'store'])->name('comentarios.store')->middleware('auth');
+Route::post('comentario/destroy/{comentario}', [ComentarioController::class, 'destroy'])->name('comentarios.destroy')->middleware('auth');
+//Repuestas
 Route::resource("respuestas", RespuestaController::class)->middleware(['auth']);
-Route::resource('followers', FollowerController::class)->middleware(['auth']);
+Route::post('respuesta/destroy/{respuesta}', [RespuestaController::class, 'destroy'])->name('respuestas.destroy')->middleware('auth');
 
+Route::post('guardado/destroy/{guardado}', [GuardadoController::class, 'destroy'])->name('guardados.destroy')->middleware('auth');
 
+//Productos
+Route::resource("productos", ProductoController::class);
 Route::get("productos/create", [ProductoController::class, 'create'])
 ->name('productos.create')->middleware(['auth']);
 Route::get("productos/edit/{producto}", [ProductoController::class, 'edit'])
 ->name('productos.edit')->middleware(['auth']);
 Route::get("productos/{producto_id}/destroyprod", [ProductoController::class, 'destroyprod'])
 ->name('productos.destroyprod')->middleware(['auth']);
+
+//Preguntas
+Route::resource("preguntas", PreguntaController::class)->middleware(['auth']);
 
 // Añadir y eliminar producto de favoritos
 Route::get("guardados/{user_id}/guardar", [GuardadoController::class, 'guardar'])->name('guardar');
@@ -50,22 +60,22 @@ Route::get("users/{user_id}/ver_perfil", [UserController::class, 'ver_perfil'])
 ->name('ver_perfil');
 //Menú admin
 Route::get("users/admin_zone", [UserController::class, 'admin_zone'])
-->name('admin_zone')->middleware(['auth']);
+->name('admin_zone')->middleware(['auth', 'admin']);
 //Vista modificar usuario
 Route::get("users/{user_id}/mod_user", [UserController::class, 'mod_user'])
 ->name('mod_user')->middleware(['auth', 'password.confirm']);
 //Modificar usuario
 Route::put("users/modify_user{user}", [UserController::class, 'modify_user'])
-->name('modify_user') ->middleware(['auth']);
+->name('modify_user') ->middleware(['auth', 'admin']);
 //Eliminar usuario
 Route::get("users/{user_id}/destroy_user", [UserController::class, 'destroy_user'])
 ->name('destroy_user')->middleware(['auth', 'password.confirm']);
 //Hacer usuario admin
 Route::get("users/{user_id}/do_admin", [UserController::class, 'do_admin'])
-->name('do_admin')->middleware(['auth', 'password.confirm']);
+->name('do_admin')->middleware(['auth', 'password.confirm', 'admin']);
 //Hacer usuario normal
 Route::get("users/{user_id}/undo_admin", [UserController::class, 'undo_admin'])
-->name('undo_admin')->middleware(['auth', 'password.confirm']);
+->name('undo_admin')->middleware(['auth', 'password.confirm', 'admin']);
 //Password_reset
 Route::get("password_reset", [UserController::class, 'reset_password'])->name('users.password_reset')->middleware(['auth', 'password.confirm']);
 Route::post("changing_passsword", [UserController::class, 'change_password'])->name('users.change_password')->middleware(['auth', 'password.confirm']);

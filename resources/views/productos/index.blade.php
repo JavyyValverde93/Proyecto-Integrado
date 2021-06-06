@@ -41,7 +41,7 @@
                 <div class="col" align="right">
 
                 </div>
-                <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
+                <form action="{{route('productos.index')}}" class="col-md-auto col-xs-4 mt-2" method="GET">
                     @csrf
                     <i class="fal fa-map-marker-alt mr-2"></i>
                     @php if($request->ciudad=="%"){$request->ciudad="";} @endphp
@@ -49,7 +49,7 @@
                     <input type="hidden" value="{{$request->categoria}}" name="categoria">
                     <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
                 </form>
-                <form action="{{route('productos.index')}}" class="col-auto mt-2" method="GET">
+                <form action="{{route('productos.index')}}" class="col-md-auto col-xs-4 mt-2" method="GET">
                     @csrf
                     <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
                         <option value="">Ordenar por...</option>
@@ -91,6 +91,7 @@
                         <script src="{{asset('js/index.js')}}"></script>
 
                         <div class="container my-5 rounded">
+                            <div class="py-3"></div>
                             <h2>Categorías</h2>
                             <section class="customer-logos slider" align="center">
                                 <div class="slide font-bold"><a

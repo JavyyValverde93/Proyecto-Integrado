@@ -36,5 +36,5 @@ function guardar() {
 }
 
 function quitar() {
-    document.delete_prod.submit();
+    document.delete_prod.lastElementChild.click();
 }

@@ -87,11 +87,25 @@ class GuardadoController extends Controller
     //New funcs
 
     public function guardar(Request $request, $user){
-        $save = new Guardado();
-        $save->producto_id = $request->ui;
-        $save->user_id = $user;
-        $save->save();
-        return back()->with('mensaje', 'Producto añadido a favoritos');
+        $request->validate([
+            'ui' => 'required'
+        ]);
+
+        $validar = Guardado::where('user_id', $user)->where('producto_id', $request->ui)->first();
+        if($validar!=null){
+            return back();
+        }
+        
+        try{
+            $save = new Guardado();
+            $save->producto_id = $request->ui;
+            $save->user_id = $user;
+            $save->save();
+            return back()->with('mensaje', 'Producto añadido a favoritos');
+
+        }catch(\Exception $ex){
+            return back()->with('error', 'Error al añadir a favoritos');
+        }
     }
 
     public function quitar(Guardado $guardado){

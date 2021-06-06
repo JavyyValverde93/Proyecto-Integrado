@@ -236,7 +236,7 @@ class UserController extends Controller
 
             $request->session()->regenerateToken();
 
-            return redirect('/');
+            return redirect()->route('login');
 
         }catch(\Exception $ex){
             return back()->with('error', 'No se ha podido cambiar la contraseña');

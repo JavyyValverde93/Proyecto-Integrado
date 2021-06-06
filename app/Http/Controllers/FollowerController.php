@@ -37,6 +37,11 @@ class FollowerController extends Controller
      */
     public function store(Request $request)
     {
+        $validar = Follower::where('seguidor', $request->seguidor)->where('seguido', $request->seguido)->first();
+        if($validar!=null){
+            return back();
+        }
+        
         try{
             $follower = new Follower();
             $follower->seguidor = Auth::user()->id;

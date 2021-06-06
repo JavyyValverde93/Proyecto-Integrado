@@ -45,11 +45,12 @@ class PreguntaController extends Controller
             'pregunta.required' => 'El campo pregunta es obligatorio',
         ]);
 
+        $validar = Pregunta::where('pregunta', $request->pregunta)->where('producto_id', $request->producto_id)->first();
+        if($validar!=null){
+            return back()->with('error', 'La pregunta ya existe');
+        }
+        
         try{
-            $validar = Pregunta::where('pregunta', $request->pregunta)->where('producto_id', $request->producto_id)->first();
-            if($validar!=null){
-                return back()->with('error', 'La pregunta ya existe');
-            }
 
             $preg = new Pregunta();
             $preg->pregunta = $request->pregunta;

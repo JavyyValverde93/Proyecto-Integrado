@@ -37,25 +37,46 @@ class ProductoFactory extends Factory
          'Móvil ', 'Pc ', 'Pelota ', 'Bici ', 'Consola ', 'Maceta ', 'Microondas  ', 'Pelicula ', 'Pañales ', 'Monedas ',
          'Apisonadora ', 'Tractor ', 'Busco empleado ', 'Fontanero ', 'Avion '];
         $color = ['rojo', 'azul', 'amarillo', 'naranja', 'verde', 'negro', 'blanco', 'gris', 'morado', 'rosa', 'marron'];
-        $moviles = ["Apple ", "Samsung ", "Huawei ", "Xiaomi ", "OPPO ", "Sony ", "Realme ", "LG ", "Honor ", "OnePlus ", "Google ", "TCL ", "Alcatel ", "Nokia ", "Motorola ", "CAT ", "Lenovo ", "Microsoft ", "Elephone ", "HTC ", "ZTE ", "Vivo ", "Asus ", "Wiko ", "Haier ", "BlackBerry"];
-        $coches = ["Abarth ", "Alfa Romeo ", "Aston Martin ", "Audi ", "Bentley", "BMW ", "Cadillac ", "Caterham ", "Chevrolet ", "Citroen", "Dacia ", "Ferrari ", "Fiat ", "Ford ", "Honda", "Infiniti ", "Isuzu ", "Iveco ", "Jaguar ", "Jeep ", "Kia ", "KTM ", "Lada ", "Lamborghini ", "Lancia ", "Land Rover ", "Lexus ", "Lotus ", "Maserati ", "Mazda ", "Mercedes-Benz ", "Mini ", "Mitsubishi ", "Morgan ", "Nissan ", "Opel ", "Peugeot ", "Piaggio ", "Porsche ", "Renault ", "Rolls-Royce ", "Seat ", "Skoda ", "Smart ", "SsangYong ", "Subaru ", "Suzuki ", "Tata ", "Tesla ", "Toyota ", "Volkswagen ", "Volvo "];
-        $motor = ['Rueda ', 'Motor 2.0 tdi ', 'Puerta ', 'Capó ', 'Techo solar ', 'Neón ', 'Escape ', 'Guantera ', 'Llanta ', 'Volante ', 'Funda volante ', 'Funda sillón ', 'Cabecero ', 'Cámara trasera '];
+        $moviles = ["Apple ", "Samsung ", "Huawei ", "Xiaomi ", "OPPO ", "Sony ", "Realme ", "LG ", "Honor ", "OnePlus ", "Google ", "TCL ",
+         "Alcatel ", "Nokia ", "Motorola ", "CAT ", "Lenovo ", "Microsoft ", "Elephone ", "HTC ", "ZTE ", "Vivo ", "Asus ", "Wiko ", "Haier ",
+          "BlackBerry"];
+        $coches = ["Abarth ", "Alfa Romeo ", "Aston Martin ", "Audi ", "Bentley", "BMW ", "Cadillac ", "Caterham ", "Chevrolet ", "Citroen",
+         "Dacia ", "Ferrari ", "Fiat ", "Ford ", "Honda", "Infiniti ", "Isuzu ", "Iveco ", "Jaguar ", "Jeep ", "Kia ", "KTM ", 
+         "Lada ", "Lamborghini ", "Lancia ", "Land Rover ", "Lexus ", "Lotus ", "Maserati ", "Mazda ", "Mercedes-Benz ", "Mini ", 
+         "Mitsubishi ", "Morgan ", "Nissan ", "Opel ", "Peugeot ", "Piaggio ", "Porsche ", "Renault ", "Rolls-Royce ", "Seat ", "Skoda ", 
+         "Smart ", "SsangYong ", "Subaru ", "Suzuki ", "Tata ", "Tesla ", "Toyota ", "Volkswagen ", "Volvo "];
+        $motor = ['Rueda ', 'Motor 2.0 tdi ', 'Puerta ', 'Capó ', 'Techo solar ', 'Neón ', 'Escape ', 'Guantera ', 'Llanta ', 'Volante ', 
+        'Funda volante ', 'Funda sillón ', 'Cabecero ', 'Cámara trasera '];
         $moda = ['Camiseta ', 'Pantalón ', 'Falda ', 'Tacones ', 'Sudadera ', 'Chaqueta ', 'Zapatillas de deporte '];
         $inmobiliaria = ['Casa ', 'Piso ', 'Apartamento ', 'Hotel ', 'Local ', 'Tienda ', 'Garaje ', 'Trastero ', 'Parcela ', 'Terreno '];
-        $ciudades = ['Almería ', 'Rioja ', 'Córdoba ', 'Sevilla ', 'Jaén ', 'Murcia ', 'Torrevieja ', 'Misisipi ', 'El Cairo ', 'Madagascar ', 'Londres ', 'París ', 'Retamar ', 'Alquian ', 'Linares ', 'Roquetas ', 'San Isidro ', 'Campohermoso ', 'Badajoz ', 'Soria ', 'Galicia ', 'Pontevedra ', 'País Vasco ', 'Cádiz ', 'Toledo ', 'Tenerife ', 'Linares ', 'La Sierra ', 'Málaga ', 'Granada ', 'Huelva ', 'Florida ', 'San Sebastian ', 'Victoria ', 'Valencia ', 'Cataluña ', 'Valladolid ', 'Cuenca ', 'Madrid ', 'Móstoles ', 'Rioja ', 'Dinamarca ', 'Turquía ', 'Asturias ', 'Olimpo ', 'Fiñana ', 'Zaragoza ', 'Santander '];
-        $tv = ['Televisión ', 'Monitor ', 'Altavoces ', 'Altavoz ', 'Auriculares ', 'Cascos ', 'Pantalla ', 'Micrófono ', 'Mando tv ', 'Mando bluetooth altavoz ', 'Marco electrónico ', 'Portafotos electrónico ', 'Proyector '];
+        $ciudades = ['Almería ', 'Rioja ', 'Córdoba ', 'Sevilla ', 'Jaén ', 'Murcia ', 'Torrevieja ', 'Misisipi ', 'El Cairo ', 'Madagascar ', 
+        'Londres ', 'París ', 'Retamar ', 'Alquian ', 'Linares ', 'Roquetas ', 'San Isidro ', 'Campohermoso ', 'Badajoz ', 'Soria ', 'Galicia ', 
+        'Pontevedra ', 'País Vasco ', 'Cádiz ', 'Toledo ', 'Tenerife ', 'Linares ', 'La Sierra ', 'Málaga ', 'Granada ', 'Huelva ', 'Florida ', 
+        'San Sebastian ', 'Victoria ', 'Valencia ', 'Cataluña ', 'Valladolid ', 'Cuenca ', 'Madrid ', 'Móstoles ', 'Rioja ', 'Dinamarca ', 'Turquía ', 
+        'Asturias ', 'Olimpo ', 'Fiñana ', 'Zaragoza ', 'Santander '];
+        $tv = ['Televisión ', 'Monitor ', 'Altavoces ', 'Altavoz ', 'Auriculares ', 'Cascos ', 'Pantalla ', 'Micrófono ', 'Mando tv ', 
+        'Mando bluetooth altavoz ', 'Marco electrónico ', 'Portafotos electrónico ', 'Proyector '];
         $pc = ['Ordenador ', 'Torre ', 'Pc ', 'Pc gaming ', 'Portatil ', 'Tablet ', 'Ipad ', 'Libro electrónico '];
         $deporte = ['Pelota ', 'Balón ', 'Bola ', 'Arco ', 'Palo ', 'Stick ', 'Red ', 'Peto ', 'Camiseta ', 'Pantalón ', 'Zapatillas '];
-        $consola = ['Ps1 ', 'Ps2 ', 'Ps3 ', 'Ps4 ', 'Ps5 ', 'Xbox ', 'Xbox 360 ', 'Xbox One ', 'Xbox Scorpio ', 'Xbox series X', 'PSP ', 'PsVita ', 'Nintendo ', 'Ds ', 'Dsi ', 'Dsi XL ', '3Ds ', '3Ds XL ', '2Ds ', '2Ds XL '];
-        $juego = ['Crash ', 'God of war ', 'Call of duty ', 'Cars ', 'WW2 ', 'Sonic ', 'Mario ', 'Ratchet and Clank ', 'Resident Evil ', 'Horizon zero down ', 'Forza ', 'Medievil ', 'Little big planet ', 'Zombies ', 'Plantas ', 'Remember me ', 'Buscaminas '];
-        $hogar = ['Maceta ', 'Macetero ', 'Planta ', 'Ladrillo ', 'Banco ', 'Taburete ', 'Silla ', 'Sofá ', 'Cama ', 'Litera ', 'Mesa ', 'Escritorio ', 'Armario ', 'Encimera ', 'Grifo ', 'Váter ', 'Puerta ', 'Candado ', 'Zapatero ', 'Losa '];
-        $electrodomesticos = ['Lavadora ', 'Secadora ', 'Plancha ', 'Batidora ', 'Frigorífico ', 'Frigo ', 'Lavadero ', 'Tostadora ', 'Horno ', 'Microondas ', 'Aire acondicionado ', 'Congelador '];
-        $cine = ['Película ', 'BluRay ', 'HD ', 'Disco ', 'DVD ', 'CD ', 'Canción ', 'Música ', 'Viaje al centro de la Tierra ', 'Julio Verne ', 'Adolfo ', 'Jack '];
+        $consola = ['Ps1 ', 'Ps2 ', 'Ps3 ', 'Ps4 ', 'Ps5 ', 'Xbox ', 'Xbox 360 ', 'Xbox One ', 'Xbox Scorpio ', 'Xbox series X', 'PSP ', 
+        'PsVita ', 'Nintendo ', 'Ds ', 'Dsi ', 'Dsi XL ', '3Ds ', '3Ds XL ', '2Ds ', '2Ds XL '];
+        $juego = ['Crash ', 'God of war ', 'Call of duty ', 'Cars ', 'WW2 ', 'Sonic ', 'Mario ', 'Ratchet and Clank ', 'Resident Evil ', 
+        'Horizon zero down ', 'Forza ', 'Medievil ', 'Little big planet ', 'Zombies ', 'Plantas ', 'Remember me ', 'Buscaminas '];
+        $hogar = ['Maceta ', 'Macetero ', 'Planta ', 'Ladrillo ', 'Banco ', 'Taburete ', 'Silla ', 'Sofá ', 'Cama ', 'Litera ', 'Mesa ', 
+        'Escritorio ', 'Armario ', 'Encimera ', 'Grifo ', 'Váter ', 'Puerta ', 'Candado ', 'Zapatero ', 'Losa '];
+        $electrodomesticos = ['Lavadora ', 'Secadora ', 'Plancha ', 'Batidora ', 'Frigorífico ', 'Frigo ', 'Lavadero ', 'Tostadora ', 
+        'Horno ', 'Microondas ', 'Aire acondicionado ', 'Congelador '];
+        $cine = ['Película ', 'BluRay ', 'HD ', 'Disco ', 'DVD ', 'CD ', 'Canción ', 'Música ', 'Viaje al centro de la Tierra ', 
+        'Julio Verne ', 'Adolfo ', 'Jack '];
         $bebes = ['Pañal ', 'Biberón ', 'Ropa ', 'Manta ', 'Mantita ', 'Mantón ', 'Chupete ', 'Tirita ', 'Patuco '];
-        $coleccionismo = ['Monedas antigüas ', 'Jarrón antigüo ', 'Cuadro antigüo ', 'Figuras coleccionista ', 'Mandos coleccionista ', 'Teléfonos coleccionista ', 'Bombillas coleccionista ', 'Juegos antigüos '];
-        $construcción = ['Grúa ', 'Cuerda ', 'Camión ', 'Remolque ', 'Cemento ', 'Máquina cemento ', 'Escaleras ', 'Bidones ', 'Pintura ', 'Brocha grande ', 'Pared ', 'Ladrillos ', 'Madera ', 'Pala ', 'Pico '];
-        $agricultura = ['Tractor ', 'Torillo ', 'Escarabajo ', 'Pala ', 'Planta ', 'Semilla ', 'Cartel ', 'Tubo ', 'Manguera ', 'Riego ', 'Gomas ', 'Plástico ', 'Coco '];
-        $empleo = ['Taxista ', 'Conductor de autobús ', 'Obrero ', 'Chofer ', 'Paseador de perros ', 'Fontanero ', 'Peluquero ', 'Pintor ', 'Agricultor ', 'Mecánico ', 'Técnico ', 'Informático ', 'Programador ', 'Rapero ', 'Roquero ', 'Músico ', 'Traductor ', 'Minero '];
+        $coleccionismo = ['Monedas antigüas ', 'Jarrón antigüo ', 'Cuadro antigüo ', 'Figuras coleccionista ', 'Mandos coleccionista ', 
+        'Teléfonos coleccionista ', 'Bombillas coleccionista ', 'Juegos antigüos '];
+        $construcción = ['Grúa ', 'Cuerda ', 'Camión ', 'Remolque ', 'Cemento ', 'Máquina cemento ', 'Escaleras ', 'Bidones ', 'Pintura ', 
+        'Brocha grande ', 'Pared ', 'Ladrillos ', 'Madera ', 'Pala ', 'Pico '];
+        $agricultura = ['Tractor ', 'Torillo ', 'Escarabajo ', 'Pala ', 'Planta ', 'Semilla ', 'Cartel ', 'Tubo ', 'Manguera ', 'Riego ', 
+        'Gomas ', 'Plástico ', 'Coco '];
+        $empleo = ['Taxista ', 'Conductor de autobús ', 'Obrero ', 'Chofer ', 'Paseador de perros ', 'Fontanero ', 'Peluquero ', 'Pintor ', 
+        'Agricultor ', 'Mecánico ', 'Técnico ', 'Informático ', 'Programador ', 'Rapero ', 'Roquero ', 'Músico ', 'Traductor ', 'Minero '];
 
         $n = $this->faker->numberBetween(0, 20);
         $num = $n;

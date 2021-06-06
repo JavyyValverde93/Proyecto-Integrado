@@ -38,9 +38,9 @@ class RespuestaController extends Controller
     {
         $request->validate([
             'respuesta'=>'required|max:150',
-            'idc'=>['required'],
-            'idu'=>['required'],
-            'idp'=>['required']
+            'idc'=>'required',
+            'idu'=>'required',
+            'idp'=>'required'
         ],[
             'respuesta.required' => 'No se ha escrito ninguna respuesta',
         ]);
@@ -50,9 +50,9 @@ class RespuestaController extends Controller
             $respuesta = new Respuesta();
             $respuesta->respuesta = $request->respuesta;
 
-            $respuesta->comentario_id = $_GET['idc'];
-            $respuesta->producto_id = $_GET['idp'];
-            $respuesta->user_id = $_GET['idu'];
+            $respuesta->comentario_id = $request->idc;
+            $respuesta->producto_id = $request->idp;
+            $respuesta->user_id = $request->idu;
 
             $respuesta->save();
 
