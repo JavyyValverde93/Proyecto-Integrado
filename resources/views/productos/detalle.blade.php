@@ -50,11 +50,11 @@
                             <div>
                                 @if(count($guardados)>=1)
                                 <div id="icoQuito">
-                                    <i class="fas fa-bookmark fa-2x float-right my-auto" onclick="quitar();"></i>
+                                    <i class="fas fa-bookmark fa-2x float-right my-auto" style="cursor: pointer" onclick="quitar();"></i>
                                 </div>
                                 @else
                                 <div id="icoPongo">
-                                    <i class="far fa-bookmark fa-2x float-right my-auto" onclick="guardar()"></i>
+                                    <i class="far fa-bookmark fa-2x float-right my-auto" style="cursor: pointer" onclick="guardar()"></i>
                                 </div>
                                 @endif
                             </div>
@@ -175,6 +175,36 @@
                                 type: $('#submitPreg').attr('method'),
                                 url: $('#submitPreg').attr('action'),
                                 data: $('#submitPreg').serialize(),
+                                success: function (data) {
+                                    console.log('Datos enviados !!!');
+                                }
+                            });
+                            event.preventDefault();
+                            //Actualiza ese id sin recargar la página
+                            $("#pregAct").load(window.location.href + " #pregAct");
+                            $("#pregAct2").load(window.location.href + " #pregAct2");
+                        }
+
+                        function resPreg(event) {
+                            $.ajax({
+                                type: $('#resPreg').attr('method'),
+                                url: $('#resPreg').attr('action'),
+                                data: $('#resPreg').serialize(),
+                                success: function (data) {
+                                    console.log('Datos enviados !!!');
+                                }
+                            });
+                            event.preventDefault();
+                            //Actualiza ese id sin recargar la página
+                            $("#pregAct").load(window.location.href + " #pregAct");
+                            $("#pregAct2").load(window.location.href + " #pregAct2");
+                        }
+
+                        function delPreg(event) {
+                            $.ajax({
+                                type: $('#delPreg').attr('method'),
+                                url: $('#delPreg').attr('action'),
+                                data: $('#delPreg').serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
@@ -345,9 +375,9 @@
                                                     method="POST" onsubmit="disableButton(this); deleteComent(event)">
                                                     @csrf
                                                     <p>
-                                                        <a href="{{route('ver_perfil', $coments->user->id)}}"
+                                                        <a href="@if($coments->user!=null){{route('ver_perfil', $coments->user->id)}}@endif"
                                                             class="p-0" style="color: black">
-                                                            <b>{{$coments->user->name}}: </b></a>
+                                                            <b>@if($coments->user!=null){{$coments->user->name}}: @else Usuario: @endif</b></a>
                                                         <span class="fullpost">{{$coments->comentario}}</span>
                                                         @if(Auth::user()!=null && Auth::user()==$coments->user)
                                                         <button type="submit" style="color:red; font-size:17px;"
@@ -360,8 +390,8 @@
                                                 <form action="{{route('respuestas.destroy', $res)}}" method="POST"
                                                     onsubmit="disableButton(this); deleteRes(event)" id="deleteRes">
                                                     @csrf
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                                        href="{{route('ver_perfil', $coments->user->id)}}" class="p-0"
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a href="@if($coments->user!=null){{route('ver_perfil', $coments->user->id)}}@endif" class="p-0"
                                                         style="color: black"><b>{{$res->user->name}}:
                                                         </b></a>{{$res->respuesta}}
                                                     @if(Auth::user()!=null && Auth::user()==$res->user)
@@ -421,16 +451,15 @@
                                             @foreach($preguntas as $preg)
                                             <div class="p-3 rounded mt-2"
                                                 style="word-wrap: break-word;background-color: @if($coment%2==0) #3be8b0 @else #00b2a9 @endif">
-                                                <p id="preguntax"><a href="{{route('ver_perfil', $preg->user->id)}}"
+                                                <p id="preguntax"><a href="@if($preg->user!=null){{route('ver_perfil', $preg->user->id)}}@endif"
                                                         style="color: black;">
-                                                        <b>{{$preg->user->name}}: </b></a>
+                                                        <b>@if($preg->user!=null){{$preg->user->name}}: @else Usuario: @endif</b></a>
                                                     {{$preg->pregunta}}</p>
 
                                                 @if($preg->respuesta!=null)
-                                                <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" method="POST"
-                                                    onsubmit="disableButton(this);">
+                                                <form action="{{route('preguntas.destroy', [$preg, 'p=|'])}}" id="delPreg" method="POST"
+                                                    onsubmit="disableButton(this); delPreg(event)">
                                                     @csrf
-                                                    @method('DELETE')
                                                     <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{__('Respuesta del vendedor')}}:
                                                         </b>{{$preg->respuesta}}
                                                         @if(Auth::user()!=null && Auth::user()==$producto->user)
@@ -441,13 +470,12 @@
                                                 </form>
                                                 @else
                                                 @if(Auth::user()!=null && Auth::user()==$producto->user)
-                                                <form action="{{route('preguntas.update', $preg)}}" method="POST"
-                                                    autocomplete="off" onsubmit="disableButton(this);">
+                                                <form action="{{route('preguntas.update', $preg)}}" id="resPreg" method="POST"
+                                                    autocomplete="off" onsubmit="disableButton(this); resPreg(event);">
                                                     @csrf
-                                                    @method('PUT')
                                                     <input minlength="2" maxlength="150" value="{{old('respuesta')}}"
                                                         required type="text" name="respuesta"
-                                                        placeholder="Respuesta a {{$preg->user->name}}: ">
+                                                        placeholder="Respuesta a @if($preg->user!=null){{$preg->user->name}}: @else Usuario: @endif">
                                                     <button type="submit" class="ui button mt-2"><i
                                                             class="fas fa-comments mr-2"></i>Enviar respuesta</button>
                                                 </form>

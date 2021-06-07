@@ -204,7 +204,7 @@
 
                         </div>
                         <div id="links" align="center">
-                            <a onclick="cargaProd()" id="next" class="btn rounded-pill p-3 px-4" style="background-color: #10FA91"><i class="far fa-plus-circle"></i> Cargar más productos</a>
+                            <a onclick="cargaProd()" id="next" class="btn rounded-pill p-3 px-4" style="background-color: #10FA91; cursor:pointer"><i class="far fa-plus-circle"></i> Cargar más productos</a>
                         </div>
                         {{$productos->appends($request->except('page'))->links()}}
                     </div>

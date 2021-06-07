@@ -259,7 +259,7 @@
                 },
                 function(){
                   alertify.error('Cancel');
-                })" class="btn btn-danger btn-block p-3 rounded-pill" style="background-color: #ff0000; border:2px solid #cd0a20">Eliminar producto</a>
+                })" class="btn btn-danger btn-block p-3 rounded-pill" style="background-color: #ff0000; border:2px solid #cd0a20; color:white; cursor:pointer">Eliminar producto</a>
             </form>
 
                     </div>

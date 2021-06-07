@@ -49,7 +49,7 @@ class PreguntaController extends Controller
         if($validar!=null){
             return back()->with('error', 'La pregunta ya existe');
         }
-        
+
         try{
 
             $preg = new Pregunta();
@@ -105,9 +105,8 @@ class PreguntaController extends Controller
         
         try{
 
-            $pregunta->update([
-                'respuesta'=>$request->respuesta
-            ]);
+            $pregunta->respuesta = $request->respuesta;
+            $pregunta->save();
 
             return back()->with('mensaje', 'Pregunta respondida correctamente');
 

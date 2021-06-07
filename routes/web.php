@@ -49,6 +49,8 @@ Route::get("productos/{producto_id}/destroyprod", [ProductoController::class, 'd
 
 //Preguntas
 Route::resource("preguntas", PreguntaController::class)->middleware(['auth']);
+Route::post("preguntas/{pregunta}", [PreguntaController::class, 'update'])->middleware(['auth'])->name('preguntas.update');
+Route::post("preguntas/destroy/{pregunta}", [PreguntaController::class, 'destroy'])->middleware(['auth'])->name('preguntas.destroy');
 
 // Añadir y eliminar producto de favoritos
 Route::get("guardados/{user_id}/guardar", [GuardadoController::class, 'guardar'])->name('guardar');
@@ -66,7 +68,7 @@ Route::get("users/{user_id}/mod_user", [UserController::class, 'mod_user'])
 ->name('mod_user')->middleware(['auth', 'password.confirm']);
 //Modificar usuario
 Route::put("users/modify_user{user}", [UserController::class, 'modify_user'])
-->name('modify_user') ->middleware(['auth', 'admin']);
+->name('modify_user') ->middleware(['auth']);
 //Eliminar usuario
 Route::get("users/{user_id}/destroy_user", [UserController::class, 'destroy_user'])
 ->name('destroy_user')->middleware(['auth', 'password.confirm']);
