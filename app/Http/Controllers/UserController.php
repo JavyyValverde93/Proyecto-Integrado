@@ -133,6 +133,9 @@ class UserController extends Controller
             foreach($user as $u){
                 $user = $u;
             }
+            if($user->tipo==1){
+                return back()->with('error', 'No se puede eliminar a un administrador');
+            }
             if(Auth::user()==$user || Auth::user()->tipo==1){
 
                 if($user->foto!="storage/img/users/default.png"){
@@ -182,6 +185,9 @@ class UserController extends Controller
             $user = User::all()->where('id', $id);
             foreach($user as $u){
                 $user = $u;
+            }
+            if($id==1){
+                return back()->with('error', 'No se puede quitar privilegios al primer Administrador');
             }
             if(Auth::user()->tipo==1){
                 $user->update([

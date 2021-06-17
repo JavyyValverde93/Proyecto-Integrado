@@ -62,7 +62,7 @@ Route::get("users/{user_id}/ver_perfil", [UserController::class, 'ver_perfil'])
 ->name('ver_perfil');
 //Menú admin
 Route::get("users/admin_zone", [UserController::class, 'admin_zone'])
-->name('admin_zone')->middleware(['auth', 'admin']);
+->name('admin_zone')->middleware(['auth', 'admin', 'password.confirm']);
 //Vista modificar usuario
 Route::get("users/{user_id}/mod_user", [UserController::class, 'mod_user'])
 ->name('mod_user')->middleware(['auth', 'password.confirm']);

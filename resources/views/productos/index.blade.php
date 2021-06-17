@@ -4,17 +4,19 @@
         <script src="https://momstudio.es/img/img-elmaquetadorweb/cookieconsent.min.js"></script>
         <style>
             /* Esconder botones de paginación */
-            nav[role='navigation']{
+            nav[role='navigation'] {
                 visibility: hidden;
             }
+
         </style>
         <datalist id="ciudades">
             <option>Cualquier Lugar</option>
             @auth
-                <option>{{Auth::user()->ciudad}}</option>
+            <option>{{Auth::user()->ciudad}}</option>
             @endauth
             @foreach ($ciudades as $item)
-                <option value="{{$item->ciudad}}" @if($request->ciudad==$item->ciudad) selected @endif>{{$item->ciudad}}</option>
+            <option value="{{$item->ciudad}}" @if($request->ciudad==$item->ciudad) selected @endif>{{$item->ciudad}}
+            </option>
             @endforeach
         </datalist>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -47,14 +49,17 @@
                     @csrf
                     <i class="fal fa-map-marker-alt mr-2"></i>
                     @php if($request->ciudad=="%"){$request->ciudad="";} @endphp
-                    <input class="p-2 rounded formIndex" list="ciudades" placeholder="Buscar en..." value="{{$request->ciudad}}" onchange="this.form.submit()" name="ciudad" style="border: solid 2px black;">
+                    <input class="p-2 rounded formIndex" list="ciudades" placeholder="Buscar en..."
+                        value="{{$request->ciudad}}" onchange="this.form.submit()" name="ciudad"
+                        style="border: solid 2px black;">
                     <input type="hidden" value="{{$request->categoria}}" name="categoria">
                     <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
                     <input type="hidden" name="nombre" value="{{$request->nombre}}">
                 </form>
                 <form action="{{route('productos.index')}}" class="col-md-auto col-xs-4 mt-2" method="GET">
                     @csrf
-                    <i class="fas fa-sort mr-3"></i><select class="formIndex" name="ordenar" onchange="this.form.submit()">
+                    <i class="fas fa-sort mr-3"></i><select class="formIndex" name="ordenar"
+                        onchange="this.form.submit()">
                         <option value="">Ordenar por...</option>
                         <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
                         <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
@@ -132,17 +137,17 @@
                                         href="{{route('productos.index', ['categoria=Bicicletas', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/bici.png')}}">Bicicletas</a></div>
                                 <div class="slide font-bold"><a
-                                    href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
-                                        src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y
-                                    Videojuegos</a></div>
-                                    <div class="slide font-bold"><a
-                                            href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
-                                                src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a>
-                                    </div>
-                                    <div class="slide font-bold"><a
-                                            href="{{route('productos.index', ['categoria=Electrodomésticos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
-                                                src="{{asset('storage/imagenes-categorias/electrodomesticos.png')}}">Electrodomésticos</a>
-                                    </div>
+                                        href="{{route('productos.index', ['categoria=Consolas y Videojuegos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
+                                            src="{{asset('storage/imagenes-categorias/consola.png')}}">Consolas y
+                                        Videojuegos</a></div>
+                                <div class="slide font-bold"><a
+                                        href="{{route('productos.index', ['categoria=Hogar y Jardín', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
+                                            src="{{asset('storage/imagenes-categorias/jardin.png')}}">Hogar y Jardín</a>
+                                </div>
+                                <div class="slide font-bold"><a
+                                        href="{{route('productos.index', ['categoria=Electrodomésticos', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
+                                            src="{{asset('storage/imagenes-categorias/electrodomesticos.png')}}">Electrodomésticos</a>
+                                </div>
                                 <div class="slide font-bold"><a
                                         href="{{route('productos.index', ['categoria=Cine, Libros y Música', 'ordenar='.$request->ordenar, "ciudad=$request->ciudad"])}}"><img
                                             src="{{asset('storage/imagenes-categorias/cine.png')}}">Cine, Libros y
@@ -208,7 +213,9 @@
 
                         </div>
                         <div id="links" align="center">
-                            <a onclick="cargaProd()" id="next" class="btn rounded-pill p-3 px-4" style="background-color: #10FA91; cursor:pointer"><i class="far fa-plus-circle"></i> Cargar más productos</a>
+                            <a onclick="cargaProd()" id="next" class="btn rounded-pill p-3 px-4"
+                                style="background-color: #10FA91; cursor:pointer"><i class="far fa-plus-circle"></i>
+                                Cargar más productos</a>
                         </div>
                         {{$productos->appends($request->except('page'))->links()}}
                     </div>
@@ -224,8 +231,9 @@
                         //Variable para controlar numerosas llamadas a cargar productos
                         intento = 1;
 
-                        var enlase = document.getElementById('links').nextElementSibling.firstElementChild.lastElementChild.href;
-                        
+                        var enlase = document.getElementById('links').nextElementSibling.firstElementChild
+                            .lastElementChild.href;
+
                         var enlace = "";
 
                         let httpRequest = new XMLHttpRequest();
@@ -270,12 +278,13 @@
                         }
 
                         function cargaProd(e) {
-                            if(enlase==null){
-                                document.getElementById('next').innerHTML = 'No hay más productos con estas características';
+                            if (enlase == null) {
+                                document.getElementById('next').innerHTML =
+                                    'No hay más productos con estas características';
                             }
 
-                            if(intento==1){
-                                intento=0;
+                            if (intento == 1) {
+                                intento = 0;
                                 if (prevPage == null) {
                                     numPage(enlase);
                                 } else {
@@ -300,12 +309,14 @@
 
                             var pag = doc.querySelector('#prods').innerHTML;
 
-                            if(pag.length>=50){
-                                document.querySelector('#prods').innerHTML = document.querySelector('#prods').innerHTML + pag;
+                            if (pag.length >= 50) {
+                                document.querySelector('#prods').innerHTML = document.querySelector('#prods')
+                                    .innerHTML + pag;
                                 history.pushState(null, "", enlace);
                                 intento = 1;
-                            }else{
-                                document.getElementById('next').innerHTML = 'No hay más productos con estas características';
+                            } else {
+                                document.getElementById('next').innerHTML =
+                                    'No hay más productos con estas características';
                             }
                         }
 

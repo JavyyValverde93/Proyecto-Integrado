@@ -173,7 +173,7 @@ class ProductoController extends Controller
     public function show(Producto $producto)
     {
         $comentarios = Comentario::orderBy('updated_at', 'desc')->where('producto_id', "=", $producto->id)->get();
-        $preguntas = Pregunta::orderBy('updated_at')->where('producto_id', "=", $producto->id)->get();
+        $preguntas = Pregunta::orderBy('updated_at', 'desc')->where('producto_id', "=", $producto->id)->get();
         $resPreg = Respuesta::all()->where('producto_id', "=", $producto->id);
         $guardados = Guardado::all()->where('producto_id', "=", $producto->id);
         $favoritos = $guardados->count();
