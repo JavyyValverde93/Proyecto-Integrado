@@ -59,7 +59,7 @@
             <div class="mt-4">
                 <x-label for="password" :value="__('Contraseña:')" />
 
-                <x-input id="password" oninput="validarPassword()" class="block mt-1 w-full"
+                <x-input id="password" oninput="validarPassword()" onchange="ocultarPass(event);" onfocus="mostrarPass(event);" onmouseover="mostrarPass(event);" onmouseout="ocultarPass(event)" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" />
@@ -86,5 +86,15 @@
                 </x-button>
             </div>
         </form>
+        <script>
+            function mostrarPass(event){
+				document.getElementById('password').type = 'text';
+                event.path[0].type = "text";
+            }
+            function ocultarPass(event){
+				document.getElementById('password').type = 'password';
+                event.path[0].type = 'password';
+            }
+        </script>
     </x-auth-card>
 </x-guest-layout>

@@ -35,6 +35,8 @@
                         @if($request->ordenar!=null)
                         <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
                         @endif
+                        <input type="hidden" name="ciudad" value="{{$request->ciudad}}">
+
                     </form>
 
                 </div>
@@ -45,13 +47,14 @@
                     @csrf
                     <i class="fal fa-map-marker-alt mr-2"></i>
                     @php if($request->ciudad=="%"){$request->ciudad="";} @endphp
-                    <input list="ciudades" placeholder="Buscar en..." value="{{$request->ciudad}}" onchange="this.form.submit()" class="p-2 rounded" name="ciudad" style="border: solid 2px black">
+                    <input class="p-2 rounded formIndex" list="ciudades" placeholder="Buscar en..." value="{{$request->ciudad}}" onchange="this.form.submit()" name="ciudad" style="border: solid 2px black;">
                     <input type="hidden" value="{{$request->categoria}}" name="categoria">
                     <input type="hidden" value="{{$request->ordenar}}" name="ordenar">
+                    <input type="hidden" name="nombre" value="{{$request->nombre}}">
                 </form>
                 <form action="{{route('productos.index')}}" class="col-md-auto col-xs-4 mt-2" method="GET">
                     @csrf
-                    <i class="fas fa-sort mr-2"></i><select name="ordenar" onchange="this.form.submit()">
+                    <i class="fas fa-sort mr-3"></i><select class="formIndex" name="ordenar" onchange="this.form.submit()">
                         <option value="">Ordenar por...</option>
                         <option value="viejos" @if($request->ordenar=='viejos') selected @endif>Más viejos</option>
                         <option value="nuevos" @if($request->ordenar=='nuevo') selected @endif>Más nuevos</option>
@@ -69,6 +72,7 @@
                     </select>
                     <input type="hidden" value="{{$request->categoria}}" name="categoria">
                     <input type="hidden" name="ciudad" value="{{$request->ciudad}}">
+                    <input type="hidden" name="nombre" value="{{$request->nombre}}">
                 </form>
             </div>
         </h2>
@@ -310,4 +314,5 @@
                 </div>
             </div>
         </div>
+    </div>
 </x-app-layout>

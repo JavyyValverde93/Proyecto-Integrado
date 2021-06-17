@@ -108,9 +108,7 @@ class UserController extends Controller
             }
 
             if($request->email!=$user->email){
-                $user->update([
-                    'email_verified_at' => null
-                ]);
+                $user->forceFill(['email_verified_at' => null]);
             }
 
             $user->update([

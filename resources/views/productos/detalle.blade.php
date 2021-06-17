@@ -89,8 +89,10 @@
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#reemplazar").load(window.location.href + " #reemplazar");
-                            $("#actualisa").load(window.location.href + " #actualisa");
+                            setTimeout(function(){
+                                $("#reemplazar").load(window.location.href + " #reemplazar");
+                                $("#actualisa").load(window.location.href + " #actualisa");
+                            },1000);
                         }
 
                         function submitForm2(event) {
@@ -104,8 +106,10 @@
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#reemplazar").load(window.location.href + " #reemplazar");
-                            $("#actualisa").load(window.location.href + " #actualisa");
+                            setTimeout(function(){
+                                $("#reemplazar").load(window.location.href + " #reemplazar");
+                                $("#actualisa").load(window.location.href + " #actualisa");
+                            },1000);
                         }
 
                         //Comentarios
@@ -120,53 +124,70 @@
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#comentAct").load(window.location.href + " #comentAct");
-                            $("#comentAct2").load(window.location.href + " #comentAct2");
+                            setTimeout(function(){
+                                $("#comentAct").load(window.location.href + " #comentAct");
+                                $("#comentAct2").load(window.location.href + " #comentAct2");
+                            },1000);
                         }
 
                         function deleteComent(event) {
+                            newId = Math.floor(Math.random() * 99999);
+                            event.path[0].id = newId;
+                            Id = " #"+newId;
                             $.ajax({
-                                type: $('#delComent').attr('method'),
-                                url: $('#delComent').attr('action'),
-                                data: $('#delComent').serialize(),
+                                type: $(Id).attr('method'),
+                                url: $(Id).attr('action'),
+                                data: $(Id).serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#comentAct").load(window.location.href + " #comentAct");
-                            $("#comentAct2").load(window.location.href + " #comentAct2");
+                            setTimeout(function(){
+                                $("#comentAct").load(window.location.href + " #comentAct");
+                                $("#comentAct2").load(window.location.href + " #comentAct2");
+                            },1000);
                         }
 
                         function submitRes(event) {
+                            newId = Math.floor(Math.random() * 99999);
+                            event.path[0].id = newId;
+                            Id = " #"+newId;
                             $.ajax({
-                                type: $('#submitRes').attr('method'),
-                                url: $('#submitRes').attr('action'),
-                                data: $('#submitRes').serialize(),
+                                type: $(Id).attr('method'),
+                                url: $(Id).attr('action'),
+                                data: $(Id).serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#comentAct").load(window.location.href + " #comentAct");
-                            $("#comentAct2").load(window.location.href + " #comentAct2");
+                            setTimeout(function(){
+                                $("#comentAct").load(window.location.href + " #comentAct");
+                                $("#comentAct2").load(window.location.href + " #comentAct2");
+                            },1000);
                         }
 
                         function deleteRes(event) {
+                            newId = Math.floor(Math.random() * 99999);
+                            event.path[0].id = newId;
+                            Id = " #"+newId;
                             $.ajax({
-                                type: $('#deleteRes').attr('method'),
-                                url: $('#deleteRes').attr('action'),
-                                data: $('#deleteRes').serialize(),
+                                type: $(Id).attr('method'),
+                                url: $(Id).attr('action'),
+                                data: $(Id).serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#comentAct").load(window.location.href + " #comentAct");
-                            $("#comentAct2").load(window.location.href + " #comentAct2");
+                            setTimeout(function(){
+                                $("#comentAct").load(window.location.href + " #comentAct");
+                                $("#comentAct2").load(window.location.href + " #comentAct2");
+                            },1000);
                         }
 
                         //Preguntas
@@ -181,38 +202,50 @@
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#pregAct").load(window.location.href + " #pregAct");
-                            $("#pregAct2").load(window.location.href + " #pregAct2");
+                            setTimeout(function(){
+                                $("#pregAct").load(window.location.href + " #pregAct");
+                                $("#pregAct2").load(window.location.href + " #pregAct2");
+                            },1000);
                         }
 
                         function resPreg(event) {
+                            newId = Math.floor(Math.random() * 99999);
+                            event.path[0].id = newId;
+                            Id = " #"+newId;
                             $.ajax({
-                                type: $('#resPreg').attr('method'),
-                                url: $('#resPreg').attr('action'),
-                                data: $('#resPreg').serialize(),
+                                type: $(Id).attr('method'),
+                                url: $(Id).attr('action'),
+                                data: $(Id).serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#pregAct").load(window.location.href + " #pregAct");
-                            $("#pregAct2").load(window.location.href + " #pregAct2");
+                            setTimeout(function(){
+                                $("#pregAct").load(window.location.href + " #pregAct");
+                                $("#pregAct2").load(window.location.href + " #pregAct2");
+                            },1000);
                         }
 
                         function delPreg(event) {
+                            newId = Math.floor(Math.random() * 99999);
+                            event.path[0].id = newId;
+                            Id = " #"+newId;
                             $.ajax({
-                                type: $('#delPreg').attr('method'),
-                                url: $('#delPreg').attr('action'),
-                                data: $('#delPreg').serialize(),
+                                type: $(Id).attr('method'),
+                                url: $(Id).attr('action'),
+                                data: $(Id).serialize(),
                                 success: function (data) {
                                     console.log('Datos enviados !!!');
                                 }
                             });
                             event.preventDefault();
                             //Actualiza ese id sin recargar la página
-                            $("#pregAct").load(window.location.href + " #pregAct");
-                            $("#pregAct2").load(window.location.href + " #pregAct2");
+                            setTimeout(function(){
+                                $("#pregAct").load(window.location.href + " #pregAct");
+                                $("#pregAct2").load(window.location.href + " #pregAct2");
+                            },1000);
                         }
 
                     </script>
@@ -260,24 +293,24 @@
                             @if($producto->foto2!=null)
                             <input type="image" class="show-image-6" src="{{asset($producto->foto2)}}">
                             @else
-                            <input type="image" class="show-image-6" src="{{asset('storage/logo6.png')}}">
+                            <input type="image" class="show-image-6" id="ocultarPrev" src="{{asset('storage/logo6.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto3!=null)
                             <input type="image" class="show-image-3" src="{{asset($producto->foto3)}}">
                             @else
-                            <input type="image" class="show-image-3" src="{{asset('storage/logo6.png')}}">
+                            <input type="image" class="show-image-3" id="ocultarPrev" src="{{asset('storage/logo6.png')}}">
                             @endif
                             @if($producto->foto4!=null)
                             <input type="image" class="show-image-4" src="{{asset($producto->foto4)}}">
                             @else
-                            <input type="image" class="show-image-4" src="{{asset('storage/logo6.png')}}">
+                            <input type="image" class="show-image-4" id="ocultarPrev" src="{{asset('storage/logo6.png')}}">
                             @endif
                             <p></p>
                             @if($producto->foto5!=null)
                             <input type="image" class="show-image-5" src="{{asset($producto->foto5)}}">
                             @else
-                            <input type="image" class="show-image-5" src="{{asset('storage/logo6.png')}}">
+                            <input type="image" class="show-image-5" id="ocultarPrev" src="{{asset('storage/logo6.png')}}">
                             @endif
                         </div>
                     </div>
@@ -405,7 +438,7 @@
                                                 @if(Auth::user()!=null)
                                                 <form
                                                     action="{{route('respuestas.store', ['idp='.$producto->id, 'idc='.$coments->id, 'idu='.Auth::user()->id])}}"
-                                                    method="POST" onsubmit="disableButton(this);"
+                                                    method="POST" onsubmit="disableButton(this); submitRes(event);"
                                                     id="submitRes">
                                                     @csrf
                                                     <input value="{{ old('respuesta') }}" required type="text"

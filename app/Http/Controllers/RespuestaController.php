@@ -105,7 +105,7 @@ class RespuestaController extends Controller
      */
     public function destroy(Respuesta $respuesta)
     {
-        if(Auth::user()==$respuesta->user || Auth::user()->tipo==1){
+        if(Auth::user()->id==$respuesta->user_id || Auth::user()->tipo==1){
             try{
                 $respuesta->delete();
                 return back()->with('mensaje', 'Respuesta eliminada correctamente');

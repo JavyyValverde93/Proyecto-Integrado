@@ -92,6 +92,9 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('productos.create')" :active="request()->routeIs('productos.create')">
+                {{ __('Vender Producto') }}
+            </x-responsive-nav-link>
             @if(Auth::user()!= null)
             <x-responsive-nav-link :href="route('ver_perfil', Auth::user()->id)" :active="request()->routeIs('ver_perfil', Auth::user()->id)">
                 {{ __('Mis productos') }}

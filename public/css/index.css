@@ -311,3 +311,9 @@ display: none;
   .cc-btn, .cc-close, .cc-link, .cc-revoke {
       cursor: pointer;
   }
+
+  @media screen and (max-width: 800px){
+    .formIndex{
+        width: 92%;
+    }
+}

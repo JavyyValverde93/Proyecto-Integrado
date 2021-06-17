@@ -4,87 +4,119 @@
             {{ __('Modificar producto') }}
         </h2>
     </x-slot>
-    <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet"/> <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script>
-  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
-  </script>
-  <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="{{asset('js/vender_producto.js')}}"></script>
-  <script src="{{asset('js/modificar_producto.js')}}"></script>
-  <link rel="stylesheet" href="{{asset('css/vender_producto.css')}}">
+    <script src="{{asset('js/vender_producto.js')}}"></script>
+    <script src="{{asset('js/modificar_producto.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css/vender_producto.css')}}">
     <div class="py-12" style="background: url({{asset('storage/fondologo1.png')}}) fixed">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-  <x-alert-message></x-alert-message>
+            <x-alert-message></x-alert-message>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <style>
-                        small{
+                        small {
                             color: red;
                             font-style: italic;
                         }
-                        
-                        label:not(.no)::after{
+
+                        label:not(.no)::after {
                             content: " *";
                             color: red;
                         }
+
                     </style>
                     <x-alert-message></x-alert-message>
-                    <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data" onsubmit="disableButton(this)">
+                    <form action="{{route('productos.update', $producto)}}" method="POST" enctype="multipart/form-data"
+                        onsubmit="disableButton(this)">
                         @csrf
                         @method('PUT')
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nombre del producto:</label>
-                                <input type="text" value="{{$producto->nombre}}" class="form-control" required minlength="5" maxlength="20" name="nombre" placeholder="Nombre del producto" oninput="validarNombre()"/>
+                                <input type="text" value="{{$producto->nombre}}" class="form-control" required
+                                    minlength="5" maxlength="20" name="nombre" placeholder="Nombre del producto"
+                                    oninput="validarNombre()" />
                                 <small>{{$errors->first('nombre')}}</small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Categoría:</label><br>
                                 <select name="categoria" class="form-control fa rounded" required>
                                     <option value="">Seleccione la categoría...</option>
-                                    <option class="fa" value="Coches" @if($producto->categoria=="Coches") selected @endif>&#xf1b9; Coches</option>
-                                    <option class="fa" value="Motos" @if($producto->categoria=="Motos") selected @endif>&#xf21c; Motos</option>
-                                    <option class="fa" value="Motor y Accesorios" @if($producto->categoria=="Motor y Accesorios") selected @endif>&#xf5e3; Motor y Accesorios</option>
-                                    <option class="fa" value="Inmobiliaria" @if($producto->categoria=="Inmobiliaria") selected @endif>&#xf015; Inmobiliaria</option>
-                                    <option class="fa" value="Tv, Audio y Foto" @if($producto->categoria=="Tv, Audio y Foto") selected @endif>&#xf26c; Tv, Audio y Foto</option>
-                                    <option class="fa" value="Móviles y Telefonía" @if($producto->categoria=="Móviles y Telefonía") selected @endif>&#xf10b; Móviles y Telefonía</option>
-                                    <option class="fa" value="Informática y Electrónica" @if($producto->categoria=="Informática y Electrónica") selected @endif>&#xf109; Informática y Electrónica</option>
-                                    <option class="fa" value="Deporte y Ocio" @if($producto->categoria=="Deporte y Ocio") selected @endif>&#xf45f; Deporte y Ocio</option>
-                                    <option class="fa" value="Bicicletas" @if($producto->categoria=="Bicicletas") selected @endif>&#xf84a; Bicicletas</option>
-                                    <option class="fa" value="Consolas Y Videojuegos" @if($producto->categoria=="Consolas Y Videojuegos") selected @endif>&#xf11b; Consolas y Videojuegos</option>
-                                    <option class="fa" value="Hogar y Jardín" @if($producto->categoria=="Hogar y Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
-                                    <option class="fa" value="Electrodomésticos" @if($producto->categoria=="Electrodomésticos") selected @endif>&#xf898; Electrodomésticos</option>
-                                    <option class="fa" value="Cine, Libros y Música" @if($producto->categoria=="Cine, Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
-                                    <option class="fa" value="Niños y Bebés" @if($producto->categoria=="Niños y Bebés") selected @endif>&#xf77c; Niños y Bebés</option>
-                                    <option class="fa" value="Coleccionismo" @if($producto->categoria=="Coleccionismo") selected @endif>&#xf70f; Coleccionismo</option>
-                                    <option class="fa" value="Materiales de construcción" @if($producto->categoria=="Materiales de construcción") selected @endif>&#xf6e3; Materiales de construcción</option>
-                                    <option class="fa" value="Industria y Agricultura" @if($producto->categoria=="Industria y Agricultura") selected @endif>&#xf722; Industria y Agricultura</option>
-                                    <option class="fa" value="Empleo" @if($producto->categoria=="Empleo") selected @endif>&#xf0b1; Empleo</option>
-                                    <option class="fa" value="Servicios" @if($producto->categoria=="Servicios") selected @endif>&#xf554; Servicios</option>
-                                    <option class="fa" value="Otros" @if($producto->categoria=="Otros") selected @endif>&#xf069; Otros</option>
+                                    <option class="fa" value="Coches" @if($producto->categoria=="Coches") selected
+                                        @endif>&#xf1b9; Coches</option>
+                                    <option class="fa" value="Motos" @if($producto->categoria=="Motos") selected
+                                        @endif>&#xf21c; Motos</option>
+                                    <option class="fa" value="Motor y Accesorios" @if($producto->categoria=="Motor y
+                                        Accesorios") selected @endif>&#xf5e3; Motor y Accesorios</option>
+                                    <option class="fa" value="Inmobiliaria" @if($producto->categoria=="Inmobiliaria")
+                                        selected @endif>&#xf015; Inmobiliaria</option>
+                                    <option class="fa" value="Tv, Audio y Foto" @if($producto->categoria=="Tv, Audio y
+                                        Foto") selected @endif>&#xf26c; Tv, Audio y Foto</option>
+                                    <option class="fa" value="Móviles y Telefonía" @if($producto->categoria=="Móviles y
+                                        Telefonía") selected @endif>&#xf10b; Móviles y Telefonía</option>
+                                    <option class="fa" value="Informática y Electrónica" @if($producto->
+                                        categoria=="Informática y Electrónica") selected @endif>&#xf109; Informática y
+                                        Electrónica</option>
+                                    <option class="fa" value="Deporte y Ocio" @if($producto->categoria=="Deporte y
+                                        Ocio") selected @endif>&#xf45f; Deporte y Ocio</option>
+                                    <option class="fa" value="Bicicletas" @if($producto->categoria=="Bicicletas")
+                                        selected @endif>&#xf84a; Bicicletas</option>
+                                    <option class="fa" value="Consolas Y Videojuegos" @if($producto->
+                                        categoria=="Consolas Y Videojuegos") selected @endif>&#xf11b; Consolas y
+                                        Videojuegos</option>
+                                    <option class="fa" value="Hogar y Jardín" @if($producto->categoria=="Hogar y
+                                        Jardín") selected @endif>&#xf801; Hogar y Jardín</option>
+                                    <option class="fa" value="Electrodomésticos" @if($producto->
+                                        categoria=="Electrodomésticos") selected @endif>&#xf898; Electrodomésticos
+                                    </option>
+                                    <option class="fa" value="Cine, Libros y Música" @if($producto->categoria=="Cine,
+                                        Libros y Música") selected @endif>&#xf008; Cine, Libros y Música</option>
+                                    <option class="fa" value="Niños y Bebés" @if($producto->categoria=="Niños y Bebés")
+                                        selected @endif>&#xf77c; Niños y Bebés</option>
+                                    <option class="fa" value="Coleccionismo" @if($producto->categoria=="Coleccionismo")
+                                        selected @endif>&#xf70f; Coleccionismo</option>
+                                    <option class="fa" value="Materiales de construcción" @if($producto->
+                                        categoria=="Materiales de construcción") selected @endif>&#xf6e3; Materiales de
+                                        construcción</option>
+                                    <option class="fa" value="Industria y Agricultura" @if($producto->
+                                        categoria=="Industria y Agricultura") selected @endif>&#xf722; Industria y
+                                        Agricultura</option>
+                                    <option class="fa" value="Empleo" @if($producto->categoria=="Empleo") selected
+                                        @endif>&#xf0b1; Empleo</option>
+                                    <option class="fa" value="Servicios" @if($producto->categoria=="Servicios") selected
+                                        @endif>&#xf554; Servicios</option>
+                                    <option class="fa" value="Otros" @if($producto->categoria=="Otros") selected
+                                        @endif>&#xf069; Otros</option>
                                 </select>
                                 <small>{{$errors->first('categoria')}}</small>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Descripción:</label>
-                            <textarea name="descripcion" class="form-control"
-                                placeholder="Descripción del producto..." oninput="validarDescripcion()" required minlength="10" maxlength="400">{{$producto->descripcion}}</textarea>
-                                <small>{{$errors->first('descripcion')}}</small>
+                            <textarea name="descripcion" class="form-control" placeholder="Descripción del producto..."
+                                oninput="validarDescripcion()" required minlength="10"
+                                maxlength="400">{{$producto->descripcion}}</textarea>
+                            <small>{{$errors->first('descripcion')}}</small>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label>Precio:</label>
-                                <input type="number" name="precio" min="0.05" value="{{$producto->precio}}" step="0.01" required class="form-control"
-                                    placeholder="0.00€" oninput="validarPrecio()">
-                                    <small>{{$errors->first('precio')}}</small>
+                                <input type="number" name="precio" min="0.05" value="{{$producto->precio}}" step="0.01"
+                                    required class="form-control" placeholder="0.00€" oninput="validarPrecio()">
+                                <small>{{$errors->first('precio')}}</small>
                             </div>
                         </div>
                         <div class="form-row">
@@ -92,7 +124,8 @@
                                 <label>Imágenes del producto:</label>
                                 <div class="list-group" id="list-tab" role="tablist">
                                     <a class="list-group-item list-group-item-action active" id="list-home-list"
-                                        data-toggle="list" href="#list-home" role="tab" aria-controls="home">Primera imágen </a>
+                                        data-toggle="list" href="#list-home" role="tab" aria-controls="home">Primera
+                                        imágen </a>
                                     <a class="list-group-item list-group-item-action" id="list-profile-list"
                                         data-toggle="list" href="#list-profile" role="tab"
                                         aria-controls="profile">Segunda imágen</a>
@@ -102,34 +135,39 @@
                                     <a class="list-group-item list-group-item-action" id="list-settings-list"
                                         data-toggle="list" href="#list-settings" role="tab"
                                         aria-controls="settings">Cuarta imágen</a>
-                                        <a class="list-group-item list-group-item-action" id="list-settings-list2"
+                                    <a class="list-group-item list-group-item-action" id="list-settings-list2"
                                         data-toggle="list" href="#list-settings2" role="tab"
                                         aria-controls="settings">Quinta imágen</a>
                                 </div>
-                                
+
                                 <div class="mx-auto col-10">
-                                    <div class="tab-content" id="nav-tabContent" style="overflow-x:scroll; margin-right:-50px; margin-left:-50px">
+                                    <div class="tab-content" id="nav-tabContent"
+                                        style="overflow-x:scroll; margin-right:-50px; margin-left:-50px">
                                         <div class="tab-pane fade show active" id="list-home" role="tabpanel"
                                             aria-labelledby="list-home-list">
                                             {{-- Foto 1 --}}
                                             <div class="file-upload">
                                                 @if($producto->foto1!=null)
-                                                <img src="{{asset($producto->foto1)}}" class="mx-auto my-2" style="max-width: 100px">
+                                                <img src="{{asset($producto->foto1)}}" class="mx-auto my-2"
+                                                    style="max-width: 100px">
                                                 @endif
                                                 <button class="file-upload-btn" type="button"
-                                                    onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
-
-                                                <div class="image-upload-wrap">
-                                                    <input class="file-upload-input tamanio_img" type='file' name="foto1" onchange="readURL(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                    onclick="$('.file-upload-input').trigger( 'click' )">Añadir o
+                                                    cambiar imágen</button>
+                                                <div id="dfoto1">
+                                                    <div class="image-upload-wrap">
+                                                        <input class="file-upload-input tamanio_img" type='file'
+                                                            name="foto1" onchange="readURL(this);" accept="image/*" />
+                                                        <div class="drag-text">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content">
-                                                    <img class="file-upload-image" name="foto1" src="#" alt="your image" />
-                                                    <div class="image-title-wrap">
-                                                        <span class="image-title">Imágen</span>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image" name="foto1" src="#"
+                                                            alt="your image" />
+                                                        <div class="image-title-wrap">
+                                                            <span class="image-title">Imágen</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,24 +177,28 @@
                                             {{-- Foto 2 --}}
                                             <div class="file-upload2">
                                                 @if($producto->foto2!=null)
-                                                <img src="{{asset($producto->foto2)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <img src="{{asset($producto->foto2)}}" class="mx-auto my-2"
+                                                    style="max-width: 100px"><br>
                                                 <div align="center">
                                                     <input type="checkbox" class="m-2" name="foto2d">Eliminar foto
                                                 </div>
                                                 @endif
                                                 <button class="file-upload-btn2" type="button"
-                                                    onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o cambiar imágen</button>
+                                                    onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o
+                                                    cambiar imágen</button>
 
-                                                <div class="image-upload-wrap2">
-                                                    <input class="file-upload-input2 tamanio_img" name="foto2" type='file' onchange="readURL2(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text2">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto2">
+                                                    <div class="image-upload-wrap2">
+                                                        <input class="file-upload-input2 tamanio_img" name="foto2"
+                                                            type='file' onchange="readURL2(this);" accept="image/*" />
+                                                        <div class="drag-text2">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content2">
-                                                    <img class="file-upload-image2" src="#" alt="your image" />
-                                                    <span class="image-title2">Imágen</span>
+                                                    <div class="file-upload-content2">
+                                                        <img class="file-upload-image2" src="#" alt="your image" />
+                                                        <span class="image-title2">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,23 +207,29 @@
                                             {{-- Foto 3 --}}
                                             <div class="file-upload3">
                                                 @if($producto->foto3!=null)
-                                                <img src="{{asset($producto->foto3)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <img src="{{asset($producto->foto3)}}" class="mx-auto my-2"
+                                                    style="max-width: 100px"><br>
                                                 <div align="center">
                                                     <input type="checkbox" class="m-2" name="foto3d">Eliminar foto
                                                 </div>
                                                 @endif
                                                 <button class="file-upload-btn3" type="button"
-                                                    onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o cambiar imágen</button>
-                                                <div class="image-upload-wrap3">
-                                                    <input class="file-upload-input3 tamanio_img" name="foto3" type='file' onchange="readURL3(this);"
-                                                        accept="image/*" id="btnClick" />
-                                                    <div class="drag-text2">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                    onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o
+                                                    cambiar imágen</button>
+
+                                                <div id="dfoto3">
+                                                    <div class="image-upload-wrap3">
+                                                        <input class="file-upload-input3 tamanio_img" name="foto3"
+                                                            type='file' onchange="readURL3(this);" accept="image/*"
+                                                            id="btnClick" />
+                                                        <div class="drag-text2">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content3">
-                                                    <img class="file-upload-image3" src="#" alt="your image" />
-                                                    <span class="image-title3">Imágen</span>
+                                                    <div class="file-upload-content3">
+                                                        <img class="file-upload-image3" src="#" alt="your image" />
+                                                        <span class="image-title3">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,24 +238,29 @@
                                             {{-- Foto 4 --}}
                                             <div class="file-upload4">
                                                 @if($producto->foto4!=null)
-                                                <img src="{{asset($producto->foto4)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <img src="{{asset($producto->foto4)}}" class="mx-auto my-2"
+                                                    style="max-width: 100px"><br>
                                                 <div align="center">
                                                     <input type="checkbox" class="m-2" name="foto4d">Eliminar foto
                                                 </div>
                                                 @endif
                                                 <button class="file-upload-btn4" type="button"
-                                                    onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o cambiar imágen</button>
+                                                    onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o
+                                                    cambiar imágen</button>
 
-                                                <div class="image-upload-wrap4">
-                                                    <input class="file-upload-input4 tamanio_img" name="foto4" type='file' onchange="readURL4(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text4">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+
+                                                <div id="dfoto4">
+                                                    <div class="image-upload-wrap4">
+                                                        <input class="file-upload-input4 tamanio_img" name="foto4"
+                                                            type='file' onchange="readURL4(this);" accept="image/*" />
+                                                        <div class="drag-text4">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content4">
-                                                    <img class="file-upload-image4" src="#" alt="your image" />
-                                                    <span class="image-title4">Imágen</span>
+                                                    <div class="file-upload-content4">
+                                                        <img class="file-upload-image4" src="#" alt="your image" />
+                                                        <span class="image-title4">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,24 +269,28 @@
                                             {{-- Foto 5 --}}
                                             <div class="file-upload4">
                                                 @if($producto->foto5!=null)
-                                                <img src="{{asset($producto->foto5)}}" class="mx-auto my-2" style="max-width: 100px"><br>
+                                                <img src="{{asset($producto->foto5)}}" class="mx-auto my-2"
+                                                    style="max-width: 100px"><br>
                                                 <div align="center">
                                                     <input type="checkbox" class="m-2" name="foto5d">Eliminar foto
                                                 </div>
                                                 @endif
                                                 <button class="file-upload-btn5" type="button"
-                                                    onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o cambiar imágen</button>
+                                                    onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o
+                                                    cambiar imágen</button>
 
-                                                <div class="image-upload-wrap5">
-                                                    <input class="file-upload-input5 tamanio_img" name="foto5" type='file' onchange="readURL5(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text5">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto5">
+                                                    <div class="image-upload-wrap5">
+                                                        <input class="file-upload-input5 tamanio_img" name="foto5"
+                                                            type='file' onchange="readURL5(this);" accept="image/*" />
+                                                        <div class="drag-text5">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content5">
-                                                    <img class="file-upload-image5" src="#" alt="your image" />
-                                                    <span class="image-title5">Imágen</span>
+                                                    <div class="file-upload-content5">
+                                                        <img class="file-upload-image5" src="#" alt="your image" />
+                                                        <span class="image-title5">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -243,24 +300,29 @@
                                 </div>
                             </div>
                         </div>
-                            <button type="submit" class="btn btn-primary col-md-12 p-3" style="background-color: #06ff8f; border: 1px solid green" onclick="validarFormulario(event);"><b>Actualizar producto</b></button>
+                        <button type="submit" class="btn btn-primary col-md-12 p-3"
+                            style="background-color: #06ff8f; border: 1px solid green"
+                            onclick="validarFormulario(event);"><b>Actualizar producto</b></button>
                     </form>
                     <div class="m-5">
 
                     </div>
                     <div class="col-lg-4 col-xs-7 mx-auto">
 
-            <form action="{{route('productos.destroy', $producto)}}" id="deleteProducto" method="POST" onsubmit="disableButton(this)">
-                @csrf
-                @method('DELETE')
-                <a onclick="return alertify.confirm('Alerta importante', '¿Está seguro de que desea eliminar el producto?',
+                        <form action="{{route('productos.destroy', $producto)}}" id="deleteProducto" method="POST"
+                            onsubmit="disableButton(this)">
+                            @csrf
+                            @method('DELETE')
+                            <a onclick="return alertify.confirm('Alerta importante', '¿Está seguro de que desea eliminar el producto?',
                 function(){
                   document.getElementById('deleteProducto').submit();
                 },
                 function(){
                   alertify.error('Cancel');
-                })" class="btn btn-danger btn-block p-3 rounded-pill" style="background-color: #ff0000; border:2px solid #cd0a20; color:white; cursor:pointer">Eliminar producto</a>
-            </form>
+                })" class="btn btn-danger btn-block p-3 rounded-pill"
+                                style="background-color: #ff0000; border:2px solid #cd0a20; color:white; cursor:pointer">Eliminar
+                                producto</a>
+                        </form>
 
                     </div>
                 </div>
@@ -269,4 +331,4 @@
 
         </div>
     </div>
-    </x-app-layout>
+</x-app-layout>

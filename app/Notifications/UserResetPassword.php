@@ -45,7 +45,7 @@ class UserResetPassword extends Notification
                     ->subject('Reinicio de Contraseña')
                     ->greeting('Milesy')
                     ->line('Se ha solicitado un reinicio de contraseña.')
-                    ->action('Reiniciar Contraseña', url('/password/reset/'.$this->token))
+                    ->action('Reiniciar Contraseña', url('/reset-password/'.$this->token))
                     ->line('Si tu no has solicitado este cambio puedes ignorar este mensaje')
                     ->salutation('Gracias');
     }

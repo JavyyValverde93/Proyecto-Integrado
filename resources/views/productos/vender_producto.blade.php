@@ -110,18 +110,19 @@
                                             <div class="file-upload">
                                                 <button class="file-upload-btn" type="button"
                                                     onclick="$('.file-upload-input').trigger( 'click' )">Añadir o cambiar imágen</button>
-
-                                                <div class="image-upload-wrap">
-                                                    <input class="file-upload-input tamanio_img" type='file' required name="foto1" onchange="readURL(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto1">
+                                                    <div class="image-upload-wrap">
+                                                        <input class="file-upload-input tamanio_img" type='file' required name="foto1" onchange="readURL(this);"
+                                                            accept="image/*" />
+                                                        <div class="drag-text">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content">
-                                                    <img class="file-upload-image" name="foto1" src="#" alt="your image" />
-                                                    <div class="image-title-wrap">
-                                                        <span class="image-title">Imágen</span>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image" name="foto1" src="#" alt="your image" />
+                                                        <div class="image-title-wrap">
+                                                            <span class="image-title">Imágen</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,16 +134,18 @@
                                                 <button class="file-upload-btn2" type="button"
                                                     onclick="$('.file-upload-input2').trigger( 'click' )">Añadir o cambiar imágen</button>
 
-                                                <div class="image-upload-wrap2">
-                                                    <input class="file-upload-input2 tamanio_img" name="foto2" type='file' onchange="readURL2(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text2">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto2">
+                                                    <div class="image-upload-wrap2">
+                                                        <input class="file-upload-input2 tamanio_img" name="foto2" type='file' onchange="readURL2(this);"
+                                                            accept="image/*" />
+                                                        <div class="drag-text2">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content2">
-                                                    <img class="file-upload-image2" src="#" alt="your image" />
-                                                    <span class="image-title2">Imágen</span>
+                                                    <div class="file-upload-content2">
+                                                        <img class="file-upload-image2" src="#" alt="your image" />
+                                                        <span class="image-title2">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,16 +156,18 @@
                                                 <button class="file-upload-btn3" type="button"
                                                     onclick="$('.file-upload-input3').trigger( 'click' )">Añadir o cambiar imágen</button>
 
-                                                <div class="image-upload-wrap3">
-                                                    <input class="file-upload-input3 tamanio_img" name="foto3" type='file' onchange="readURL3(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text2">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto3">
+                                                    <div class="image-upload-wrap3">
+                                                        <input class="file-upload-input3 tamanio_img" name="foto3" type='file' onchange="readURL3(this);"
+                                                            accept="image/*" />
+                                                        <div class="drag-text2">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content3">
-                                                    <img class="file-upload-image3" src="#" alt="your image" />
-                                                    <span class="image-title3">Imágen</span>
+                                                    <div class="file-upload-content3">
+                                                        <img class="file-upload-image3" src="#" alt="your image" />
+                                                        <span class="image-title3">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,16 +178,18 @@
                                                 <button class="file-upload-btn4" type="button"
                                                     onclick="$('.file-upload-input4').trigger( 'click' )">Añadir o cambiar imágen</button>
 
-                                                <div class="image-upload-wrap4">
-                                                    <input class="file-upload-input4 tamanio_img" name="foto4" type='file' onchange="readURL4(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text4">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto4">
+                                                    <div class="image-upload-wrap4">
+                                                        <input class="file-upload-input4 tamanio_img" name="foto4" type='file' onchange="readURL4(this);"
+                                                            accept="image/*" />
+                                                        <div class="drag-text4">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content4">
-                                                    <img class="file-upload-image4" src="#" alt="your image" />
-                                                    <span class="image-title4">Imágen</span>
+                                                    <div class="file-upload-content4">
+                                                        <img class="file-upload-image4" src="#" alt="your image" />
+                                                        <span class="image-title4">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,16 +200,18 @@
                                                 <button class="file-upload-btn5" type="button"
                                                     onclick="$('.file-upload-input5').trigger( 'click' )">Añadir o cambiar imágen</button>
 
-                                                <div class="image-upload-wrap5">
-                                                    <input class="file-upload-input5 tamanio_img" name="foto5" type='file' onchange="readURL5(this);"
-                                                        accept="image/*" />
-                                                    <div class="drag-text5">
-                                                        <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                <div id="dfoto5">
+                                                    <div class="image-upload-wrap5">
+                                                        <input class="file-upload-input5 tamanio_img" name="foto5" type='file' onchange="readURL5(this);"
+                                                            accept="image/*" />
+                                                        <div class="drag-text5">
+                                                            <h3>Arrastra y suelta una imágen o seleccionala</h3>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="file-upload-content5">
-                                                    <img class="file-upload-image5" src="#" alt="your image" />
-                                                    <span class="image-title5">Imágen</span>
+                                                    <div class="file-upload-content5">
+                                                        <img class="file-upload-image5" src="#" alt="your image" />
+                                                        <span class="image-title5">Imágen</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

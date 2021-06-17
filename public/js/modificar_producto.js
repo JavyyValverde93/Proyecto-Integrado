@@ -5,16 +5,18 @@ function disableButton(form) {
     btn.innerText = 'Enviando...'
 }
 
-$(function () {
-    $(".tamanio_img").change(function (e){
-        var a = e.target.files[0];
-        if(parseFloat(a.size / 1024).toFixed(2)>=980){
-            alertify.alert("Mensaje de Alerta", parseFloat(a.size / 1024).toFixed(2) + " KB, imágen demasiado grande (980 Mb máximo)");
-            e.currentTarget.parentElement.nextElementSibling.innerHTML = '';
-            e.currentTarget.value = '';
-        }
-    });
-});
+// $(function () {
+//     $(".tamanio_img").change(function (e){
+//         var a = e.target.files[0];
+//         if(parseFloat(a.size / 1024).toFixed(2)>=980){
+//             alertify.alert("Mensaje de Alerta", parseFloat(a.size / 1024).toFixed(2) + " KB, imágen demasiado grande (980 Mb máximo)");
+//             alert('pp');
+//             e.currentTarget.parentElement.nextElementSibling.innerHTML = '';
+//             console.log(e);
+//             e.currentTarget.value = '';
+//         }
+//     });
+// });
 
 
 var verde = "solid 2px lime";

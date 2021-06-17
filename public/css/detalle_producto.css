@@ -165,4 +165,8 @@ https://codepen.io/GeorgePark/full/gegavO/
         max-width: 300px;
         max-height: 300px;
     }
+
+    #ocultarPrev{
+        display: none;
+    }
 }

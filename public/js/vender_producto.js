@@ -58,7 +58,10 @@ $(function () {
         var a = e.target.files[0];
         if(parseFloat(a.size / 1024).toFixed(2)>=980){
             alertify.alert("Mensaje de Alerta", parseFloat(a.size / 1024).toFixed(2) + " KB, imágen demasiado grande (980 Mb máximo)");
-            e.currentTarget.parentElement.nextElementSibling.innerHTML = '';
+            id = " #"+e.currentTarget.parentElement.nextElementSibling.parentElement.id;
+            console.log(id);
+            $(id).load(window.location.href+id);
+            e.currentTarget.parentElement.nextElementSibling.parentElement.id = Math.floor(Math.random() * 10000);
             e.currentTarget.value = '';
         }
     });
